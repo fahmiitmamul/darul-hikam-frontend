@@ -1,25 +1,13 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  ChevronDown,
-  User2,
-  ChevronUp,
-} from "lucide-react";
+import { ChevronDown, User2, ChevronUp } from "lucide-react";
 import { SidebarHeader } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
@@ -33,35 +21,6 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "./ui/collapsible";
-
-// Menu Items
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
 
 export function AppSidebar() {
   return (
