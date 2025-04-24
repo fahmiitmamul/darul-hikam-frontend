@@ -3,7 +3,7 @@ import * as React from "react";
 import { BookOpen, Landmark, User2, House } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import { OrgHeader } from "@/components/org-header";
 import {
   Sidebar,
   SidebarContent,
@@ -20,7 +20,7 @@ const data = {
     email: "itmamul2004@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
+  org: [
     {
       name: "DARUL HIKAM TPQ",
       logo: "/darul-hikam.png",
@@ -56,6 +56,7 @@ const data = {
         {
           title: "Daftar Santri",
           url: "/",
+          icon: User2,
         },
         {
           title: "Akademik",
@@ -92,7 +93,7 @@ export function AppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <OrgHeader org={data.org} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
