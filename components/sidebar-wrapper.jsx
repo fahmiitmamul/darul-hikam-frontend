@@ -5,7 +5,7 @@ export default function Sidebar({ children }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div>{children}</div>
+      {children}
     </SidebarProvider>
   );
 }
