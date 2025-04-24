@@ -1,3 +1,13 @@
-export default function Home() {
-  return <div></div>;
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+
+export default function Home({ children }) {
+  return (
+    <div>
+      <SidebarProvider>
+        <AppSidebar />
+        {children}
+      </SidebarProvider>
+    </div>
+  );
 }
