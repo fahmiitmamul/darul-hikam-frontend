@@ -30,7 +30,7 @@ export default function LoginPage() {
       </div>
       <div className="bg-muted relative hidden lg:block">
         <Image
-          src="/darul-hikam-thumbnail.jpeg"
+          src="/darul-hikam-picture.jpeg"
           width={1000}
           height={1000}
           alt="Image"
