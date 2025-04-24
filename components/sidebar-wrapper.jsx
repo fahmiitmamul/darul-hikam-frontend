@@ -5,10 +5,7 @@ export default function Sidebar({ children }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div>
-        <SidebarTrigger />
-        {children}
-      </div>
+      <div>{children}</div>
     </SidebarProvider>
   );
 }
