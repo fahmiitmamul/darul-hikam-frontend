@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Darul Hikam Frontend",
-  description: "Darul Hikam TPQ Frontend",
+  title: "Darul Hikam TPQ",
+  description: "Darul Hikam TPQ",
 };
 
 export default function RootLayout({ children }) {
