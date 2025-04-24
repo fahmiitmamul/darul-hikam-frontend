@@ -1,9 +1,12 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({ className, ...props }) {
+  const router = useRouter();
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -33,7 +36,13 @@ export function LoginForm({ className, ...props }) {
             placeholder="Masukkan Password"
           />
         </div>
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button
+          type="submit"
+          className="w-full cursor-pointer"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
           Login
         </Button>
       </div>

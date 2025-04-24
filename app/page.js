@@ -1,13 +1,9 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import Sidebar from "@/components/sidebar-wrapper";
 
-export default function Home({ children }) {
+export default function Page() {
   return (
-    <div>
-      <SidebarProvider>
-        <AppSidebar />
-        {children}
-      </SidebarProvider>
-    </div>
+    <Sidebar>
+      <div></div>
+    </Sidebar>
   );
 }
