@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function LoginForm({ className, ...props }) {
   const router = useRouter();
@@ -28,6 +29,12 @@ export function LoginForm({ className, ...props }) {
         <div className="grid gap-3">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
+            <Link
+              href="/lupa-sandi"
+              className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+            >
+              Lupa kata sandi?
+            </Link>
           </div>
           <Input
             id="password"
