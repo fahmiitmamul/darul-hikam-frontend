@@ -29,9 +29,11 @@ export function NavMain() {
       {/* Dashboard - Top Level */}
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton tooltip="Dashboard" className="cursor-pointer">
-            <LayoutDashboard className="h-4 w-4" />
-            <span>Dashboard</span>
+          <SidebarMenuButton tooltip="Dashboard" asChild>
+            <Link href="/">
+              <LayoutDashboard className="h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
@@ -54,14 +56,14 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/kelembagaan/profil">
+                    <Link href="/profil">
                       <span>Profil</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/kelembagaan/mudir">
+                    <Link href="/mudir-atau-pimpinan">
                       <span>Mudir / Pimpinan</span>
                     </Link>
                   </SidebarMenuSubButton>
@@ -97,7 +99,7 @@ export function NavMain() {
                 <SidebarMenuSubItem>
                   <Collapsible className="w-full">
                     <CollapsibleTrigger className="w-full">
-                      <SidebarMenuSubButton className="w-full flex items-center justify-between">
+                      <SidebarMenuSubButton className="w-full flex items-center justify-between cursor-pointer">
                         <span>Akademik</span>
                         <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-90" />
                       </SidebarMenuSubButton>
