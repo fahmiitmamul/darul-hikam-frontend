@@ -39,7 +39,7 @@ export default function AppHeader() {
             maxItems={3}
           />
         </div>
-        <div className="flex flex-wrap gap-2 mr-5">
+        <div className="flex gap-2 mr-5">
           <div>
             <Button
               variant="outline"
@@ -65,8 +65,8 @@ export default function AppHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="cursor-pointer">
-                  Itmamul Fahmi
-                  <User2 className="ml-2 h-4 w-4" />
+                  <span className="hidden md:inline">Itmamul Fahmi</span>
+                  <User2 className="md:ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">

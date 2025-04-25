@@ -9,6 +9,8 @@ export default function Profil() {
         <div className="w-full">
           <AppHeader />
         </div>
+
+        {/* Content */}
       </div>
     </Sidebar>
   );
