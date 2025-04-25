@@ -27,66 +27,6 @@ const data = {
       plan: "Majelis Ta'lim",
     },
   ],
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/",
-      icon: House,
-    },
-    {
-      title: "Kelembagaan",
-      url: "/",
-      icon: Landmark,
-      items: [
-        {
-          title: "Profil",
-          url: "/profil",
-        },
-        {
-          title: "Mudir / Pimpinan",
-          url: "/mudir-atau-pimpinan",
-        },
-      ],
-    },
-    {
-      title: "Santri",
-      url: "/",
-      icon: User2,
-      items: [
-        {
-          title: "Daftar Santri",
-          url: "/daftar-santri",
-          icon: User2,
-        },
-        {
-          title: "Akademik",
-          url: "/",
-        },
-      ],
-    },
-    {
-      title: "Ustadz",
-      url: "/",
-      icon: UserCheck,
-      items: [
-        {
-          title: "Daftar Ustadz",
-          url: "/daftar-ustadz",
-        },
-      ],
-    },
-    {
-      title: "Buku Pelajaran",
-      url: "/",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Buku Pelajaran",
-          url: "/buku-pelajaran",
-        },
-      ],
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }) {
@@ -96,7 +36,7 @@ export function AppSidebar({ ...props }) {
         <OrgHeader org={data.org} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -28,11 +28,9 @@ export function NavMain() {
       {/* Dashboard - Top Level */}
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild>
-            <a href="/dashboard">
-              <LayoutDashboard className="h-4 w-4" />
-              <span>Dashboard</span>
-            </a>
+          <SidebarMenuButton asChild tooltip="Dashboard">
+            <LayoutDashboard className="h-4 w-4" />
+            <span>Dashboard</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
@@ -42,7 +40,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton tooltip="Kelembagaan">
                 <Landmark className="h-4 w-4" />
                 <span>Kelembagaan</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -75,7 +73,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton tooltip="Santri">
                 <GraduationCap className="h-4 w-4" />
                 <span>Santri</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -135,7 +133,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton tooltip="Ustadz">
                 <Users className="h-4 w-4" />
                 <span>Ustadz</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -161,7 +159,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton tooltip="Buku Pelajaran">
                 <BookOpen className="h-4 w-4" />
                 <span>Buku Pelajaran</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
