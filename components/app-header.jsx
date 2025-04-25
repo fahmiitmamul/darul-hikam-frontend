@@ -1,12 +1,6 @@
 "use client";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "./ui/breadcrumb";
 import { useTheme } from "next-themes";
 import { Sun } from "lucide-react";
 import { Button } from "./ui/button";
@@ -33,22 +27,17 @@ export default function AppHeader() {
     setMounted(true);
   }, []);
 
-  const breadcrumbItems = [
-    { label: "Dashboard", href: "/" },
-    { label: "Profil", href: "/profil" },
-    { label: "Mudir Atau Pimpinan", href: "/mudir-atau-pimpinan" },
-    { label: "Daftar Santri", href: "/daftar-santri" },
-    { label: "Daftar Ustadz", href: "/daftar-ustadz" },
-    { label: "Buku Pelajaran", href: "/buku-pelajaran" },
-  ];
-
   return (
     <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
       <div className="w-full flex justify-between">
         <div className="flex items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          <DynamicBreadcrumb items={breadcrumbItems} />
+          <DynamicBreadcrumb
+            homeLabel="Dashboard"
+            capitalizeItems={true}
+            maxItems={3}
+          />
         </div>
         <div className="flex flex-wrap gap-2 mr-5">
           <div>
