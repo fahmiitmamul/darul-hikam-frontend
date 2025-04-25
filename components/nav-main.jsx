@@ -89,7 +89,7 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/santri/daftar">
+                    <Link href="/daftar-santri">
                       <span>Daftar Santri</span>
                     </Link>
                   </SidebarMenuSubButton>
