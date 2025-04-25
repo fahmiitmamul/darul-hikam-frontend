@@ -1,3 +1,9 @@
+import Sidebar from "@/components/sidebar-wrapper";
+
 export default function DaftarSantri() {
-  return <div>Daftar Santri</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }

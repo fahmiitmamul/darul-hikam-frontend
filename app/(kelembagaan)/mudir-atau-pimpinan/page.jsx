@@ -1,3 +1,9 @@
+import Sidebar from "@/components/sidebar-wrapper";
+
 export default function MudirAtauPimpinan() {
-  return <div>Mudir Atau Pimpinan</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }

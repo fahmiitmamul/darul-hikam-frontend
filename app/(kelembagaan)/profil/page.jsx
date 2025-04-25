@@ -1,3 +1,9 @@
+import Sidebar from "@/components/sidebar-wrapper";
+
 export default function Profil() {
-  return <div>Profil</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }

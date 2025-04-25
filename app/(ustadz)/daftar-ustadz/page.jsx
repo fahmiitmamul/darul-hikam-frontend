@@ -1,3 +1,9 @@
+import Sidebar from "@/components/sidebar-wrapper";
+
 export default function DaftarUstadz() {
-  return <div>Daftar Ustadz</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }
