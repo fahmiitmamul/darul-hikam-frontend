@@ -107,19 +107,19 @@ export function NavMain() {
                     <CollapsibleContent>
                       <div className="ml-4 border-l border-sidebar-border pl-2 py-1 space-y-1">
                         <Link
-                          href="/santri/akademik/kenaikan-kelas"
+                          href="/akademik/kenaikan-kelas"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Kenaikan Kelas</span>
                         </Link>
                         <Link
-                          href="/santri/akademik/kelulusan"
+                          href="/akademik/kelulusan"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Kelulusan</span>
                         </Link>
                         <Link
-                          href="/santri/akademik/alumni"
+                          href="/akademik/daftar-alumni"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Daftar Alumni</span>
@@ -149,7 +149,7 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/ustadz">
+                    <Link href="/daftar-ustadz">
                       <span>Daftar Ustadz</span>
                     </Link>
                   </SidebarMenuSubButton>
