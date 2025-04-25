@@ -8,8 +8,6 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Info } from "lucide-react";
-import { Speaker } from "lucide-react";
-import { SpeakerIcon } from "lucide-react";
 import { Volume2 } from "lucide-react";
 import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";

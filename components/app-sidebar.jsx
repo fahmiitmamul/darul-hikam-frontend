@@ -40,11 +40,11 @@ const data = {
       items: [
         {
           title: "Profil",
-          url: "/",
+          url: "/profil",
         },
         {
           title: "Mudir / Pimpinan",
-          url: "/",
+          url: "/mudir-atau-pimpinan",
         },
       ],
     },
@@ -55,7 +55,7 @@ const data = {
       items: [
         {
           title: "Daftar Santri",
-          url: "/",
+          url: "/daftar-santri",
           icon: User2,
         },
         {
@@ -71,7 +71,7 @@ const data = {
       items: [
         {
           title: "Daftar Ustadz",
-          url: "/",
+          url: "/daftar-ustadz",
         },
       ],
     },
@@ -82,7 +82,7 @@ const data = {
       items: [
         {
           title: "Buku Pelajaran",
-          url: "/",
+          url: "/buku-pelajaran",
         },
       ],
     },
