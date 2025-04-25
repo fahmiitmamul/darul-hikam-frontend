@@ -21,6 +21,7 @@ import {
   SidebarGroup,
 } from "@/components/ui/sidebar";
 import { Landmark } from "lucide-react";
+import Link from "next/link";
 
 export function NavMain() {
   return (
@@ -28,7 +29,7 @@ export function NavMain() {
       {/* Dashboard - Top Level */}
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton tooltip="Dashboard">
+          <SidebarMenuButton tooltip="Dashboard" className="cursor-pointer">
             <LayoutDashboard className="h-4 w-4" />
             <span>Dashboard</span>
           </SidebarMenuButton>
@@ -40,7 +41,10 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Kelembagaan">
+              <SidebarMenuButton
+                tooltip="Kelembagaan"
+                className="cursor-pointer"
+              >
                 <Landmark className="h-4 w-4" />
                 <span>Kelembagaan</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -50,16 +54,16 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <a href="/kelembagaan/profil">
+                    <Link href="/kelembagaan/profil">
                       <span>Profil</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <a href="/kelembagaan/mudir">
+                    <Link href="/kelembagaan/mudir">
                       <span>Mudir / Pimpinan</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
               </SidebarMenuSub>
@@ -73,7 +77,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Santri">
+              <SidebarMenuButton tooltip="Santri" className="cursor-pointer">
                 <GraduationCap className="h-4 w-4" />
                 <span>Santri</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -83,9 +87,9 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <a href="/santri/daftar">
+                    <Link href="/santri/daftar">
                       <span>Daftar Santri</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
 
@@ -100,24 +104,24 @@ export function NavMain() {
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <div className="ml-4 border-l border-sidebar-border pl-2 py-1 space-y-1">
-                        <a
+                        <Link
                           href="/santri/akademik/kenaikan-kelas"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Kenaikan Kelas</span>
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                           href="/santri/akademik/kelulusan"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Kelulusan</span>
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                           href="/santri/akademik/alumni"
                           className="flex h-7 items-center rounded-md px-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>Daftar Alumni</span>
-                        </a>
+                        </Link>
                       </div>
                     </CollapsibleContent>
                   </Collapsible>
@@ -133,7 +137,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Ustadz">
+              <SidebarMenuButton tooltip="Ustadz" className="cursor-pointer">
                 <Users className="h-4 w-4" />
                 <span>Ustadz</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -143,9 +147,9 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <a href="/ustadz/daftar">
+                    <Link href="/ustadz">
                       <span>Daftar Ustadz</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
               </SidebarMenuSub>
@@ -159,7 +163,10 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Buku Pelajaran">
+              <SidebarMenuButton
+                tooltip="Buku Pelajaran"
+                className="cursor-pointer"
+              >
                 <BookOpen className="h-4 w-4" />
                 <span>Buku Pelajaran</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -169,9 +176,9 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <a href="/buku-pelajaran/daftar">
+                    <Link href="/buku-pelajaran">
                       <span>Buku Pelajaran</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
               </SidebarMenuSub>
