@@ -1,3 +1,3 @@
 export default function ModalTambahMudirAtauPimpinan() {
-  return <div>Hello World</div>;
+  return <div></div>;
 }
