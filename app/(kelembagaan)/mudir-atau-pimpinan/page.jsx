@@ -26,11 +26,8 @@ import { ChevronRight } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
@@ -38,7 +35,7 @@ import { Trash } from "lucide-react";
 import { Eye } from "lucide-react";
 import { Pencil } from "lucide-react";
 
-const defaultData = [
+const tableData = [
   {
     no: "1",
     nama_lengkap: "983457345",
@@ -217,7 +214,7 @@ const defaultData = [
   },
 ];
 
-const defaultColumns = [
+const tableColumns = [
   {
     accessorKey: "no",
     header: "No",
@@ -268,8 +265,8 @@ const defaultColumns = [
 ];
 
 export default function MudirAtauPimpinan() {
-  const [data] = React.useState(() => [...defaultData]);
-  const [columns] = React.useState(() => [...defaultColumns]);
+  const [data] = React.useState(() => [...tableData]);
+  const [columns] = React.useState(() => [...tableColumns]);
 
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
@@ -284,11 +281,9 @@ export default function MudirAtauPimpinan() {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
-    //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
     state: {
       pagination,
     },
-    // autoResetPageIndex: false, // turn off page index reset when sorting or filtering
   });
 
   return (
