@@ -82,7 +82,6 @@ export default function ModalTambahSkDanPerizinan() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Tambah Dokumen</DialogTitle>
-            <DialogDescription>Form Untuk Menambah Dokumen</DialogDescription>
             <div>
               <Form {...dokumenForm}>
                 <form
