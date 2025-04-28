@@ -39,7 +39,18 @@ export default function Profil() {
   const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
 
-  const schema = z.object({
+  const schemaIdentitas = z.object({
+    nspp: z.string({ message: "Masukkan NSPP" }),
+    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
+    satuan_pendidikan: z.string({
+      message: "Masukkan satuan pendidikan",
+    }),
+    program_pendidikan: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+  });
+
+  const schemaLokasi = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
     nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
     satuan_pendidikan: z.string({
@@ -51,9 +62,16 @@ export default function Profil() {
   });
 
   const identitasForm = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaIdentitas),
     defaultValues: {
       nspp: "",
+    },
+  });
+
+  const lokasiForm = useForm({
+    resolver: zodResolver(schemaLokasi),
+    defaultValues: {
+      alamat_lengkap: "",
     },
   });
 
@@ -368,10 +386,10 @@ export default function Profil() {
                     <div>
                       <FormField
                         control={identitasForm.control}
-                        name="satuan_pendidikan"
+                        name="tipe_penyelenggara_lembaga"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Satuan Pendidikan</FormLabel>
+                            <FormLabel>Tipe Penyelenggara Lembaga</FormLabel>
                             <FormControl>
                               <Select
                                 {...field}
@@ -379,11 +397,13 @@ export default function Profil() {
                                 defaultValue=""
                               >
                                 <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Satuan Pendidikan" />
+                                  <SelectValue placeholder="Tipe Penyelenggara Lembaga" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectGroup>
-                                    <SelectLabel>Satuan Pendidikan</SelectLabel>
+                                    <SelectLabel>
+                                      Tipe Penyelenggara Lembaga
+                                    </SelectLabel>
                                     <SelectItem value="lpq">LPQ</SelectItem>
                                   </SelectGroup>
                                 </SelectContent>
@@ -397,40 +417,353 @@ export default function Profil() {
                     <div>
                       <FormField
                         control={identitasForm.control}
-                        name="program_pendidikan"
+                        name="nama_penyelenggara_lembaga"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Program Pendidikan</FormLabel>
+                            <FormLabel>Nama Penyelenggara Lembaga</FormLabel>
                             <FormControl>
-                              <Select
+                              <Input
+                                type="text"
+                                placeholder="Nama Penyelenggara Lembaga"
                                 {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Program Pendidikan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Program Pendidikan
-                                    </SelectLabel>
-                                    <SelectItem value="tpq">TPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              />
                             </FormControl>
                           </FormItem>
                         )}
                       />
                     </div>
                   </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <div>
+                        <FormField
+                          control={identitasForm.control}
+                          name="afilisasi_organisasi_keagamaan"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>
+                                Afilisasi Organisasi Keagamaan
+                              </FormLabel>
+                              <FormControl>
+                                <Select
+                                  {...field}
+                                  onValueChange={field.onChange}
+                                  defaultValue=""
+                                >
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Afilisasi Organisasi Keagamaan" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectLabel>
+                                        Afilisasi Organisasi Keagamaan
+                                      </SelectLabel>
+                                      <SelectItem value="lpq">LPQ</SelectItem>
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                    <div></div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Data Bank
+                  </h4>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={identitasForm.control}
+                        name="nama_bank"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nama Bank</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Nama Bank"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div>
+                      <FormField
+                        control={identitasForm.control}
+                        name="nomor_rekening"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor Rekening</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor Rekening"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <div>
+                        <FormField
+                          control={identitasForm.control}
+                          name="rekening_atas_nama"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Rekening Atas Nama</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="Rekening Atas Nama"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                    <div></div>
+                  </div>
                 </form>
               </Form>
 
-              <Button type="submit" className="uppercase cursor-pointer">
+              <Button type="submit" className="uppercase cursor-pointer mt-5">
                 Simpan
               </Button>
+            </TabsContent>
+
+            <TabsContent value="lokasi" className="flex flex-col space-y-5">
+              <Form {...lokasiForm}>
+                <form
+                  onSubmit={lokasiForm.handleSubmit(onSubmit)}
+                  className="space-y-5 mt-5"
+                >
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Data Lokasi
+                  </h4>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={lokasiForm.control}
+                        name="alamat"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Alamat</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Alamat"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-2 gap-5">
+                      <div>
+                        <FormField
+                          control={lokasiForm.control}
+                          name="rt"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RT</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RT"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div>
+                        <FormField
+                          control={lokasiForm.control}
+                          name="rw"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RW</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RW"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div>
+                        <FormField
+                          control={lokasiForm.control}
+                          name="desa_atau_kelurahan"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Desa / Kelurahan</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="Desa / Kelurahan"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={lokasiForm.control}
+                            name="desa_atau_kelurahan"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Kecamatan</FormLabel>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    onValueChange={field.onChange}
+                                    defaultValue=""
+                                  >
+                                    <SelectTrigger className="w-full">
+                                      <SelectValue placeholder="Kecamatan" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectGroup>
+                                        <SelectLabel>Kecamatan</SelectLabel>
+                                        <SelectItem value="lpq">LPQ</SelectItem>
+                                      </SelectGroup>
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={lokasiForm.control}
+                            name="kabupaten"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Kabupaten</FormLabel>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    onValueChange={field.onChange}
+                                    defaultValue=""
+                                  >
+                                    <SelectTrigger className="w-full">
+                                      <SelectValue placeholder="Kabupaten" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectGroup>
+                                        <SelectLabel>Kabupaten</SelectLabel>
+                                        <SelectItem value="lpq">LPQ</SelectItem>
+                                      </SelectGroup>
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={lokasiForm.control}
+                            name="provinsi"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Provinsi</FormLabel>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    onValueChange={field.onChange}
+                                    defaultValue=""
+                                  >
+                                    <SelectTrigger className="w-full">
+                                      <SelectValue placeholder="Provinsi" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectGroup>
+                                        <SelectLabel>Provinsi</SelectLabel>
+                                        <SelectItem value="lpq">LPQ</SelectItem>
+                                      </SelectGroup>
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={lokasiForm.control}
+                            name="kode_pos"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Kode POS</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Masukkan Kode POS"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </Form>
             </TabsContent>
           </Tabs>
         </div>
