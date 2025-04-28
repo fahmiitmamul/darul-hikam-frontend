@@ -51,6 +51,18 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
+import { Plus } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PdfUploader } from "@/components/pdf-uploader";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const defaultData = [
   {
@@ -102,28 +114,39 @@ const defaultColumns = [
     accessorKey: "file_sk_ioup",
     header: "File SK IUOP",
     cell: ({ row }) => (
-      <Button onClick={() => alert("Lihat Dokumen")}>Lihat Dokumen</Button>
+      <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
+        Lihat Dokumen
+      </Button>
     ),
   },
   {
     accessorKey: "file_piagam_sk_iuop",
     header: "File Piagam SK IUOP",
     cell: ({ row }) => (
-      <Button onClick={() => alert("Belum Diupload")}>Belum Diupload</Button>
+      <Button
+        onClick={() => alert("Belum Diupload")}
+        className="cursor-pointer"
+      >
+        Belum Diupload
+      </Button>
     ),
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <Button onClick={() => alert("Test Tombol")}>Aktif</Button>
+      <Button onClick={() => alert("Test Tombol")} className="cursor-pointer">
+        Aktif
+      </Button>
     ),
   },
   {
     accessorKey: "Aksi",
     header: "Aksi",
     cell: ({ row }) => (
-      <Button onClick={() => alert("Test Tombol")}>Aksi</Button>
+      <Button onClick={() => alert("Test Tombol")} className="cursor-pointer">
+        Aksi
+      </Button>
     ),
   },
 ];
@@ -138,6 +161,9 @@ export default function Profil() {
   const [fotoHalaman, setFotoHalaman] = useState(null);
   const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
   const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
+  const [tanggalSkIzinOperasional, setTanggalSkIzinOperasional] =
+    useState(null);
+  const [berlakuSampaiDengan, setBerlakuSampaiDengan] = useState(null);
 
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
@@ -194,6 +220,17 @@ export default function Profil() {
     }),
   });
 
+  const schemaDokumen = z.object({
+    nspp: z.string({ message: "Masukkan NSPP" }),
+    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
+    satuan_pendidikan: z.string({
+      message: "Masukkan satuan pendidikan",
+    }),
+    program_pendidikan: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+  });
+
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
@@ -217,6 +254,13 @@ export default function Profil() {
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
+    defaultValues: {
+      alamat_lengkap: "",
+    },
+  });
+
+  const dokumenForm = useForm({
+    resolver: zodResolver(schemaDokumen),
     defaultValues: {
       alamat_lengkap: "",
     },
@@ -1448,9 +1492,199 @@ export default function Profil() {
                     </h4>
 
                     <div className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
-                      <Button type="button" className="cursor-pointer">
-                        Tambah
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            type="button"
+                            className="uppercase cursor-pointer"
+                          >
+                            <Plus />
+                            Tambah
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Tambah Dokumen</DialogTitle>
+                            <DialogDescription></DialogDescription>
+                            <div>
+                              <Form {...dokumenForm}>
+                                <form
+                                  onSubmit={dokumenForm.handleSubmit(onSubmit)}
+                                  className="flex flex-col gap-5 mt-5"
+                                >
+                                  <ScrollArea className="h-96">
+                                    <div className="flex flex-col gap-5">
+                                      <div>
+                                        <FormField
+                                          control={lokasiForm.control}
+                                          name="no_sk_izin_operasional"
+                                          render={({ field }) => (
+                                            <FormItem>
+                                              <FormLabel>
+                                                No SK Izin Operasional
+                                              </FormLabel>
+                                              <FormControl>
+                                                <Input
+                                                  type="text"
+                                                  placeholder="No SK Izin Operasional"
+                                                  {...field}
+                                                />
+                                              </FormControl>
+                                            </FormItem>
+                                          )}
+                                        />
+                                      </div>
+
+                                      <div>
+                                        <FormItem>
+                                          <FormLabel>
+                                            Tanggal SK Izin Operasional
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Popover>
+                                              <PopoverTrigger asChild>
+                                                <Button
+                                                  variant={"outline"}
+                                                  className={cn(
+                                                    "w-full justify-start text-left font-normal",
+                                                    !tanggalSkIzinOperasional &&
+                                                      "text-muted-foreground"
+                                                  )}
+                                                >
+                                                  <CalendarIcon />
+                                                  {tanggalSkIzinOperasional ? (
+                                                    format(
+                                                      tanggalSkIzinOperasional,
+                                                      "PPP"
+                                                    )
+                                                  ) : (
+                                                    <span>
+                                                      Pilih Tanggal SK Izin
+                                                      Operasional
+                                                    </span>
+                                                  )}
+                                                </Button>
+                                              </PopoverTrigger>
+                                              <PopoverContent className="w-auto p-0">
+                                                <Calendar
+                                                  mode="single"
+                                                  selected={
+                                                    tanggalSkIzinOperasional
+                                                  }
+                                                  onSelect={
+                                                    setTanggalSkIzinOperasional
+                                                  }
+                                                  initialFocus
+                                                />
+                                              </PopoverContent>
+                                            </Popover>
+                                          </FormControl>
+                                        </FormItem>
+                                      </div>
+
+                                      <div>
+                                        <FormItem>
+                                          <FormLabel>
+                                            Berlaku Sampai Dengan
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Popover>
+                                              <PopoverTrigger asChild>
+                                                <Button
+                                                  variant={"outline"}
+                                                  className={cn(
+                                                    "w-full justify-start text-left font-normal",
+                                                    !berlakuSampaiDengan &&
+                                                      "text-muted-foreground"
+                                                  )}
+                                                >
+                                                  <CalendarIcon />
+                                                  {berlakuSampaiDengan ? (
+                                                    format(
+                                                      berlakuSampaiDengan,
+                                                      "PPP"
+                                                    )
+                                                  ) : (
+                                                    <span>
+                                                      Berlaku Sampai Dengan
+                                                    </span>
+                                                  )}
+                                                </Button>
+                                              </PopoverTrigger>
+                                              <PopoverContent className="w-auto p-0">
+                                                <Calendar
+                                                  mode="single"
+                                                  selected={berlakuSampaiDengan}
+                                                  onSelect={
+                                                    setBerlakuSampaiDengan
+                                                  }
+                                                  initialFocus
+                                                />
+                                              </PopoverContent>
+                                            </Popover>
+                                          </FormControl>
+                                        </FormItem>
+                                      </div>
+
+                                      <FormField
+                                        control={identitasForm.control}
+                                        name="instansi_penerbit_izin_operasional"
+                                        render={({ field }) => (
+                                          <FormItem>
+                                            <FormLabel>
+                                              Instansi Penerbit Izin Operasional
+                                            </FormLabel>
+                                            <FormControl>
+                                              <Select
+                                                {...field}
+                                                onValueChange={field.onChange}
+                                                defaultValue=""
+                                              >
+                                                <SelectTrigger className="w-full">
+                                                  <SelectValue placeholder="Instansi Penerbit Izin Operasional" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                  <SelectGroup>
+                                                    <SelectLabel>
+                                                      Instansi Penerbit Izin
+                                                      Operasional
+                                                    </SelectLabel>
+                                                    <SelectItem value="lpq">
+                                                      LPQ
+                                                    </SelectItem>
+                                                  </SelectGroup>
+                                                </SelectContent>
+                                              </Select>
+                                            </FormControl>
+                                          </FormItem>
+                                        )}
+                                      />
+
+                                      <div>
+                                        <PdfUploader />
+                                      </div>
+
+                                      <div>
+                                        <PdfUploader />
+                                      </div>
+                                    </div>
+                                  </ScrollArea>
+                                </form>
+                              </Form>
+                            </div>
+                            <DialogFooter>
+                              <div className="flex gap-5">
+                                <Button asChild className="cursor-pointer">
+                                  Tutup
+                                </Button>
+                                <Button asChild className="cursor-pointer">
+                                  Simpan
+                                </Button>
+                              </div>
+                            </DialogFooter>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
 
