@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -34,10 +34,132 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
+import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+
+const defaultData = [
+  {
+    no: "1",
+    no_sk_iuop: "983457345",
+    tanggal_sk_iuop: "31-12-2022",
+    berlaku_sampai: "31-12-2023",
+    instansi_penerbit_iuop: "Kemenag",
+    file_sk_ioup: "SK/SD/2001/2022",
+    file_piagam_sk_iuop: "file.pdf",
+    status: "Aktif",
+    aksi: "Aksi",
+  },
+  {
+    no: "2",
+    no_sk_iuop: "987654678",
+    tanggal_sk_iuop: "31-12-2022",
+    berlaku_sampai: "31-05-2000",
+    instansi_penerbit_iuop: "Kemenag",
+    file_sk_ioup: "SD/SD/2002/2005",
+    file_piagam_sk_iuop: "file.pdf",
+    status: "Aktif",
+    aksi: "Aksi",
+  },
+];
+
+const defaultColumns = [
+  {
+    accessorKey: "no",
+    header: "No",
+  },
+  {
+    accessorKey: "no_sk_iuop",
+    header: "No SK IUOP",
+  },
+  {
+    accessorKey: "tanggal_sk_iuop",
+    header: "Tanggal SK IUOP",
+  },
+  {
+    accessorKey: "berlaku_sampai",
+    header: "Berlaku Sampai",
+  },
+  {
+    accessorKey: "instansi_penerbit_iuop",
+    header: "Instansi Penerbit IUOP",
+  },
+  {
+    accessorKey: "file_sk_ioup",
+    header: "File SK IUOP",
+    cell: ({ row }) => (
+      <Button onClick={() => alert("Lihat Dokumen")}>Lihat Dokumen</Button>
+    ),
+  },
+  {
+    accessorKey: "file_piagam_sk_iuop",
+    header: "File Piagam SK IUOP",
+    cell: ({ row }) => (
+      <Button onClick={() => alert("Belum Diupload")}>Belum Diupload</Button>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <Button onClick={() => alert("Test Tombol")}>Aktif</Button>
+    ),
+  },
+  {
+    accessorKey: "Aksi",
+    header: "Aksi",
+    cell: ({ row }) => (
+      <Button onClick={() => alert("Test Tombol")}>Aksi</Button>
+    ),
+  },
+];
 
 export default function Profil() {
   const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
+  const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
+  const [fotoPapanNama, setFotoPapanNama] = useState(null);
+  const [fotoGedung, setFotoGedung] = useState(null);
+  const [fotoKelas, setFotoKelas] = useState(null);
+  const [fotoHalaman, setFotoHalaman] = useState(null);
+  const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
+  const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
+
+  const [data] = React.useState(() => [...defaultData]);
+  const [columns] = React.useState(() => [...defaultColumns]);
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  const handleFileChange = (e, setImage, prefix) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      const fileName = `UPLOAD_FOTO_LEMBAGA_${prefix}_${Date.now()}.jpg`;
+      setImage({ url, name: fileName });
+    }
+  };
+
+  const handleRemove = (setImage) => {
+    setImage(null);
+  };
 
   const schemaIdentitas = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -61,6 +183,17 @@ export default function Profil() {
     }),
   });
 
+  const schemaDokumenPerijinan = z.object({
+    nspp: z.string({ message: "Masukkan NSPP" }),
+    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
+    satuan_pendidikan: z.string({
+      message: "Masukkan satuan pendidikan",
+    }),
+    program_pendidikan: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+  });
+
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
@@ -70,6 +203,20 @@ export default function Profil() {
 
   const lokasiForm = useForm({
     resolver: zodResolver(schemaLokasi),
+    defaultValues: {
+      alamat_lengkap: "",
+    },
+  });
+
+  const galeriForm = useForm({
+    resolver: zodResolver(schemaLokasi),
+    defaultValues: {
+      alamat_lengkap: "",
+    },
+  });
+
+  const dokumenPerijinanForm = useForm({
+    resolver: zodResolver(schemaDokumenPerijinan),
     defaultValues: {
       alamat_lengkap: "",
     },
@@ -105,9 +252,17 @@ export default function Profil() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="identitas">
+              <p className="leading-7 rounded-md text-xs">
+                Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
+                sedangkan kolom tanpa tanda (*) merupakan kolom opsional yang
+                tidak wajib diisi.
+              </p>
+
               <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 Identitas Lembaga
               </h4>
+
+              <Separator className="mt-5" />
 
               <Form {...identitasForm}>
                 <form
@@ -382,6 +537,8 @@ export default function Profil() {
                     Identitas Penyelenggara Lembaga
                   </h4>
 
+                  <Separator className="mt-5" />
+
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <FormField
@@ -476,6 +633,8 @@ export default function Profil() {
                     Data Bank
                   </h4>
 
+                  <Separator className="mt-5" />
+
                   <div className="grid grid-cols-2 gap-5">
                     <div>
                       <FormField
@@ -556,6 +715,8 @@ export default function Profil() {
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                     Data Lokasi
                   </h4>
+
+                  <Separator className="mt-5" />
 
                   <div className="grid grid-cols-1 gap-5">
                     <div>
@@ -761,6 +922,573 @@ export default function Profil() {
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="uppercase cursor-pointer mt-5"
+                  >
+                    Simpan
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+
+            <TabsContent value="galeri_foto">
+              <Form {...galeriForm}>
+                <form
+                  onSubmit={galeriForm.handleSubmit(onSubmit)}
+                  className="mt-5"
+                >
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Galeri Foto
+                  </h4>
+
+                  <Separator className="mt-5" />
+
+                  <div className="pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {/* Foto Papan Nama */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoPapanNama"
+                          className="text-base font-medium"
+                        >
+                          Foto Papan Nama{" "}
+                          <span className="text-red-500">*</span>
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoPapanNama ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() => handleRemove(setFotoPapanNama)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={fotoPapanNama.url || "/placeholder.svg"}
+                                  alt="Foto Papan Nama"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoPapanNama"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoPapanNama"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoPapanNama,
+                                    "Papan_Nama"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoPapanNama && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">
+                              {fotoPapanNama.name}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Foto Gedung */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoGedung"
+                          className="text-base font-medium"
+                        >
+                          Foto Gedung (Tampak Depan){" "}
+                          <span className="text-red-500">*</span>
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoGedung ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() => handleRemove(setFotoGedung)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={fotoGedung.url || "/placeholder.svg"}
+                                  alt="Foto Gedung"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoGedung"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoGedung"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoGedung,
+                                    "Foto_Gedung"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoGedung && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">{fotoGedung.name}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Foto Kelas */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoKelas"
+                          className="text-base font-medium"
+                        >
+                          Foto Kelas
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoKelas ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() => handleRemove(setFotoKelas)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={fotoKelas.url || "/placeholder.svg"}
+                                  alt="Foto Kelas"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoKelas"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoKelas"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoKelas,
+                                    "Foto_Kelas"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoKelas && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">{fotoKelas.name}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {/* Foto Halaman */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoHalaman"
+                          className="text-base font-medium"
+                        >
+                          Foto Halaman <span className="text-red-500">*</span>
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoHalaman ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() => handleRemove(setFotoHalaman)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={fotoHalaman.url || "/placeholder.svg"}
+                                  alt="Foto Papan Nama"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoHalaman"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoHalaman"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoHalaman,
+                                    "Foto_Halaman"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoHalaman && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">{fotoHalaman.name}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Foto Denah Lembaga */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoDenahLembaga"
+                          className="text-base font-medium"
+                        >
+                          Foto Denah Lembaga
+                          <span className="text-red-500">*</span>
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoDenahLembaga ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() =>
+                                    handleRemove(setFotoDenahLembaga)
+                                  }
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={
+                                    fotoDenahLembaga.url || "/placeholder.svg"
+                                  }
+                                  alt="Foto Denah Lembaga"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoDenahLembaga"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoDenahLembaga"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoDenahLembaga,
+                                    "Foto_Denah_Lembaga"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoDenahLembaga && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">
+                              {fotoDenahLembaga.name}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Foto Mushola / Masji */}
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="fotoMusholaAtauMasjid"
+                          className="text-base font-medium"
+                        >
+                          Foto Mushola / Masjid
+                        </Label>
+                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                          {fotoMusholaAtauMasjid ? (
+                            <>
+                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                                <Button
+                                  variant="secondary"
+                                  size="icon"
+                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                                  onClick={() =>
+                                    handleRemove(setFotoMusholaAtauMasjid)
+                                  }
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={
+                                    fotoMusholaAtauMasjid.url ||
+                                    "/placeholder.svg"
+                                  }
+                                  alt="Foto Mushola Atau Masjid"
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <label
+                              htmlFor="fotoMusholaAtauMasjid"
+                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                            >
+                              <ImagePlus className="h-10 w-10 text-gray-400" />
+                              <span className="mt-2 text-sm text-gray-500">
+                                Klik untuk upload
+                              </span>
+                              <input
+                                id="fotoMusholaAtauMasjid"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) =>
+                                  handleFileChange(
+                                    e,
+                                    setFotoMusholaAtauMasjid,
+                                    "Foto_Mushola_Atau_Masjid"
+                                  )
+                                }
+                              />
+                            </label>
+                          )}
+                        </div>
+                        {fotoMusholaAtauMasjid && (
+                          <div className="flex items-center text-sm text-gray-500">
+                            <Upload className="h-4 w-4 mr-1" />
+                            <span className="truncate">
+                              {fotoMusholaAtauMasjid.name}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="uppercase cursor-pointer mt-5"
+                  >
+                    Simpan
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+
+            <TabsContent value="dokumen_perijinan">
+              <Form {...dokumenPerijinanForm}>
+                <form onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}>
+                  <p className="leading-7 rounded-md text-xs">
+                    Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
+                    sedangkan kolom tanpa tanda (*) merupakan kolom opsional
+                    yang tidak wajib diisi.
+                  </p>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Dokumen Perijinan
+                  </h4>
+
+                  <Separator className="mt-5" />
+
+                  <div className="pt-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <FormField
+                          control={identitasForm.control}
+                          name="nama_lembaga"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>
+                                Akta Pendirian Penyelenggara
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Masukkan Akta Pendirian Penyelenggara"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={dokumenPerijinanForm.control}
+                            name="tanggal_akta_pendirian"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Tanggal Akta Pendirian</FormLabel>
+                                <FormControl>
+                                  <Popover>
+                                    <PopoverTrigger asChild>
+                                      <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                          "w-full justify-start text-left font-normal",
+                                          !tanggalAktaPendirian &&
+                                            "text-muted-foreground"
+                                        )}
+                                      >
+                                        <CalendarIcon />
+                                        {tanggalAktaPendirian ? (
+                                          format(tanggalAktaPendirian, "PPP")
+                                        ) : (
+                                          <span>
+                                            Pilih Tanggal Akta Pendirian
+                                          </span>
+                                        )}
+                                      </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0">
+                                      <Calendar
+                                        mode="single"
+                                        selected={tanggalAktaPendirian}
+                                        onSelect={setTanggalAktaPendirian}
+                                        initialFocus
+                                      />
+                                    </PopoverContent>
+                                  </Popover>
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full flex justify-between">
+                    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
+                      SK Izin Operasional
+                    </h4>
+
+                    <div className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
+                      <Button type="button" className="cursor-pointer">
+                        Tambah
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Separator className="mt-5" />
+
+                  <div className="w-full">
+                    <Table>
+                      <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                          <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                              <TableHead key={header.id}>
+                                {header.isPlaceholder
+                                  ? null
+                                  : flexRender(
+                                      header.column.columnDef.header,
+                                      header.getContext()
+                                    )}
+                              </TableHead>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableHeader>
+                      <TableBody>
+                        {table.getRowModel().rows.map((row) => (
+                          <TableRow key={row.id}>
+                            {row.getVisibleCells().map((cell) => (
+                              <TableCell key={cell.id}>
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
                 </form>
               </Form>
