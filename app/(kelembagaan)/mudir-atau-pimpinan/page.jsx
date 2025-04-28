@@ -44,7 +44,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -52,7 +52,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -60,7 +60,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -68,7 +68,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -76,7 +76,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -84,7 +84,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -92,7 +92,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -100,7 +100,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -108,7 +108,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -116,7 +116,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -124,7 +124,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -132,7 +132,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -140,7 +140,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -148,7 +148,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -156,7 +156,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -164,7 +164,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -172,7 +172,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -180,7 +180,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -188,7 +188,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -196,7 +196,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -204,7 +204,7 @@ const defaultData = [
     nama_lengkap: "983457345",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-12-2023",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
   {
@@ -212,7 +212,7 @@ const defaultData = [
     nama_lengkap: "987654678",
     no_handphone: "31-12-2022",
     tanggal_sk: "31-05-2000",
-    status_keaktifan: "Kemenag",
+    status_keaktifan: "Aktif",
     aksi: "Aksi",
   },
 ];
@@ -239,22 +239,12 @@ const defaultColumns = [
     header: "Status Keaktifan",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Test Tombol")} className="cursor-pointer">
-        Aktif
-      </Button>
-    ),
-  },
-  {
     accessorKey: "Aksi",
     header: "Aksi",
     cell: ({ row }) => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <span className="sr-only">Open menu</span>
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
