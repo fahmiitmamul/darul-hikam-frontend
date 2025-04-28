@@ -52,6 +52,14 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import ModalTambahSkDanPerizinan from "@/components/(kelembagaan)/profil/modal-tambah-sk-dan-perizinan/page";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal } from "lucide-react";
+import { Eye, Pencil, Trash } from "lucide-react";
 
 const defaultData = [
   {
@@ -123,19 +131,32 @@ const defaultColumns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Test Tombol")} className="cursor-pointer">
-        Aktif
-      </Button>
-    ),
   },
   {
     accessorKey: "Aksi",
     header: "Aksi",
     cell: ({ row }) => (
-      <Button onClick={() => alert("Test Tombol")} className="cursor-pointer">
-        Aksi
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem className="cursor-pointer">
+            <Eye />
+            View
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            <Pencil />
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem className="text-red-500 cursor-pointer">
+            <Trash />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     ),
   },
 ];
