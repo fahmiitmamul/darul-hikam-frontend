@@ -19,7 +19,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { Plus } from "lucide-react";
 import { ChevronsLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
@@ -34,6 +33,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Trash } from "lucide-react";
 import { Eye } from "lucide-react";
 import { Pencil } from "lucide-react";
+import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 
 const tableData = [
   {
@@ -301,10 +301,7 @@ export default function MudirAtauPimpinan() {
             </h3>
 
             <div>
-              <Button className="cursor-pointer uppercase">
-                <Plus />
-                Tambah
-              </Button>
+              <ModalTambahMudirAtauPimpinan />
             </div>
           </div>
 
