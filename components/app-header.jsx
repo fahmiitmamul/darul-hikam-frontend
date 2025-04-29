@@ -17,9 +17,13 @@ import {
 import { User2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { DynamicBreadcrumb } from "./dynamic-breadcrumbs";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AppHeader() {
   const { setTheme, theme } = useTheme();
+
+  const router = useRouter();
 
   const [mounted, setMounted] = useState(false);
 
@@ -89,7 +93,16 @@ export default function AppHeader() {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    toast("Logout Berhasil", {
+                      description: "Anda akan diarahkan ke halaman login",
+                    });
+                    setTimeout(() => {
+                      router.push("/login");
+                    }, 1000);
+                  }}
+                >
                   Log out
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>

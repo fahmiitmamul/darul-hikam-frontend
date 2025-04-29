@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export function LoginForm({ className, ...props }) {
   const router = useRouter();
@@ -44,10 +45,15 @@ export function LoginForm({ className, ...props }) {
           />
         </div>
         <Button
-          type="submit"
+          type="button"
           className="w-full cursor-pointer"
           onClick={() => {
-            router.push("/");
+            toast("Login Berhasil", {
+              description: "Anda akan diarahkan ke halaman login",
+            });
+            setTimeout(() => {
+              router.push("/");
+            }, 1000);
           }}
         >
           Login

@@ -49,10 +49,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useState } from "react";
 
-export default function ModalTambahMudirAtauPimpinan() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+export default function ModalTambahMudirAtauPimpinan({
+  openDialogEditMudirAtauPimpinan,
+  setOpenDialogEditMudirAtauPimpinan,
+}) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
   const frameworks = [
     {
@@ -101,7 +105,10 @@ export default function ModalTambahMudirAtauPimpinan() {
 
   return (
     <div>
-      <Sheet>
+      <Sheet
+        open={openDialogEditMudirAtauPimpinan}
+        onOpenChange={setOpenDialogEditMudirAtauPimpinan}
+      >
         <SheetTrigger asChild>
           <Button className="cursor-pointer uppercase">
             <Plus />

@@ -31,240 +31,248 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Trash } from "lucide-react";
-import { Eye } from "lucide-react";
 import { Pencil } from "lucide-react";
 import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
-
-const tableData = [
-  {
-    no: "1",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "2",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "3",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "4",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "5",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "6",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "7",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "8",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "9",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "10",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "11",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "12",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "13",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "14",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "15",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "16",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "17",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "18",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "19",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "20",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "21",
-    nama_lengkap: "983457345",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-12-2023",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "22",
-    nama_lengkap: "987654678",
-    no_handphone: "31-12-2022",
-    tanggal_sk: "31-05-2000",
-    status_keaktifan: "Aktif",
-    aksi: "Aksi",
-  },
-];
-
-const tableColumns = [
-  {
-    accessorKey: "no",
-    header: "No",
-  },
-  {
-    accessorKey: "nama_lengkap",
-    header: "Nama Lengkap",
-  },
-  {
-    accessorKey: "no_handphone",
-    header: "No Handphone",
-  },
-  {
-    accessorKey: "tanggal_sk",
-    header: "Tanggal SK",
-  },
-  {
-    accessorKey: "status_keaktifan",
-    header: "Status Keaktifan",
-  },
-  {
-    accessorKey: "Aksi",
-    header: "Aksi",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem className="cursor-pointer">
-            <Eye />
-            View
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Pencil />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-500 cursor-pointer">
-            <Trash />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
+import { useState } from "react";
 
 export default function MudirAtauPimpinan() {
+  const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
+    useState(false);
+  const [
+    openDialogHapusMudirAtauPimpinan,
+    setOpenDialogHapusMudirAtauPimpinan,
+  ] = useState(false);
+
+  const tableData = [
+    {
+      no: "1",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "2",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "3",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "4",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "5",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "6",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "7",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "8",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "9",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "10",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "11",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "12",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "13",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "14",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "15",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "16",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "17",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "18",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "19",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "20",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "21",
+      nama_lengkap: "983457345",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-12-2023",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+    {
+      no: "22",
+      nama_lengkap: "987654678",
+      no_handphone: "31-12-2022",
+      tanggal_sk: "31-05-2000",
+      status_keaktifan: "Aktif",
+      aksi: "Aksi",
+    },
+  ];
+
+  const tableColumns = [
+    {
+      accessorKey: "no",
+      header: "No",
+    },
+    {
+      accessorKey: "nama_lengkap",
+      header: "Nama Lengkap",
+    },
+    {
+      accessorKey: "no_handphone",
+      header: "No Handphone",
+    },
+    {
+      accessorKey: "tanggal_sk",
+      header: "Tanggal SK",
+    },
+    {
+      accessorKey: "status_keaktifan",
+      header: "Status Keaktifan",
+    },
+    {
+      accessorKey: "Aksi",
+      header: "Aksi",
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                setOpenDialogEditMudirAtauPimpinan(true);
+              }}
+            >
+              <Pencil />
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500 cursor-pointer">
+              <Trash />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    },
+  ];
+
   const [data] = React.useState(() => [...tableData]);
   const [columns] = React.useState(() => [...tableColumns]);
 
@@ -301,7 +309,14 @@ export default function MudirAtauPimpinan() {
             </h3>
 
             <div>
-              <ModalTambahMudirAtauPimpinan />
+              <ModalTambahMudirAtauPimpinan
+                openDialogEditMudirAtauPimpinan={
+                  openDialogEditMudirAtauPimpinan
+                }
+                setOpenDialogEditMudirAtauPimpinan={
+                  setOpenDialogEditMudirAtauPimpinan
+                }
+              />
             </div>
           </div>
 
