@@ -17,6 +17,7 @@ import { Plus } from "lucide-react";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -250,11 +251,26 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Jenis Kelamin</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Jenis Kelamin"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Jenis Kelamin" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Jenis Kelamin</SelectLabel>
+                                    <SelectItem value="laki-laki">
+                                      Laki - Laki
+                                    </SelectItem>
+                                    <SelectItem value="perempuan">
+                                      Perempuan
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -269,11 +285,28 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Status Kepegawaian</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Status Kepegawaian"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Status Kepegawaian" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Status Kepegawaian
+                                    </SelectLabel>
+                                    <SelectItem value="pegawai_kontrak">
+                                      Pegawai Kontrak
+                                    </SelectItem>
+                                    <SelectItem value="pegawai_tetap">
+                                      Pegawai Tetap
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -288,11 +321,25 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Pendidikan Terakhir</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Pendidikan Terakhir"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Pendidikan Terakhir" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Pendidikan Terakhir
+                                    </SelectLabel>
+                                    <SelectItem value="sd">SD</SelectItem>
+                                    <SelectItem value="smp">SMP</SelectItem>
+                                    <SelectItem value="sma">SMA</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -307,11 +354,37 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Lama Pendidikan Ponpes</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Lama Pendidikan Ponpes"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Lama Pendidikan Ponpes" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Lama Pendidikan Ponpes
+                                    </SelectLabel>
+                                    <SelectItem value="kurang_dari_1_tahun">
+                                      Kurang dari 1 tahun
+                                    </SelectItem>
+                                    <SelectItem value="antara_1_sampai_3_tahun">
+                                      Antara 1 Sampai 3 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="antara_4_sampai_5_tahun">
+                                      Antara 4 Sampai 5 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="lebih_dari_5_tahun">
+                                      Lebih dari 5 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="tidak_pernah">
+                                      Tidak Pernah
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -326,11 +399,37 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Lama Pendidikan Lainnya</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Lama Pendidikan Lainnya"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Lama Pendidikan Lainnya" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Lama Pendidikan Lainnya
+                                    </SelectLabel>
+                                    <SelectItem value="kurang_dari_1_tahun">
+                                      Kurang dari 1 tahun
+                                    </SelectItem>
+                                    <SelectItem value="antara_1_sampai_3_tahun">
+                                      Antara 1 Sampai 3 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="antara_4_sampai_5_tahun">
+                                      Antara 4 Sampai 5 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="lebih_dari_5_tahun">
+                                      Lebih dari 5 Tahun
+                                    </SelectItem>
+                                    <SelectItem value="tidak_pernah">
+                                      Tidak Pernah
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -345,11 +444,35 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Kompetensi</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Kompetensi"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kompetensi" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Kompetensi</SelectLabel>
+                                    <SelectItem value="al_quran">
+                                      Al-Quran
+                                    </SelectItem>
+                                    <SelectItem value="tafsir_ilmu_tafsir">
+                                      Tafsir-Ilmu Tafsir
+                                    </SelectItem>
+                                    <SelectItem value="hadits_ilmu_hadits">
+                                      Hadits-Ilmu Hadits
+                                    </SelectItem>
+                                    <SelectItem value="tauhid">
+                                      Tauhid
+                                    </SelectItem>
+                                    <SelectItem value="fiqh_ushul_fiqh">
+                                      Fiqh-Ushul Fiqh
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -370,6 +493,9 @@ export default function ModalTambahMudirAtauPimpinan() {
                                 {...field}
                               />
                             </FormControl>
+                            <FormDescription>
+                              contoh: 6282372377723
+                            </FormDescription>
                           </FormItem>
                         )}
                       />
@@ -402,11 +528,24 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Status Keaktifan</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Status Keaktifan"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Status Keaktifan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Status Keaktifan</SelectLabel>
+                                    <SelectItem value="aktif">Aktif</SelectItem>
+                                    <SelectItem value="non_aktif">
+                                      Non Aktif
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
@@ -421,11 +560,22 @@ export default function ModalTambahMudirAtauPimpinan() {
                           <FormItem>
                             <FormLabel>Kewarganegaraan</FormLabel>
                             <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Kewarganegaraan"
+                              <Select
                                 {...field}
-                              />
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kewarganegaraan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Kewarganegaraan</SelectLabel>
+                                    <SelectItem value="wni">WNI</SelectItem>
+                                    <SelectItem value="wna">WNA</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                           </FormItem>
                         )}
