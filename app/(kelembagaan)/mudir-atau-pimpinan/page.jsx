@@ -34,6 +34,7 @@ import { Trash } from "lucide-react";
 import { Pencil } from "lucide-react";
 import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { useState } from "react";
+import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 
 export default function MudirAtauPimpinan() {
   const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
@@ -263,7 +264,12 @@ export default function MudirAtauPimpinan() {
               <Pencil />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500 cursor-pointer">
+            <DropdownMenuItem
+              className="text-red-500 cursor-pointer"
+              onClick={() => {
+                setOpenDialogHapusMudirAtauPimpinan(true);
+              }}
+            >
               <Trash />
               Delete
             </DropdownMenuItem>
@@ -404,6 +410,13 @@ export default function MudirAtauPimpinan() {
             </div>
           </div>
         </div>
+
+        <ModalHapusMudirAtauPimpinan
+          openDialogHapusMudirAtauPimpinan={openDialogHapusMudirAtauPimpinan}
+          setOpenDialogHapusMudirAtauPimpinan={
+            setOpenDialogHapusMudirAtauPimpinan
+          }
+        />
       </div>
     </Sidebar>
   );
