@@ -29,6 +29,11 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
+import { ChevronsLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { ChevronsRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const defaultData = [
   {
@@ -172,6 +177,48 @@ export default function KenaikanKelas() {
                     ))}
                   </TableBody>
                 </Table>
+
+                <div className="flex justify-between items-center gap-2">
+                  <div>
+                    <span className="flex items-center gap-1">
+                      <div>Show Page</div>
+                      <strong>
+                        {table.getState().pagination.pageIndex + 1} of{" "}
+                        {table.getPageCount().toLocaleString()}
+                      </strong>
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.firstPage()}
+                      disabled={!table.getCanPreviousPage()}
+                    >
+                      <ChevronsLeft />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.previousPage()}
+                      disabled={!table.getCanPreviousPage()}
+                    >
+                      <ChevronLeft />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.nextPage()}
+                      disabled={!table.getCanNextPage()}
+                    >
+                      <ChevronRight />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.lastPage()}
+                      disabled={!table.getCanNextPage()}
+                    >
+                      <ChevronsRight />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </TabsContent>
 
@@ -234,6 +281,48 @@ export default function KenaikanKelas() {
                     ))}
                   </TableBody>
                 </Table>
+
+                <div className="flex justify-between items-center gap-2">
+                  <div>
+                    <span className="flex items-center gap-1">
+                      <div>Show Page</div>
+                      <strong>
+                        {table.getState().pagination.pageIndex + 1} of{" "}
+                        {table.getPageCount().toLocaleString()}
+                      </strong>
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.firstPage()}
+                      disabled={!table.getCanPreviousPage()}
+                    >
+                      <ChevronsLeft />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.previousPage()}
+                      disabled={!table.getCanPreviousPage()}
+                    >
+                      <ChevronLeft />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.nextPage()}
+                      disabled={!table.getCanNextPage()}
+                    >
+                      <ChevronRight />
+                    </Button>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={() => table.lastPage()}
+                      disabled={!table.getCanNextPage()}
+                    >
+                      <ChevronsRight />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </TabsContent>
           </Tabs>

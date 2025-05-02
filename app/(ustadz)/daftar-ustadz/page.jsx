@@ -45,6 +45,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
 
 export default function DaftarUstadz() {
   const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
@@ -351,14 +352,10 @@ export default function DaftarUstadz() {
             </h3>
 
             <div>
-              <ModalTambahMudirAtauPimpinan
-                openDialogEditMudirAtauPimpinan={
-                  openDialogEditMudirAtauPimpinan
-                }
-                setOpenDialogEditMudirAtauPimpinan={
-                  setOpenDialogEditMudirAtauPimpinan
-                }
-              />
+              <Button className="uppercase cursor-pointer">
+                <Plus />
+                Tambah
+              </Button>
             </div>
           </div>
 
