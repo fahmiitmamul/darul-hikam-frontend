@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -67,111 +67,77 @@ import { Checkbox } from "@/components/ui/checkbox";
 const defaultData = [
   {
     no: "1",
-    no_sk_iuop: "983457345",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-12-2023",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SK/SD/2001/2022",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
+    tahun_ajaran: "20-05-2021",
+    semester: "Ganjil",
+    tanggal_mulai_masuk: "31-12-2023",
+    nspp: "3534535353",
+    jenjang_atau_takhassus: "-",
+    kelas_atau_tingkat: "Kelas 2",
+    rombel: "Tsani",
+    status_keaktifan: "Aktif",
+    keterangan: "Naik dari kelas sebelumnya",
     aksi: "Aksi",
   },
   {
     no: "2",
-    no_sk_iuop: "987654678",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-05-2000",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SD/SD/2002/2005",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
+    tahun_ajaran: "20-05-2021",
+    semester: "Ganjil",
+    tanggal_mulai_masuk: "31-05-2000",
+    nspp: "3534535353",
+    jenjang_atau_takhassus: "-",
+    kelas_atau_tingkat: "Kelas 2",
+    rombel: "Tsani",
+    status_keaktifan: "Aktif",
+    keterangan: "Naik dari kelas sebelumnya",
     aksi: "Aksi",
   },
 ];
 
 const defaultColumns = [
   {
-    accessorKey: "no",
-    header: "No",
+    accessorKey: "tahun_ajaran",
+    header: "Tahun Ajaran",
   },
   {
-    accessorKey: "no_sk_iuop",
-    header: "No SK IUOP",
+    accessorKey: "semester",
+    header: "Semester",
   },
   {
-    accessorKey: "tanggal_sk_iuop",
-    header: "Tanggal SK IUOP",
+    accessorKey: "tanggal_mulai_masuk",
+    header: "Tanggal Mulai Masuk",
   },
   {
-    accessorKey: "berlaku_sampai",
-    header: "Berlaku Sampai",
+    accessorKey: "nama_lembag",
+    header: "Nama Lembaga",
   },
   {
-    accessorKey: "instansi_penerbit_iuop",
-    header: "Instansi Penerbit IUOP",
+    accessorKey: "nspp",
+    header: "NSPP",
   },
   {
-    accessorKey: "file_sk_ioup",
-    header: "File SK IUOP",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
-        Lihat Dokumen
-      </Button>
-    ),
+    accessorKey: "jenjang_atau_takhassus",
+    header: "Jenjang / Takhassus",
   },
   {
-    accessorKey: "file_piagam_sk_iuop",
-    header: "File Piagam SK IUOP",
-    cell: ({ row }) => (
-      <Button
-        onClick={() => alert("Belum Diupload")}
-        className="cursor-pointer"
-      >
-        Belum Diupload
-      </Button>
-    ),
+    accessorKey: "kelas_atau_tingkat",
+    header: "Kelas Atau Tingkat",
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "rombel",
+    header: "Rombel",
   },
   {
-    accessorKey: "Aksi",
-    header: "Aksi",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem className="cursor-pointer">
-            <Eye />
-            View
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Pencil />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-500 cursor-pointer">
-            <Trash />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    accessorKey: "status_keaktifan",
+    header: "Status Keaktifan",
+  },
+  {
+    accessorKey: "keterangan",
+    header: "Keterangan",
   },
 ];
 
 export default function DetailSantri() {
   const [tanggalLahir, setTanggalLahir] = useState(null);
-  const [fotoPapanNama, setFotoPapanNama] = useState(null);
-  const [fotoGedung, setFotoGedung] = useState(null);
-  const [fotoKelas, setFotoKelas] = useState(null);
-  const [fotoHalaman, setFotoHalaman] = useState(null);
-  const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
-  const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
 
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
@@ -181,19 +147,6 @@ export default function DetailSantri() {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  const handleFileChange = (e, setImage, prefix) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const fileName = `UPLOAD_FOTO_LEMBAGA_${prefix}_${Date.now()}.jpg`;
-      setImage({ url, name: fileName });
-    }
-  };
-
-  const handleRemove = (setImage) => {
-    setImage(null);
-  };
 
   const schemaIdentitas = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -2443,97 +2396,12 @@ export default function DetailSantri() {
               <Form {...dokumenPerijinanForm}>
                 <form
                   onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}
-                  className="space-y-5 mt-5"
+                  className="space-y-5 "
                 >
-                  <p className="leading-7 rounded-md text-xs">
-                    Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
-                    sedangkan kolom tanpa tanda (*) merupakan kolom opsional
-                    yang tidak wajib diisi.
-                  </p>
-
-                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Dokumen Perijinan
-                  </h4>
-
-                  <Separator className="mt-5" />
-
-                  <div className="pt-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <FormField
-                          control={dataSantriForm.control}
-                          name="nama_lembaga"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>
-                                Akta Pendirian Penyelenggara
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Masukkan Akta Pendirian Penyelenggara"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={dokumenPerijinanForm.control}
-                            name="tanggal_akta_pendirian"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Tanggal Akta Pendirian</FormLabel>
-                                <FormControl>
-                                  <Popover>
-                                    <PopoverTrigger asChild>
-                                      <Button
-                                        variant={"outline"}
-                                        className={cn(
-                                          "w-full justify-start text-left font-normal",
-                                          !tanggalLahir &&
-                                            "text-muted-foreground"
-                                        )}
-                                      >
-                                        <CalendarIcon />
-                                        {tanggalLahir ? (
-                                          format(tanggalLahir, "PPP")
-                                        ) : (
-                                          <span>
-                                            Pilih Tanggal Akta Pendirian
-                                          </span>
-                                        )}
-                                      </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0">
-                                      <Calendar
-                                        mode="single"
-                                        selected={tanggalLahir}
-                                        onSelect={setTanggalLahir}
-                                        initialFocus
-                                      />
-                                    </PopoverContent>
-                                  </Popover>
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <div className="w-full flex justify-between">
-                    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
-                      SK Izin Operasional
+                    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                      Aktivitas Belajar
                     </h4>
-
-                    <div className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
-                      <ModalTambahSkDanPerizinan />
-                    </div>
                   </div>
 
                   <Separator className="mt-5" />
