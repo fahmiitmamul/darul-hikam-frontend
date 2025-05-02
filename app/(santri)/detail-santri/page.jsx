@@ -34,7 +34,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
@@ -60,8 +59,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
-import { UploadCloudIcon } from "lucide-react";
 import { useCallback } from "react";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const defaultData = [
   {
@@ -164,7 +165,7 @@ const defaultColumns = [
 ];
 
 export default function DetailSantri() {
-  const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
+  const [tanggalLahir, setTanggalLahir] = useState(null);
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
   const [fotoGedung, setFotoGedung] = useState(null);
   const [fotoKelas, setFotoKelas] = useState(null);
@@ -366,7 +367,7 @@ export default function DetailSantri() {
 
         {/* Content */}
         <div className="p-6 w-full h-full">
-          <Tabs defaultValue="identitas" className="w-auto">
+          <Tabs defaultValue="data_santri" className="w-auto">
             <TabsList className="grid w-full mb-20 md:mb-10 xl:mb-0 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
               <TabsTrigger className="cursor-pointer" value="data_santri">
                 Data Santri
@@ -471,6 +472,291 @@ export default function DetailSantri() {
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="kewarganegaraan"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Kewarganegaraan</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Kewarganegaraan" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Kewarganegaraan</SelectLabel>
+                                  <SelectItem value="lpq">LPQ</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nik"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>NIK</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Masukkan NIK"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex justify-center items-center mt-5">
+                      <div className="bg-slate-100 rounded-md cursor-pointer px-10 py-1 w-full">
+                        <p className="leading-7 [&:not(:first-child)]:mt-6 font-medium text-sm">
+                          Status Verifikasi NIK : Belum Diverifikasi
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="tempat_lahir"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tempat Lahir</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Tempat Lahir"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="tanggal_lahir"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tanggal Lahir</FormLabel>
+                            <FormControl>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-full justify-start text-left font-normal",
+                                      !tanggalLahir && "text-muted-foreground"
+                                    )}
+                                  >
+                                    <CalendarIcon />
+                                    {tanggalLahir ? (
+                                      format(tanggalLahir, "PPP")
+                                    ) : (
+                                      <span>Pilih Tanggal Lahir</span>
+                                    )}
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                  <Calendar
+                                    mode="single"
+                                    selected={tanggalLahir}
+                                    onSelect={setTanggalLahir}
+                                    initialFocus
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Jenis Kelamin
+                  </h4>
+
+                  <RadioGroup
+                    defaultValue="laki-laki"
+                    className="flex cursor-pointer"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="laki-laki" id="laki-laki" />
+                      <Label htmlFor="laki-laki">Laki-laki</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="perempuan" id="perempuan" />
+                      <Label htmlFor="perempuan">Perempuan</Label>
+                    </div>
+                  </RadioGroup>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="jumlah_saudara"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Jumlah Saudara</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Jumlah Saudara"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="anak_ke"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Anak Ke</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Anak Ke"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="agama"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Agama</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Agama" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Agama</SelectLabel>
+                                  <SelectItem value="islam">Islam</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Tidak memiliki nomor handphone
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nomor_handphone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor Handphone</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor Handphone"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Kartu Keluarga
+                  </h4>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="no_kk"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor Kartu Keluarga</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor Kartu Keluarga"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nama_kepala_keluarga"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nama Kepala Keluarga</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Nama Kepala Keluarga"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="w-full">
+                    <Button className="uppercase cursor-pointer w-full">
+                      Upload Kartu Keluarga
+                    </Button>
                   </div>
                 </form>
               </Form>
@@ -1187,13 +1473,13 @@ export default function DetailSantri() {
                                         variant={"outline"}
                                         className={cn(
                                           "w-full justify-start text-left font-normal",
-                                          !tanggalAktaPendirian &&
+                                          !tanggalLahir &&
                                             "text-muted-foreground"
                                         )}
                                       >
                                         <CalendarIcon />
-                                        {tanggalAktaPendirian ? (
-                                          format(tanggalAktaPendirian, "PPP")
+                                        {tanggalLahir ? (
+                                          format(tanggalLahir, "PPP")
                                         ) : (
                                           <span>
                                             Pilih Tanggal Akta Pendirian
@@ -1204,8 +1490,8 @@ export default function DetailSantri() {
                                     <PopoverContent className="w-auto p-0">
                                       <Calendar
                                         mode="single"
-                                        selected={tanggalAktaPendirian}
-                                        onSelect={setTanggalAktaPendirian}
+                                        selected={tanggalLahir}
+                                        onSelect={setTanggalLahir}
                                         initialFocus
                                       />
                                     </PopoverContent>
