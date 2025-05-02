@@ -562,7 +562,7 @@ export default function DetailSantri() {
                     </div>
                   </RadioGroup>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -666,7 +666,7 @@ export default function DetailSantri() {
                     Kartu Keluarga
                   </h4>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -837,7 +837,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -930,7 +930,7 @@ export default function DetailSantri() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -1152,7 +1152,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -1245,7 +1245,7 @@ export default function DetailSantri() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -1403,7 +1403,7 @@ export default function DetailSantri() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={dataSantriForm.control}
@@ -1494,7 +1494,7 @@ export default function DetailSantri() {
                     </label>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1555,7 +1555,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1616,7 +1616,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1647,7 +1647,7 @@ export default function DetailSantri() {
                         )}
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
                           control={galeriForm.control}
@@ -1708,7 +1708,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1744,7 +1744,7 @@ export default function DetailSantri() {
                     </label>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1805,7 +1805,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1866,7 +1866,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -1897,7 +1897,7 @@ export default function DetailSantri() {
                         )}
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
                           control={galeriForm.control}
@@ -1958,7 +1958,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -2009,7 +2009,7 @@ export default function DetailSantri() {
                     Santri
                   </h4>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -2060,7 +2060,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -2123,7 +2123,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}
@@ -2184,8 +2184,8 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
-                    <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
                           control={galeriForm.control}
@@ -2300,7 +2300,7 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={galeriForm.control}

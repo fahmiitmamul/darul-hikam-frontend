@@ -302,7 +302,7 @@ export default function Profil() {
                   onSubmit={identitasForm.handleSubmit(onSubmit)}
                   className="space-y-5 mt-5"
                 >
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <FormField
                       control={identitasForm.control}
                       name="nspp"
@@ -341,7 +341,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -403,7 +403,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -443,7 +443,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -482,7 +482,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -572,7 +572,7 @@ export default function Profil() {
 
                   <Separator className="mt-5" />
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -624,7 +624,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                       <div>
                         <FormField
@@ -668,7 +668,7 @@ export default function Profil() {
 
                   <Separator className="mt-5" />
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
                         control={identitasForm.control}
@@ -708,7 +708,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <div>
                         <FormField
@@ -772,8 +772,8 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
-                    <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
                           control={lokasiForm.control}
@@ -835,7 +835,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <div>
                         <div>
@@ -1407,7 +1407,7 @@ export default function Profil() {
                   <Separator className="mt-5" />
 
                   <div className="pt-6">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <FormField
                           control={identitasForm.control}
