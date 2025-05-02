@@ -776,7 +776,7 @@ export default function DetailSantri() {
                   className="space-y-5 mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Data Lokasi
+                    Ayah Kandung
                   </h4>
 
                   <Separator className="mt-5" />
@@ -785,14 +785,701 @@ export default function DetailSantri() {
                     <div>
                       <FormField
                         control={lokasiForm.control}
-                        name="alamat"
+                        name="nama_lengkap"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Alamat</FormLabel>
+                            <FormLabel>Nama Lengkap</FormLabel>
                             <FormControl>
                               <Input
                                 type="text"
-                                placeholder="Alamat"
+                                placeholder="Nama Lengkap"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Status
+                  </h4>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Status</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="masih_hidup">
+                                    Masih Hidup
+                                  </SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="kewarganegaraan"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Kewarganegaraan</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Kewarganegaraan" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="wna">WNA</SelectItem>
+                                  <SelectItem value="wni">WNI</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={lokasiForm.control}
+                        name="nik"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>NIK</FormLabel>
+                            <FormControl>
+                              <Input type="text" placeholder="NIK" {...field} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="tempat_lahir"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tempat Lahir</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Masukkan Tempat Lahir"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <FormField
+                          control={dokumenPerijinanForm.control}
+                          name="tanggal_lahir"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tanggal Lahir</FormLabel>
+                              <FormControl>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={"outline"}
+                                      className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !tanggalLahir && "text-muted-foreground"
+                                      )}
+                                    >
+                                      <CalendarIcon />
+                                      {tanggalLahir ? (
+                                        format(tanggalLahir, "PPP")
+                                      ) : (
+                                        <span>Pilih Tanggal Lahir</span>
+                                      )}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                      mode="single"
+                                      selected={tanggalLahir}
+                                      onSelect={setTanggalLahir}
+                                      initialFocus
+                                    />
+                                  </PopoverContent>
+                                </Popover>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="pendidikan_terakhir"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pendidikan Terakhir</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Pendidikan Terakhir" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="sd">SD</SelectItem>
+                                  <SelectItem value="smp">SMP</SelectItem>
+                                  <SelectItem value="sma">SMA</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="pekerjaan_utama"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Pekerjaan Utama</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Pekerjaan Utama" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Status</SelectLabel>
+                                    <SelectItem value="wirausaha">
+                                      Wirausaha
+                                    </SelectItem>
+                                    <SelectItem value="wiraswasta">
+                                      Wiraswasta
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="penghasilan_rata_rata_perbulan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Penghasilan Rata Rata Perbulan
+                            </FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Penghasilan Rata Rata Perbulan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Penghasilan Rata Rata Perbulan
+                                    </SelectLabel>
+                                    <SelectItem value="1.000.000">
+                                      1.000.000
+                                    </SelectItem>
+                                    <SelectItem value="2.000.000">
+                                      2.000.000
+                                    </SelectItem>
+                                    <SelectItem value="3.000.000">
+                                      3.000.000
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="terms" />
+                      <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Tidak memiliki nomor handphone
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nomor_handphone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor Handphone</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor Handphone"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="w-full">
+                    <Button className="uppercase cursor-pointer w-full">
+                      Upload Kartu Keluarga
+                    </Button>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Ibu Kandung
+                  </h4>
+
+                  <Separator className="mt-5" />
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={lokasiForm.control}
+                        name="nama_lengkap"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nama Lengkap</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Nama Lengkap"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Status
+                  </h4>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Status</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="masih_hidup">
+                                    Masih Hidup
+                                  </SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="kewarganegaraan"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Kewarganegaraan</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Kewarganegaraan" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="wna">WNA</SelectItem>
+                                  <SelectItem value="wni">WNI</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={lokasiForm.control}
+                        name="nik"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>NIK</FormLabel>
+                            <FormControl>
+                              <Input type="text" placeholder="NIK" {...field} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="tempat_lahir"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tempat Lahir</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Masukkan Tempat Lahir"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <FormField
+                          control={dokumenPerijinanForm.control}
+                          name="tanggal_lahir"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tanggal Lahir</FormLabel>
+                              <FormControl>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={"outline"}
+                                      className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !tanggalLahir && "text-muted-foreground"
+                                      )}
+                                    >
+                                      <CalendarIcon />
+                                      {tanggalLahir ? (
+                                        format(tanggalLahir, "PPP")
+                                      ) : (
+                                        <span>Pilih Tanggal Lahir</span>
+                                      )}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                      mode="single"
+                                      selected={tanggalLahir}
+                                      onSelect={setTanggalLahir}
+                                      initialFocus
+                                    />
+                                  </PopoverContent>
+                                </Popover>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="pendidikan_terakhir"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pendidikan Terakhir</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Pendidikan Terakhir" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="sd">SD</SelectItem>
+                                  <SelectItem value="smp">SMP</SelectItem>
+                                  <SelectItem value="sma">SMA</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="pekerjaan_utama"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Pekerjaan Utama</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Pekerjaan Utama" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Status</SelectLabel>
+                                    <SelectItem value="wirausaha">
+                                      Wirausaha
+                                    </SelectItem>
+                                    <SelectItem value="wiraswasta">
+                                      Wiraswasta
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="penghasilan_rata_rata_perbulan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Penghasilan Rata Rata Perbulan
+                            </FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Penghasilan Rata Rata Perbulan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Penghasilan Rata Rata Perbulan
+                                    </SelectLabel>
+                                    <SelectItem value="1.000.000">
+                                      1.000.000
+                                    </SelectItem>
+                                    <SelectItem value="2.000.000">
+                                      2.000.000
+                                    </SelectItem>
+                                    <SelectItem value="3.000.000">
+                                      3.000.000
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="terms" />
+                      <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Tidak memiliki nomor handphone
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nomor_handphone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor Handphone</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor Handphone"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      KK sama dengan Ayah Kandung
+                    </label>
+                  </div>
+
+                  <div className="w-full">
+                    <Button className="uppercase cursor-pointer w-full">
+                      Upload Kartu Keluarga
+                    </Button>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    Wali
+                  </h4>
+
+                  <div>
+                    <FormField
+                      control={dataSantriForm.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Status</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Status</SelectLabel>
+                                  <SelectItem value="Sama dengan ayah kandung">
+                                    Sama dengan ayah kandung
+                                  </SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nomor_kks"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor KKS</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor KKS"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={dataSantriForm.control}
+                        name="nomor_pkh"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor PKH</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Nomor PKH"
                                 {...field}
                               />
                             </FormControl>
@@ -803,187 +1490,15 @@ export default function DetailSantri() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-5">
-                    <div className="grid grid-cols-2 gap-5">
-                      <div>
-                        <FormField
-                          control={lokasiForm.control}
-                          name="rt"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>RT</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  placeholder="RT"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div>
-                        <FormField
-                          control={lokasiForm.control}
-                          name="rw"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>RW</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  placeholder="RW"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-
                     <div>
-                      <div>
-                        <FormField
-                          control={lokasiForm.control}
-                          name="desa_atau_kelurahan"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Desa / Kelurahan</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="text"
-                                  placeholder="Desa / Kelurahan"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-5">
-                    <div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={lokasiForm.control}
-                            name="desa_atau_kelurahan"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Kecamatan</FormLabel>
-                                <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger className="w-full">
-                                      <SelectValue placeholder="Kecamatan" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Kecamatan</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
+                      <Button className="cursor-pointer uppercase w-full">
+                        Upload KKS
+                      </Button>
                     </div>
                     <div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={lokasiForm.control}
-                            name="kabupaten"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Kabupaten</FormLabel>
-                                <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger className="w-full">
-                                      <SelectValue placeholder="Kabupaten" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Kabupaten</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={lokasiForm.control}
-                            name="provinsi"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Provinsi</FormLabel>
-                                <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger className="w-full">
-                                      <SelectValue placeholder="Provinsi" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Provinsi</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={lokasiForm.control}
-                            name="kode_pos"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Kode POS</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="Masukkan Kode POS"
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
+                      <Button className="cursor-pointer uppercase w-full">
+                        Upload PKH
+                      </Button>
                     </div>
                   </div>
 
