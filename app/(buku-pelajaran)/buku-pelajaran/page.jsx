@@ -32,6 +32,7 @@ import { ChevronsLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
+import ModalTambahBukuPelajaran from "@/components/(buku-pelajaran)/modal-tambah-buku-pelajaran/page";
 
 const defaultData = [
   {
@@ -102,9 +103,7 @@ export default function BukuPelajaran() {
               Buku Pelajaran
             </h3>
             <div>
-              <Button className="uppercase cursor-pointer">
-                <Plus /> Tambah
-              </Button>
+              <ModalTambahBukuPelajaran />
             </div>
           </div>
 
