@@ -35,6 +35,8 @@ import { Pencil } from "lucide-react";
 import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { useState } from "react";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DaftarSantri() {
   const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
@@ -43,6 +45,8 @@ export default function DaftarSantri() {
     openDialogHapusMudirAtauPimpinan,
     setOpenDialogHapusMudirAtauPimpinan,
   ] = useState(false);
+
+  const router = useRouter();
 
   const tableData = [
     {
@@ -393,14 +397,15 @@ export default function DaftarSantri() {
             </h3>
 
             <div>
-              <ModalTambahMudirAtauPimpinan
-                openDialogEditMudirAtauPimpinan={
-                  openDialogEditMudirAtauPimpinan
-                }
-                setOpenDialogEditMudirAtauPimpinan={
-                  setOpenDialogEditMudirAtauPimpinan
-                }
-              />
+              <Button
+                className="uppercase cursor-pointer"
+                onClick={() => {
+                  router.push("/detail-santri");
+                }}
+              >
+                <Plus />
+                Tambah
+              </Button>
             </div>
           </div>
 

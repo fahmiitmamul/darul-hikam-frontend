@@ -60,6 +60,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
+import { UploadCloudIcon } from "lucide-react";
+import { useCallback } from "react";
 
 const defaultData = [
   {
@@ -161,9 +163,7 @@ const defaultColumns = [
   },
 ];
 
-export default function Profil() {
-  const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
-  const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
+export default function DetailSantri() {
   const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
   const [fotoGedung, setFotoGedung] = useState(null);
@@ -227,7 +227,7 @@ export default function Profil() {
     }),
   });
 
-  const identitasForm = useForm({
+  const dataSantriForm = useForm({
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
       nspp: "",
@@ -259,6 +259,103 @@ export default function Profil() {
     console.log("Form data:", data);
   };
 
+  const [files, setFiles] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(null);
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      setError(null);
+
+      // Validate files
+      const invalidFiles = acceptedFiles.filter(
+        (file) => file.type !== "application/pdf"
+      );
+      if (invalidFiles.length > 0) {
+        setError("Only PDF files are allowed");
+        return;
+      }
+
+      const oversizedFiles = acceptedFiles.filter(
+        (file) => file.size > 10 * 1024 * 1024
+      ); // 10MB limit
+      if (oversizedFiles.length > 0) {
+        setError("File size exceeds 10MB limit");
+        return;
+      }
+
+      // Add preview property to files
+      const newFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+
+      setFiles((prev) => [...prev, ...newFiles]);
+
+      // Simulate upload progress
+      simulateUpload();
+    },
+    [files]
+  );
+
+  const simulateUpload = () => {
+    setUploadProgress(0);
+    const interval = setInterval(() => {
+      setUploadProgress((prev) => {
+        if (prev === null) return 0;
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 5;
+      });
+    }, 200);
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDragging) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    onDrop(droppedFiles);
+  };
+
+  const handleFileInputChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFiles = Array.from(e.target.files);
+      onDrop(selectedFiles);
+    }
+  };
+
+  const removeFile = (fileToRemove) => {
+    setFiles(files.filter((file) => file !== fileToRemove));
+    // Revoke the object URL to avoid memory leaks
+    URL.revokeObjectURL(fileToRemove.preview);
+  };
+
   return (
     <Sidebar>
       <div className="flex flex-col w-full">
@@ -271,465 +368,109 @@ export default function Profil() {
         <div className="p-6 w-full h-full">
           <Tabs defaultValue="identitas" className="w-auto">
             <TabsList className="grid w-full mb-20 md:mb-10 xl:mb-0 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-              <TabsTrigger className="cursor-pointer" value="identitas">
-                Identitas
+              <TabsTrigger className="cursor-pointer" value="data_santri">
+                Data Santri
               </TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="lokasi">
-                Lokasi
+              <TabsTrigger className="cursor-pointer" value="data_orang_tua">
+                Data Orang Tua
               </TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="galeri_foto">
-                Galeri Foto
+              <TabsTrigger className="cursor-pointer" value="data_alamat">
+                Data Alamat
               </TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="dokumen_perijinan">
-                Dokumen Perijinan
+              <TabsTrigger className="cursor-pointer" value="aktivitas_belajar">
+                Aktivitas Belajar
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="identitas">
+
+            <TabsContent value="data_santri">
               <p className="leading-7 rounded-md text-xs">
                 Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
                 sedangkan kolom tanpa tanda (*) merupakan kolom opsional yang
                 tidak wajib diisi.
               </p>
 
-              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                Identitas Lembaga
-              </h4>
-
               <Separator className="mt-5" />
 
-              <Form {...identitasForm}>
+              <Form {...dataSantriForm}>
                 <form
-                  onSubmit={identitasForm.handleSubmit(onSubmit)}
+                  onSubmit={dataSantriForm.handleSubmit(onSubmit)}
                   className="space-y-5 mt-5"
                 >
-                  <div className="grid grid-cols-2 gap-2">
-                    <FormField
-                      control={identitasForm.control}
-                      name="nspp"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>NSPP</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Masukkan NSPP" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <div></div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="nama_lembaga"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nama Lembaga</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Masukkan Nama Lembaga"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="satuan_pendidikan"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Satuan Pendidikan</FormLabel>
-                            <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Satuan Pendidikan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Satuan Pendidikan</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="program_pendidikan"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Program Pendidikan</FormLabel>
-                            <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Program Pendidikan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Program Pendidikan
-                                    </SelectLabel>
-                                    <SelectItem value="tpq">TPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="npwp"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>NPWP</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="number"
-                                placeholder="Masukkan NPWP"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="nomor_telepon"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nomor Telepon</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="number"
-                                placeholder="Masukkan Nomor Telepon"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="alamat_website"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Alamat Website</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Masukkan Alamat Website"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="Masukkan Email"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="tahun_berdiri_hijriah"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Tahun Berdiri Hijriah</FormLabel>
-                            <FormControl>
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "w-full justify-start text-left font-normal",
-                                      !tahunBerdiriHijriah &&
-                                        "text-muted-foreground"
-                                    )}
-                                  >
-                                    <CalendarIcon />
-                                    {tahunBerdiriHijriah ? (
-                                      format(tahunBerdiriHijriah, "PPP")
-                                    ) : (
-                                      <span>Pilih Tahun Berdiri Hijriah</span>
-                                    )}
-                                  </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                  <Calendar
-                                    mode="single"
-                                    selected={tahunBerdiriHijriah}
-                                    onSelect={setTahunBerdiriHijriah}
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="tahun_berdiri_masehi"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Tahun Berdiri Masehi</FormLabel>
-                            <FormControl>
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "w-full justify-start text-left font-normal",
-                                      !tahunBerdiriMasehi &&
-                                        "text-muted-foreground"
-                                    )}
-                                  >
-                                    <CalendarIcon />
-                                    {tahunBerdiriMasehi ? (
-                                      format(tahunBerdiriMasehi, "PPP")
-                                    ) : (
-                                      <span>Pilih Tahun Berdiri Masehi</span>
-                                    )}
-                                  </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                  <Calendar
-                                    mode="single"
-                                    selected={tahunBerdiriMasehi}
-                                    onSelect={setTahunBerdiriMasehi}
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Identitas Penyelenggara Lembaga
-                  </h4>
-
-                  <Separator className="mt-5" />
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="tipe_penyelenggara_lembaga"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Tipe Penyelenggara Lembaga</FormLabel>
-                            <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Tipe Penyelenggara Lembaga" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Tipe Penyelenggara Lembaga
-                                    </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="nama_penyelenggara_lembaga"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nama Penyelenggara Lembaga</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Nama Penyelenggara Lembaga"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <div className="flex w-32 gap-5">
                       <div>
-                        <FormField
-                          control={identitasForm.control}
-                          name="afilisasi_organisasi_keagamaan"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>
-                                Afilisasi Organisasi Keagamaan
-                              </FormLabel>
-                              <FormControl>
-                                <Select
-                                  {...field}
-                                  onValueChange={field.onChange}
-                                  defaultValue=""
-                                >
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Afilisasi Organisasi Keagamaan" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectLabel>
-                                        Afilisasi Organisasi Keagamaan
-                                      </SelectLabel>
-                                      <SelectItem value="lpq">LPQ</SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                        <div className="flex flex-col gap-5 justify-center items-center">
+                          <Image
+                            className="w-24 h-24 rounded-full"
+                            src="/user.png"
+                            alt="logo"
+                            width={1000}
+                            height={1000}
+                          />
+
+                          <Button
+                            variant="outline"
+                            className="cursor-pointer"
+                            onClick={() =>
+                              document.getElementById("file-input")?.click()
+                            }
+                          >
+                            Upload Foto
+                          </Button>
+                          <input
+                            id="file-input"
+                            type="file"
+                            multiple
+                            className="hidden"
+                            onChange={handleFileInputChange}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div></div>
-                  </div>
 
-                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Data Bank
-                  </h4>
+                    <div className="w-full flex flex-col gap-8 flex-1">
+                      <div className="grid grid-cols-1 gap-2">
+                        <div>
+                          <FormField
+                            control={dataSantriForm.control}
+                            name="nama_lengkap"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Nama Lengkap</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Masukkan Nama Lengkap"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
 
-                  <Separator className="mt-5" />
-
-                  <div className="grid grid-cols-2 gap-5">
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="nama_bank"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nama Bank</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Nama Bank"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <FormField
-                        control={identitasForm.control}
-                        name="nomor_rekening"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nomor Rekening</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="number"
-                                placeholder="Nomor Rekening"
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-5">
-                    <div>
-                      <div>
-                        <FormField
-                          control={identitasForm.control}
-                          name="rekening_atas_nama"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Rekening Atas Nama</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="text"
-                                  placeholder="Rekening Atas Nama"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                      <div className="grid grid-cols-1 gap-2">
+                        <div>
+                          <FormField
+                            control={dataSantriForm.control}
+                            name="nisn"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>NISN</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Masukkan NISN"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div></div>
                   </div>
                 </form>
               </Form>
@@ -739,7 +480,10 @@ export default function Profil() {
               </Button>
             </TabsContent>
 
-            <TabsContent value="lokasi" className="flex flex-col space-y-5">
+            <TabsContent
+              value="data_orang_tua"
+              className="flex flex-col space-y-5"
+            >
               <Form {...lokasiForm}>
                 <form
                   onSubmit={lokasiForm.handleSubmit(onSubmit)}
@@ -967,7 +711,7 @@ export default function Profil() {
               </Form>
             </TabsContent>
 
-            <TabsContent value="galeri_foto">
+            <TabsContent value="data_alamat">
               <Form {...galeriForm}>
                 <form
                   onSubmit={galeriForm.handleSubmit(onSubmit)}
@@ -1391,7 +1135,7 @@ export default function Profil() {
               </Form>
             </TabsContent>
 
-            <TabsContent value="dokumen_perijinan">
+            <TabsContent value="aktivitas_belajar">
               <Form {...dokumenPerijinanForm}>
                 <form onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}>
                   <p className="leading-7 rounded-md text-xs">
@@ -1410,7 +1154,7 @@ export default function Profil() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <FormField
-                          control={identitasForm.control}
+                          control={dataSantriForm.control}
                           name="nama_lembaga"
                           render={({ field }) => (
                             <FormItem>
