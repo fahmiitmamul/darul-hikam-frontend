@@ -109,7 +109,7 @@ export default function Kelulusan() {
         {/* Content */}
         <div className="p-6 w-full h-full">
           <Tabs defaultValue="belum_diproses" className="w-auto">
-            <TabsList className="grid w-full mb-20 md:mb-10 xl:mb-0 grid-cols-1 md:grid-cols-2">
+            <TabsList className="grid w-full mb-10 md:mb-10 xl:mb-0 grid-cols-1 md:grid-cols-2">
               <TabsTrigger className="cursor-pointer" value="belum_diproses">
                 Belum Diproses
               </TabsTrigger>
@@ -122,8 +122,8 @@ export default function Kelulusan() {
               value="belum_diproses"
               className="flex flex-col space-y-5"
             >
-              <div className="grid grid-cols-2 gap-5">
-                <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <Select defaultValue="">
                       <SelectTrigger className="w-full">
@@ -226,8 +226,8 @@ export default function Kelulusan() {
               value="sudah_diproses"
               className="flex flex-col space-y-5"
             >
-              <div className="grid grid-cols-2 gap-5">
-                <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <Select defaultValue="">
                       <SelectTrigger className="w-full">
