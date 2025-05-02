@@ -1512,417 +1512,920 @@ export default function DetailSantri() {
               </Form>
             </TabsContent>
 
-            <TabsContent value="data_alamat">
+            <TabsContent
+              value="data_alamat"
+              className="flex flex-col space-y-5"
+            >
               <Form {...galeriForm}>
                 <form
                   onSubmit={galeriForm.handleSubmit(onSubmit)}
-                  className="mt-5"
+                  className="space-y-5 mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Galeri Foto
+                    Tempat Tinggal Domisili
                   </h4>
 
-                  <Separator className="mt-5" />
+                  <Separator />
 
-                  <div className="pt-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {/* Foto Papan Nama */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoPapanNama"
-                          className="text-base font-medium"
-                        >
-                          Foto Papan Nama{" "}
-                          <span className="text-red-500">*</span>
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoPapanNama ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() => handleRemove(setFotoPapanNama)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={fotoPapanNama.url || "/placeholder.svg"}
-                                  alt="Foto Papan Nama"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoPapanNama"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoPapanNama"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoPapanNama,
-                                    "Papan_Nama"
-                                  )
-                                }
-                              />
-                            </label>
-                          )}
-                        </div>
-                        {fotoPapanNama && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">
-                              {fotoPapanNama.name}
-                            </span>
-                          </div>
+                  <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+                    Ayah Kandung
+                  </h4>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Tinggal di Luar Negeri
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="satuan_pendidikan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Status Kepemilikan Rumah</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Status Kepemilikan Rumah" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Status Kepemilikan Rumah
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
                         )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="provinsi"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Provinsi</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Provinsi" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Provinsi</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kabupaten_atau_kota"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kabupaten Atau Kota</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kabupaten Atau Kota" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Kabupaten Atau Kota
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kecamatan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kecamatan</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kecamatan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Kecamatan</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kelurahan_atau_desa"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kelurahan Atau Desa</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kelurahan Atau Desa" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Kelurahan Atau Desa
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-5">
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rt"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RT</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RT"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
                       </div>
-
-                      {/* Foto Gedung */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoGedung"
-                          className="text-base font-medium"
-                        >
-                          Foto Gedung (Tampak Depan){" "}
-                          <span className="text-red-500">*</span>
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoGedung ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() => handleRemove(setFotoGedung)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={fotoGedung.url || "/placeholder.svg"}
-                                  alt="Foto Gedung"
-                                  fill
-                                  className="object-contain"
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rw"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RW</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RW"
+                                  {...field}
                                 />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoGedung"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoGedung"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoGedung,
-                                    "Foto_Gedung"
-                                  )
-                                }
-                              />
-                            </label>
+                              </FormControl>
+                            </FormItem>
                           )}
-                        </div>
-                        {fotoGedung && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">{fotoGedung.name}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Foto Kelas */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoKelas"
-                          className="text-base font-medium"
-                        >
-                          Foto Kelas
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoKelas ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() => handleRemove(setFotoKelas)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={fotoKelas.url || "/placeholder.svg"}
-                                  alt="Foto Kelas"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoKelas"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoKelas"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoKelas,
-                                    "Foto_Kelas"
-                                  )
-                                }
-                              />
-                            </label>
-                          )}
-                        </div>
-                        {fotoKelas && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">{fotoKelas.name}</span>
-                          </div>
-                        )}
+                        />
                       </div>
                     </div>
+                  </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {/* Foto Halaman */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoHalaman"
-                          className="text-base font-medium"
-                        >
-                          Foto Halaman <span className="text-red-500">*</span>
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoHalaman ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() => handleRemove(setFotoHalaman)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={fotoHalaman.url || "/placeholder.svg"}
-                                  alt="Foto Papan Nama"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoHalaman"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoHalaman"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoHalaman,
-                                    "Foto_Halaman"
-                                  )
-                                }
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="rt"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Alamat</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Alamat"
+                                {...field}
                               />
-                            </label>
-                          )}
-                        </div>
-                        {fotoHalaman && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">{fotoHalaman.name}</span>
-                          </div>
+                            </FormControl>
+                          </FormItem>
                         )}
-                      </div>
+                      />
+                    </div>
+                  </div>
 
-                      {/* Foto Denah Lembaga */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoDenahLembaga"
-                          className="text-base font-medium"
-                        >
-                          Foto Denah Lembaga
-                          <span className="text-red-500">*</span>
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoDenahLembaga ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() =>
-                                    handleRemove(setFotoDenahLembaga)
-                                  }
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={
-                                    fotoDenahLembaga.url || "/placeholder.svg"
-                                  }
-                                  alt="Foto Denah Lembaga"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoDenahLembaga"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoDenahLembaga"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoDenahLembaga,
-                                    "Foto_Denah_Lembaga"
-                                  )
-                                }
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kode_pos"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kode POS</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Kode POS"
+                                {...field}
                               />
-                            </label>
-                          )}
-                        </div>
-                        {fotoDenahLembaga && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">
-                              {fotoDenahLembaga.name}
-                            </span>
-                          </div>
+                            </FormControl>
+                          </FormItem>
                         )}
-                      </div>
+                      />
+                    </div>
+                    <div></div>
+                  </div>
 
-                      {/* Foto Mushola / Masji */}
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="fotoMusholaAtauMasjid"
-                          className="text-base font-medium"
-                        >
-                          Foto Mushola / Masjid
-                        </Label>
-                        <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                          {fotoMusholaAtauMasjid ? (
-                            <>
-                              <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                                <Button
-                                  variant="secondary"
-                                  size="icon"
-                                  className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                                  onClick={() =>
-                                    handleRemove(setFotoMusholaAtauMasjid)
-                                  }
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={
-                                    fotoMusholaAtauMasjid.url ||
-                                    "/placeholder.svg"
-                                  }
-                                  alt="Foto Mushola Atau Masjid"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <label
-                              htmlFor="fotoMusholaAtauMasjid"
-                              className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                            >
-                              <ImagePlus className="h-10 w-10 text-gray-400" />
-                              <span className="mt-2 text-sm text-gray-500">
-                                Klik untuk upload
-                              </span>
-                              <input
-                                id="fotoMusholaAtauMasjid"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) =>
-                                  handleFileChange(
-                                    e,
-                                    setFotoMusholaAtauMasjid,
-                                    "Foto_Mushola_Atau_Masjid"
-                                  )
-                                }
-                              />
-                            </label>
-                          )}
-                        </div>
-                        {fotoMusholaAtauMasjid && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Upload className="h-4 w-4 mr-1" />
-                            <span className="truncate">
-                              {fotoMusholaAtauMasjid.name}
-                            </span>
-                          </div>
+                  <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+                    Ibu Kandung
+                  </h4>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Tinggal di Luar Negeri
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="satuan_pendidikan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Status Kepemilikan Rumah</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Status Kepemilikan Rumah" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Status Kepemilikan Rumah
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
                         )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="provinsi"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Provinsi</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Provinsi" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Provinsi</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kabupaten_atau_kota"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kabupaten Atau Kota</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kabupaten Atau Kota" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Kabupaten Atau Kota
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kecamatan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kecamatan</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kecamatan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Kecamatan</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kelurahan_atau_desa"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kelurahan Atau Desa</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kelurahan Atau Desa" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Kelurahan Atau Desa
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-5">
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rt"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RT</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RT"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
                       </div>
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rw"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RW</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RW"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="rt"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Alamat</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Alamat"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kode_pos"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kode POS</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Kode POS"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div></div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+                    Wali
+                  </h4>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="nama_wali"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nama Wali</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Nama Wali"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+                    Santri
+                  </h4>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="status_mukim"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Status Mukim</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Status Mukim" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Status Mukim</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="status_tempat_tinggal"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Status Tempat Tinggal</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="Status Tempat Tinggal"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="provinsi"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Provinsi</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Provinsi" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Provinsi</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="kabupaten_atau_kota"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Kabupaten Atau Kota</FormLabel>
+                              <FormControl>
+                                <Select
+                                  {...field}
+                                  onValueChange={field.onChange}
+                                  defaultValue=""
+                                >
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Kabupaten Atau Kota" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectLabel>
+                                        Kabupaten Atau Kota
+                                      </SelectLabel>
+                                      <SelectItem value="lpq">LPQ</SelectItem>
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kecamatan"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kecamatan</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Kecamatan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Kecamatan</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="kelurahan"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Kelurahan/Desa</FormLabel>
+                              <FormControl>
+                                <Select
+                                  {...field}
+                                  onValueChange={field.onChange}
+                                  defaultValue=""
+                                >
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Kelurahan/Desa" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectLabel>Kelurahan/Desa</SelectLabel>
+                                      <SelectItem value="lpq">LPQ</SelectItem>
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-2 gap-5">
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rt"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RT</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RT"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <FormField
+                          control={galeriForm.control}
+                          name="rw"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>RW</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="RW"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="alamat"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Alamat</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Alamat"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="kode_pos"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Kode POS</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Kode POS"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="transportasi_ke_lembaga"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Transportasi Ke Lembaga</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Transportasi Ke Lembaga" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Transportasi Ke Lembaga
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="jarak_tempuh_ke_lembaga"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Jarak Tempuh ke Lembaga</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Jarak Tempuh ke Lembaga" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>
+                                      Jarak Tempuh ke Lembaga
+                                    </SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="waktu_tempuh"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Waktu Tempuh</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Waktu Tempuh" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Waktu Tempuh</SelectLabel>
+                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5">
+                    <div>
+                      <FormField
+                        control={galeriForm.control}
+                        name="koordinat"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Koordinat</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="text"
+                                placeholder="Koordinat"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
                     </div>
                   </div>
 
@@ -1936,9 +2439,12 @@ export default function DetailSantri() {
               </Form>
             </TabsContent>
 
-            <TabsContent value="aktivitas_belajar">
+            <TabsContent value="aktivitas_belajar" className="space-y-5 mt-5">
               <Form {...dokumenPerijinanForm}>
-                <form onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}>
+                <form
+                  onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}
+                  className="space-y-5 mt-5"
+                >
                   <p className="leading-7 rounded-md text-xs">
                     Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
                     sedangkan kolom tanpa tanda (*) merupakan kolom opsional
