@@ -38,7 +38,6 @@ export function LoginForm({ className, ...props }) {
 
   const onSubmit = async (data) => {
     const res = await signIn("credentials", {
-      redirect: false,
       username: data.email,
       password: data.password,
       callbackUrl: "/",
