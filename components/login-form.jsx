@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import {
@@ -16,11 +15,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 export function LoginForm({ className, ...props }) {
-  const router = useRouter();
-
   const schemaLogin = z.object({
     email: z
       .string({ message: "Masukkan Email" })
