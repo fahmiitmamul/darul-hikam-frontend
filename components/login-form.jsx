@@ -41,6 +41,7 @@ export function LoginForm({ className, ...props }) {
       redirect: false,
       username: data.email,
       password: data.password,
+      callbackUrl: "/",
     });
 
     if (res?.error) {
@@ -51,10 +52,6 @@ export function LoginForm({ className, ...props }) {
       toast("Login berhasil", {
         description: "Anda akan diarahkan ke halaman utama",
       });
-
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
     }
   };
 
