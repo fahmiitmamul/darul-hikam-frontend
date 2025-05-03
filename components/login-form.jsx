@@ -38,19 +38,26 @@ export function LoginForm({ className, ...props }) {
 
   const onSubmit = async (data) => {
     const res = await signIn("credentials", {
+      redirect: false,
       username: data.email,
       password: data.password,
       callbackUrl: "/",
     });
 
+    console.log(res);
+
     if (res?.error) {
       toast("Login gagal", {
         description: "Silahkan cek username atau password anda",
       });
-    } else {
+    } else if (res?.ok) {
       toast("Login berhasil", {
         description: "Anda akan diarahkan ke halaman utama",
       });
+
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     }
   };
 
