@@ -15,8 +15,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm({ className, ...props }) {
+  const [loading, setLoading] = useState(false);
   const schemaLogin = z.object({
     email: z
       .string({ message: "Masukkan Email" })
@@ -33,11 +36,13 @@ export function LoginForm({ className, ...props }) {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     await signIn("credentials", {
       username: data.email,
       password: data.password,
       callbackUrl: "/",
     });
+    setLoading(false);
   };
 
   return (
@@ -98,7 +103,14 @@ export function LoginForm({ className, ...props }) {
                 )}
               />
             </div>
-            <Button className="w-full cursor-pointer">Login</Button>
+            {loading ? (
+              <Button disabled className="w-full cursor-pointer">
+                <Loader2 className="animate-spin" />
+                Mohon tunggu
+              </Button>
+            ) : (
+              <Button className="w-full cursor-pointer">Login</Button>
+            )}
           </form>
         </Form>
       </div>
