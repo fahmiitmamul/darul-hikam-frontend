@@ -12,10 +12,14 @@ export const authOptions = {
       async authorize(credentials) {
         // Ganti dengan validasi user dari database
         if (
-          credentials?.username === "admin" &&
-          credentials?.password === "1234"
+          credentials?.username === "agusabdulaziz@gmail.com" &&
+          credentials?.password === "aksesadmin"
         ) {
-          return { id: "1", name: "Admin", email: "admin@example.com" };
+          return {
+            id: "1",
+            name: "Agus Abdul Aziz",
+            email: "agusabdulaziz@gmail.com",
+          };
         }
         return null;
       },

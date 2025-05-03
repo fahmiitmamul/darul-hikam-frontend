@@ -2,12 +2,9 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { toast } from "sonner";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -19,25 +16,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export function LoginForm({ className, ...props }) {
   const router = useRouter();
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await signIn("credentials", {
-      redirect: false,
-      username: e.target.username.value,
-      password: e.target.password.value,
-    });
-
-    if (res?.error) {
-      setError("Login gagal");
-    } else {
-      router.push("/dashboard");
-    }
-  };
 
   const schemaLogin = z.object({
     email: z
@@ -54,8 +36,20 @@ export function LoginForm({ className, ...props }) {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
+  const onSubmit = async (data) => {
+    const res = await signIn("credentials", {
+      redirect: false,
+      username: data.email,
+      password: data.password,
+    });
+
+    if (res?.error) {
+      toast("Login gagal", {
+        description: "Silahkan cek username atau password anda",
+      });
+    } else {
+      router.push("/");
+    }
   };
 
   return (
