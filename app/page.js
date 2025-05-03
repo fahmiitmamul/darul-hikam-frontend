@@ -12,20 +12,9 @@ import { Info } from "lucide-react";
 import { Volume2 } from "lucide-react";
 import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const router = useRouter();
-
-  useEffect(() => {
-    let isAuthenticated = false;
-
-    if (!isAuthenticated) {
-      router.push("/login");
-    }
-  }, []);
-
   return (
     <Sidebar>
       <div className="flex flex-col w-full">

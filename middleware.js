@@ -7,5 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/dashboard"],
+  matcher: ["/(santri|kelembaagaan|ustadz|buku-pelajaran)/:path*"],
 };
