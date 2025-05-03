@@ -12,8 +12,11 @@ import { Info } from "lucide-react";
 import { Volume2 } from "lucide-react";
 import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function Page() {
+  const { data } = useSession();
+
   return (
     <Sidebar>
       <div className="flex flex-col w-full">
@@ -34,7 +37,7 @@ export default function Page() {
                 </CardTitle>
                 <CardDescription>
                   <h1 className="uppercase font-bold text-xl tracking-light">
-                    Itmamul Fahmi
+                    {data?.user?.name}
                   </h1>
                 </CardDescription>
               </CardHeader>

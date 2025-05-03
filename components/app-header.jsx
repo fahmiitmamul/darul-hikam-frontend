@@ -17,14 +17,12 @@ import {
 import { User2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { DynamicBreadcrumb } from "./dynamic-breadcrumbs";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function AppHeader() {
   const { setTheme, theme } = useTheme();
 
-  const router = useRouter();
+  const { data } = useSession();
 
   const [mounted, setMounted] = useState(false);
 
@@ -70,7 +68,7 @@ export default function AppHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="cursor-pointer">
-                  <span className="hidden md:inline">Itmamul Fahmi</span>
+                  <span className="hidden md:inline">{data?.user?.name}</span>
                   <User2 className="md:ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -96,10 +94,7 @@ export default function AppHeader() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    toast("Logout Berhasil", {
-                      description: "Anda akan diarahkan ke halaman login",
-                    });
-                    signOut({ callbackUrl: "/login" });
+                    signOut();
                   }}
                 >
                   Log out
