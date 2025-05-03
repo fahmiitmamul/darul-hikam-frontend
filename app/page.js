@@ -12,7 +12,6 @@ import { Info } from "lucide-react";
 import { Volume2 } from "lucide-react";
 import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   return (

@@ -7,5 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/(santri|kelembaagaan|ustadz|buku-pelajaran)/:path*"],
+  matcher: ["/", "/(santri|kelembaagaan|ustadz|buku-pelajaran)/:path*"],
 };
