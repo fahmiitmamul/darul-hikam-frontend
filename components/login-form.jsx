@@ -49,6 +49,9 @@ export function LoginForm({ className, ...props }) {
       });
     } else {
       router.push("/");
+      toast("Login berhasil", {
+        description: "Anda akan diarahkan ke halaman utama",
+      });
     }
   };
 
