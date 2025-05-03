@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import { DynamicBreadcrumb } from "./dynamic-breadcrumbs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { signOut } from "next-auth/react";
 
 export default function AppHeader() {
   const { setTheme, theme } = useTheme();
@@ -98,9 +99,7 @@ export default function AppHeader() {
                     toast("Logout Berhasil", {
                       description: "Anda akan diarahkan ke halaman login",
                     });
-                    setTimeout(() => {
-                      router.push("/login");
-                    }, 1000);
+                    signOut({ callbackUrl: "/login" });
                   }}
                 >
                   Log out
