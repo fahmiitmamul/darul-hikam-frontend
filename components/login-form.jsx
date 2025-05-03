@@ -48,10 +48,13 @@ export function LoginForm({ className, ...props }) {
         description: "Silahkan cek username atau password anda",
       });
     } else {
-      router.push("/");
       toast("Login berhasil", {
         description: "Anda akan diarahkan ke halaman utama",
       });
+
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     }
   };
 
