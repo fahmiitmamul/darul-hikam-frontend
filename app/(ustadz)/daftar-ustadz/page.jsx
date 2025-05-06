@@ -46,6 +46,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DaftarUstadz() {
   const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
@@ -54,6 +55,8 @@ export default function DaftarUstadz() {
     openDialogHapusMudirAtauPimpinan,
     setOpenDialogHapusMudirAtauPimpinan,
   ] = useState(false);
+
+  const router = useRouter();
 
   const tableData = [
     {
@@ -352,7 +355,12 @@ export default function DaftarUstadz() {
             </h3>
 
             <div>
-              <Button className="uppercase cursor-pointer">
+              <Button
+                onClick={() => {
+                  router.push("/ustadz-baru");
+                }}
+                className="uppercase cursor-pointer"
+              >
                 <Plus />
                 Tambah
               </Button>
