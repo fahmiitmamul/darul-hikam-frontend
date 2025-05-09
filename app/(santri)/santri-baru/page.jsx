@@ -262,7 +262,27 @@ export default function SantriBaru() {
                             <SelectContent>
                               <SelectGroup>
                                 <SelectLabel>Tingkat Kelas</SelectLabel>
-                                <SelectItem value="lpq">LPQ</SelectItem>
+                                <SelectItem value="1">1</SelectItem>
+                                <SelectItem value="2">2</SelectItem>
+                                <SelectItem value="3">3</SelectItem>
+                                <SelectItem value="4">4</SelectItem>
+                                <SelectItem value="5">5</SelectItem>
+                                <SelectItem value="6">6</SelectItem>
+                                <SelectItem value="7">7</SelectItem>
+                                <SelectItem value="8">8</SelectItem>
+                                <SelectItem value="9">9</SelectItem>
+                                <SelectItem value="10">10</SelectItem>
+                                <SelectItem value="11">11</SelectItem>
+                                <SelectItem value="12">12</SelectItem>
+                                <SelectItem value="kelompok_a">
+                                  Kelompok A
+                                </SelectItem>
+                                <SelectItem value="kelompok_b">
+                                  Kelompok B
+                                </SelectItem>
+                                <SelectItem value="tidak_kelompok">
+                                  Tidak Kelompok
+                                </SelectItem>
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -319,6 +339,7 @@ export default function SantriBaru() {
                               <SelectGroup>
                                 <SelectLabel>Kewarganegaraan</SelectLabel>
                                 <SelectItem value="wni">WNI</SelectItem>
+                                <SelectItem value="wna">WNA</SelectItem>
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -602,6 +623,12 @@ export default function SantriBaru() {
                               <SelectItem value="masih_hidup">
                                 Masih Hidup
                               </SelectItem>
+                              <SelectItem value="sudah_meninggal">
+                                Sudah Meninggal
+                              </SelectItem>
+                              <SelectItem value="tidak_diketahui">
+                                Tidak Diketahui
+                              </SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -659,6 +686,47 @@ export default function SantriBaru() {
                               <SelectItem value="masih_hidup">
                                 Masih Hidup
                               </SelectItem>
+                              <SelectItem value="sudah_meninggal">
+                                Sudah Meninggal
+                              </SelectItem>
+                              <SelectItem value="tidak_diketahui">
+                                Tidak Diketahui
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div>
+                <FormField
+                  control={identitasForm.control}
+                  name="wali"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Wali</FormLabel>
+                      <FormControl>
+                        <Select
+                          {...field}
+                          onValueChange={field.onChange}
+                          defaultValue=""
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Status</SelectLabel>
+                              <SelectItem value="sama_dengan_ayah_kandung">
+                                Sama dengan ayah kandung
+                              </SelectItem>
+                              <SelectItem value="sama_dengan_ibu_kandung">
+                                Sama dengan ibu kandung
+                              </SelectItem>
+                              <SelectItem value="lainnya">Lainnya</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
