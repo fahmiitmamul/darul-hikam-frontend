@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -36,20 +37,6 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table";
-import ModalTambahSkDanPerizinan from "@/components/(kelembagaan)/profil/modal-tambah-sk-dan-perizinan/page";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -57,6 +44,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const defaultData = [
   {
@@ -161,51 +151,8 @@ const defaultColumns = [
 export default function SantriBaru() {
   const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
-  const [data] = React.useState(() => [...defaultData]);
-  const [columns] = React.useState(() => [...defaultColumns]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  const handleFileChange = (e, setImage, prefix) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const fileName = `UPLOAD_FOTO_LEMBAGA_${prefix}_${Date.now()}.jpg`;
-      setImage({ url, name: fileName });
-    }
-  };
-
-  const handleRemove = (setImage) => {
-    setImage(null);
-  };
 
   const schemaIdentitas = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
-
-  const schemaLokasi = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
-
-  const schemaDokumenPerijinan = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
     nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
     satuan_pendidikan: z.string({
@@ -220,27 +167,6 @@ export default function SantriBaru() {
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
       nspp: "",
-    },
-  });
-
-  const lokasiForm = useForm({
-    resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
-  });
-
-  const galeriForm = useForm({
-    resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
-  });
-
-  const dokumenPerijinanForm = useForm({
-    resolver: zodResolver(schemaDokumenPerijinan),
-    defaultValues: {
-      alamat_lengkap: "",
     },
   });
 
@@ -276,191 +202,13 @@ export default function SantriBaru() {
               className="space-y-5 mt-5"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <FormField
-                  control={identitasForm.control}
-                  name="nspp"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>NSPP</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Masukkan NSPP" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div></div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="nama_lembaga"
+                    name="tanggal_masuk"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nama Lembaga</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Masukkan Nama Lembaga"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="satuan_pendidikan"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Satuan Pendidikan</FormLabel>
-                        <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Satuan Pendidikan" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Satuan Pendidikan</SelectLabel>
-                                <SelectItem value="lpq">LPQ</SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="program_pendidikan"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Program Pendidikan</FormLabel>
-                        <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Program Pendidikan" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Program Pendidikan</SelectLabel>
-                                <SelectItem value="tpq">TPQ</SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="npwp"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>NPWP</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            placeholder="Masukkan NPWP"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="nomor_telepon"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nomor Telepon</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            placeholder="Masukkan Nomor Telepon"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="alamat_website"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Alamat Website</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Masukkan Alamat Website"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="Masukkan Email"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="tahun_berdiri_hijriah"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Tahun Berdiri Hijriah</FormLabel>
+                        <FormLabel>Tanggal Masuk</FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -476,7 +224,7 @@ export default function SantriBaru() {
                                 {tahunBerdiriHijriah ? (
                                   format(tahunBerdiriHijriah, "PPP")
                                 ) : (
-                                  <span>Pilih Tahun Berdiri Hijriah</span>
+                                  <span>Pilih Tanggal Masuk</span>
                                 )}
                               </Button>
                             </PopoverTrigger>
@@ -498,58 +246,10 @@ export default function SantriBaru() {
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="tahun_berdiri_masehi"
+                    name="tingkat_kelas"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Tahun Berdiri Masehi</FormLabel>
-                        <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriMasehi && "text-muted-foreground"
-                                )}
-                              >
-                                <CalendarIcon />
-                                {tahunBerdiriMasehi ? (
-                                  format(tahunBerdiriMasehi, "PPP")
-                                ) : (
-                                  <span>Pilih Tahun Berdiri Masehi</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={tahunBerdiriMasehi}
-                                onSelect={setTahunBerdiriMasehi}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                Identitas Penyelenggara Lembaga
-              </h4>
-
-              <Separator className="mt-5" />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="tipe_penyelenggara_lembaga"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Tipe Penyelenggara Lembaga</FormLabel>
+                        <FormLabel>Tingkat Kelas</FormLabel>
                         <FormControl>
                           <Select
                             {...field}
@@ -557,13 +257,11 @@ export default function SantriBaru() {
                             defaultValue=""
                           >
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Tipe Penyelenggara Lembaga" />
+                              <SelectValue placeholder="Tingkat Kelas" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                <SelectLabel>
-                                  Tipe Penyelenggara Lembaga
-                                </SelectLabel>
+                                <SelectLabel>Tingkat Kelas</SelectLabel>
                                 <SelectItem value="lpq">LPQ</SelectItem>
                               </SelectGroup>
                             </SelectContent>
@@ -573,21 +271,27 @@ export default function SantriBaru() {
                     )}
                   />
                 </div>
+              </div>
 
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Keterangan Calon Santri
+              </h4>
+
+              <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="nama_penyelenggara_lembaga"
+                    name="nama_lengkap"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nama Penyelenggara Lembaga</FormLabel>
+                        <FormLabel>Nama Lengkap</FormLabel>
                         <FormControl>
                           <Input
-                            type="text"
-                            placeholder="Nama Penyelenggara Lembaga"
+                            placeholder="Masukkan Nama Lengkap"
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -596,77 +300,274 @@ export default function SantriBaru() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                  <div>
-                    <FormField
-                      control={identitasForm.control}
-                      name="afilisasi_organisasi_keagamaan"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Afilisasi Organisasi Keagamaan</FormLabel>
-                          <FormControl>
-                            <Select
-                              {...field}
-                              onValueChange={field.onChange}
-                              defaultValue=""
-                            >
-                              <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Afilisasi Organisasi Keagamaan" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectGroup>
-                                  <SelectLabel>
-                                    Afilisasi Organisasi Keagamaan
-                                  </SelectLabel>
-                                  <SelectItem value="lpq">LPQ</SelectItem>
-                                </SelectGroup>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="kewarganegaraan"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Kewarganegaraan</FormLabel>
+                        <FormControl>
+                          <Select
+                            {...field}
+                            onValueChange={field.onChange}
+                            defaultValue=""
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Kewarganegaraan" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Kewarganegaraan</SelectLabel>
+                                <SelectItem value="wni">WNI</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                 </div>
+
                 <div></div>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="nik"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>NIK</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Masukkan NIK" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="nik" />
+                    <label
+                      htmlFor="nik"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Belum punya NIK
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="nisn"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>NISN</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Masukkan NISN" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="nisn" />
+                    <label
+                      htmlFor="nisn"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Belum punya NISN
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                Data Bank
+                Jenis Kelamin
+              </h4>
+
+              <div className="grid grid-cols-1 gap-2">
+                <RadioGroup defaultValue="comfortable">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="laki_laki" id="r1" />
+                        <Label htmlFor="r1">Laki-laki</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="perempuan" id="r2" />
+                        <Label htmlFor="r2">Perempuan</Label>
+                      </div>
+                    </div>
+
+                    <div></div>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="tempat_lahir"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tempat Lahir</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Masukkan Tempat Lahir"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="tanggal_lahir"
+                    render={({ field }) => (
+                      <div>
+                        <FormField
+                          control={identitasForm.control}
+                          name="tanggal_lahir"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tanggal Lahir</FormLabel>
+                              <FormControl>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={"outline"}
+                                      className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !tahunBerdiriHijriah &&
+                                          "text-muted-foreground"
+                                      )}
+                                    >
+                                      <CalendarIcon />
+                                      {tahunBerdiriHijriah ? (
+                                        format(tahunBerdiriHijriah, "PPP")
+                                      ) : (
+                                        <span>Pilih Tanggal Lahir</span>
+                                      )}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                      mode="single"
+                                      selected={tahunBerdiriHijriah}
+                                      onSelect={setTahunBerdiriHijriah}
+                                      initialFocus
+                                    />
+                                  </PopoverContent>
+                                </Popover>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    )}
+                  />
+                </div>
+
+                <div></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="agama"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Agama</FormLabel>
+                        <FormControl>
+                          <Select
+                            {...field}
+                            onValueChange={field.onChange}
+                            defaultValue=""
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Agama" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Agama</SelectLabel>
+                                <SelectItem value="islam">Islam</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="no_handphone" />
+                  <label
+                    htmlFor="no_handphone"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Tidak memiliki nomor handphone
+                  </label>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-2">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="no_handphone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>No Handphone</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Masukkan No Handphone"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>Contoh : 08123456789</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Keterangan Orang Tua Santri
               </h4>
 
               <Separator className="mt-5" />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 gap-5">
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="nama_bank"
+                    name="nama_lengkap"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nama Bank</FormLabel>
+                        <FormLabel>Ayah Kandung</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
-                            placeholder="Nama Bank"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div>
-                  <FormField
-                    control={identitasForm.control}
-                    name="nomor_rekening"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nomor Rekening</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            placeholder="Nomor Rekening"
+                            placeholder="Nama Lengkap"
                             {...field}
                           />
                         </FormControl>
@@ -676,28 +577,95 @@ export default function SantriBaru() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Status
+              </h4>
+
+              <div>
+                <FormField
+                  control={identitasForm.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Select
+                          {...field}
+                          onValueChange={field.onChange}
+                          defaultValue=""
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Status</SelectLabel>
+                              <SelectItem value="masih_hidup">
+                                Masih Hidup
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <Separator className="mt-5" />
+
+              <div className="grid grid-cols-1 gap-5">
                 <div>
-                  <div>
-                    <FormField
-                      control={identitasForm.control}
-                      name="rekening_atas_nama"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Rekening Atas Nama</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="text"
-                              placeholder="Rekening Atas Nama"
-                              {...field}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="ibu_kandung"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ibu Kandung</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Nama Lengkap"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div></div>
+              </div>
+
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Status
+              </h4>
+
+              <div>
+                <FormField
+                  control={identitasForm.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Select
+                          {...field}
+                          onValueChange={field.onChange}
+                          defaultValue=""
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Status</SelectLabel>
+                              <SelectItem value="masih_hidup">
+                                Masih Hidup
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
             </form>
           </Form>
