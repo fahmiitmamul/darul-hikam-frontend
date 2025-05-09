@@ -400,7 +400,7 @@ export default function DaftarSantri() {
               <Button
                 className="uppercase cursor-pointer"
                 onClick={() => {
-                  router.push("/detail-santri");
+                  router.push("/santri-baru");
                 }}
               >
                 <Plus />

@@ -1,7 +1,6 @@
 "use client";
 import Sidebar from "@/components/sidebar-wrapper";
 import AppHeader from "@/components/app-header";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -34,8 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import {
@@ -161,17 +158,9 @@ const defaultColumns = [
   },
 ];
 
-export default function UstadzBaru() {
+export default function SantriBaru() {
   const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
-  const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
-  const [fotoPapanNama, setFotoPapanNama] = useState(null);
-  const [fotoGedung, setFotoGedung] = useState(null);
-  const [fotoKelas, setFotoKelas] = useState(null);
-  const [fotoHalaman, setFotoHalaman] = useState(null);
-  const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
-  const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
-
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
 
@@ -269,15 +258,15 @@ export default function UstadzBaru() {
 
         {/* Content */}
         <div className="p-6 w-full h-full">
+          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+            Formulir Santri Baru
+          </h4>
+
           <p className="leading-7 rounded-md text-xs">
             Kolom dengan tanda (*) merupakan kolom yang wajib diisi, sedangkan
             kolom tanpa tanda (*) merupakan kolom opsional yang tidak wajib
             diisi.
           </p>
-
-          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            Identitas Lembaga
-          </h4>
 
           <Separator className="mt-5" />
 
