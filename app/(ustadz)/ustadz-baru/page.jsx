@@ -1,7 +1,6 @@
 "use client";
 import Sidebar from "@/components/sidebar-wrapper";
 import AppHeader from "@/components/app-header";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -34,24 +33,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table";
-import ModalTambahSkDanPerizinan from "@/components/(kelembagaan)/profil/modal-tambah-sk-dan-perizinan/page";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,162 +44,11 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
 
-const defaultData = [
-  {
-    no: "1",
-    no_sk_iuop: "983457345",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-12-2023",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SK/SD/2001/2022",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "2",
-    no_sk_iuop: "987654678",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-05-2000",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SD/SD/2002/2005",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-];
-
-const defaultColumns = [
-  {
-    accessorKey: "no",
-    header: "No",
-  },
-  {
-    accessorKey: "no_sk_iuop",
-    header: "No SK IUOP",
-  },
-  {
-    accessorKey: "tanggal_sk_iuop",
-    header: "Tanggal SK IUOP",
-  },
-  {
-    accessorKey: "berlaku_sampai",
-    header: "Berlaku Sampai",
-  },
-  {
-    accessorKey: "instansi_penerbit_iuop",
-    header: "Instansi Penerbit IUOP",
-  },
-  {
-    accessorKey: "file_sk_ioup",
-    header: "File SK IUOP",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
-        Lihat Dokumen
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "file_piagam_sk_iuop",
-    header: "File Piagam SK IUOP",
-    cell: ({ row }) => (
-      <Button
-        onClick={() => alert("Belum Diupload")}
-        className="cursor-pointer"
-      >
-        Belum Diupload
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "Aksi",
-    header: "Aksi",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem className="cursor-pointer">
-            <Eye />
-            View
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Pencil />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-500 cursor-pointer">
-            <Trash />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
-
 export default function UstadzBaru() {
   const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
-  const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
-  const [fotoPapanNama, setFotoPapanNama] = useState(null);
-  const [fotoGedung, setFotoGedung] = useState(null);
-  const [fotoKelas, setFotoKelas] = useState(null);
-  const [fotoHalaman, setFotoHalaman] = useState(null);
-  const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
-  const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
-
-  const [data] = React.useState(() => [...defaultData]);
-  const [columns] = React.useState(() => [...defaultColumns]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  const handleFileChange = (e, setImage, prefix) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const fileName = `UPLOAD_FOTO_LEMBAGA_${prefix}_${Date.now()}.jpg`;
-      setImage({ url, name: fileName });
-    }
-  };
-
-  const handleRemove = (setImage) => {
-    setImage(null);
-  };
 
   const schemaIdentitas = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
-
-  const schemaLokasi = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
-
-  const schemaDokumenPerijinan = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
     nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
     satuan_pendidikan: z.string({
@@ -231,27 +63,6 @@ export default function UstadzBaru() {
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
       nspp: "",
-    },
-  });
-
-  const lokasiForm = useForm({
-    resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
-  });
-
-  const galeriForm = useForm({
-    resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
-  });
-
-  const dokumenPerijinanForm = useForm({
-    resolver: zodResolver(schemaDokumenPerijinan),
-    defaultValues: {
-      alamat_lengkap: "",
     },
   });
 
@@ -276,7 +87,7 @@ export default function UstadzBaru() {
           </p>
 
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            Identitas Lembaga
+            Data Diri
           </h4>
 
           <Separator className="mt-5" />
