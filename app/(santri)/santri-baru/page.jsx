@@ -149,7 +149,6 @@ const defaultColumns = [
 ];
 
 export default function SantriBaru() {
-  const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
 
   const schemaIdentitas = z.object({
