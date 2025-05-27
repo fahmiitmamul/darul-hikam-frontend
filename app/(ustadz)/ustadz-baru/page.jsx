@@ -873,6 +873,31 @@ export default function UstadzBaru() {
                   />
                 </div>
               </div>
+
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Informasi Keluarga
+              </h4>
+
+              <div className="grid grid-cols-1 gap-5">
+                <div>
+                  <FormField
+                    control={identitasForm.control}
+                    name="nama_ibu_kandung"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nama Ibu Kandung</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Nama Ibu Kandung"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </form>
           </Form>
 
