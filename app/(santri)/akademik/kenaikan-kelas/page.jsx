@@ -2,9 +2,7 @@
 import Sidebar from "@/components/sidebar-wrapper";
 import AppHeader from "@/components/app-header";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -40,17 +38,17 @@ const defaultData = [
     pilih: "1",
     nama_lengkap: "Itmamul Fahmi",
     ttl: "31-12-2022",
-    status: "31-12-2023",
-    keterangan: "Ini adalah keterangan",
-    aksi: "Aksi",
+    tingkat_rombel: "31-12-2023",
+    status: "Aktif",
+    keterangan: "Naik dari kelas sebelumnya",
   },
   {
     pilih: "2",
     nama_lengkap: "Itmamul Fahmi",
     ttl: "31-12-2022",
-    status: "31-05-2000",
-    keterangan: "Ini adalah keterangan",
-    aksi: "Aksi",
+    tingkat_rombel: "31-05-2000",
+    status: "Aktif",
+    keterangan: "Naik dari kelas sebelumnya",
   },
 ];
 
@@ -66,6 +64,10 @@ const defaultColumns = [
   {
     accessorKey: "ttl",
     header: "Tempat / Tanggal Lahir",
+  },
+  {
+    accessorKey: "tingkat_rombel",
+    header: "Tingkat Rombel",
   },
   {
     accessorKey: "status",
