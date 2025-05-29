@@ -36,6 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import RoundedUploadButton from "@/components/profile-photo-uploader";
 
 export default function UstadzBaru() {
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
@@ -81,6 +82,8 @@ export default function UstadzBaru() {
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
             Data Diri
           </h4>
+
+          <RoundedUploadButton />
 
           <Separator className="mt-5" />
 
