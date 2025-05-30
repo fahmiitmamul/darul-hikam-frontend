@@ -37,9 +37,13 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import RoundedUploadButton from "@/components/profile-photo-uploader";
+import { PdfUploader } from "@/components/pdf-uploader";
+import { ImagePlus } from "lucide-react";
+import { CloudUpload } from "lucide-react";
 
 export default function UstadzBaru() {
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
+  const [uploadFotoSk, setUploadFotoSk] = useState(null);
 
   const schemaIdentitas = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -1259,30 +1263,169 @@ export default function UstadzBaru() {
                       <FormItem>
                         <FormLabel>Tanggal SK</FormLabel>
                         <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Tanggal SK" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Tanggal SK</SelectLabel>
-                                <SelectItem value="ustadz">Ustadz</SelectItem>
-                                <SelectItem value="dosen">Dosen</SelectItem>
-                                <SelectItem value="non_dosen">
-                                  Non Dosen
-                                </SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full justify-start text-left font-normal",
+                                  !tahunBerdiriHijriah &&
+                                    "text-muted-foreground"
+                                )}
+                              >
+                                <CalendarIcon />
+                                {tahunBerdiriHijriah ? (
+                                  format(tahunBerdiriHijriah, "PPP")
+                                ) : (
+                                  <span>Tanggal SK</span>
+                                )}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={tahunBerdiriHijriah}
+                                onSelect={setTahunBerdiriHijriah}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
                         </FormControl>
                       </FormItem>
                     )}
                   />
                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  <div>
+                    <FormField
+                      control={identitasForm.control}
+                      name="jenis_sk"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Jenis SK</FormLabel>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue=""
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Jenis SK" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Jenis SK</SelectLabel>
+                                  <SelectItem value="sk_cpns">
+                                    SK CPNS
+                                  </SelectItem>
+                                  <SelectItem value="sk_kenaikan_pangkat_pns_reguler">
+                                    SK Kenaikan Pangkat PNS (Reguler)
+                                  </SelectItem>
+                                  <SelectItem value="sk_kenaikan_pangkat_pns_pilihan">
+                                    SK Kenaikan Pangkat PNS (Pilihan)
+                                  </SelectItem>
+                                  <SelectItem value="sk_non_pns">
+                                    SK Non PNS
+                                  </SelectItem>
+                                  <SelectItem value="sk_yayasan">
+                                    SK Yayasan
+                                  </SelectItem>
+                                  <SelectItem value="sk_pppk">
+                                    SK PPPK
+                                  </SelectItem>
+                                  <SelectItem value="sk_pensiun">
+                                    SK Pensiun
+                                  </SelectItem>
+                                  <SelectItem value="sk_ptk">SK PTK</SelectItem>
+                                  <SelectItem value="sk_pengangkatan_pns">
+                                    SK Pengangkatan PNS
+                                  </SelectItem>
+                                  <SelectItem value="sk_pengangkatan_pppk">
+                                    SK Pengangkatan PPPK
+                                  </SelectItem>
+                                  <SelectItem value="sk_pengangkatan">
+                                    SK Pengangkatan
+                                  </SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+                <div></div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  {" "}
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="uploadFotoSk"
+                      className="text-base font-medium"
+                    >
+                      Foto Papan Nama <span className="text-red-500">*</span>
+                    </Label>
+                    <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
+                      {uploadFotoSk ? (
+                        <>
+                          <div className="absolute top-2 right-2 z-10 flex space-x-1">
+                            <Button
+                              variant="secondary"
+                              size="icon"
+                              className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
+                              onClick={() => handleRemove(setUploadFotoSk)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={uploadFotoSk.url || "/placeholder.svg"}
+                              alt="Foto Papan Nama"
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <label
+                          htmlFor="uploadFotoSk"
+                          className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                        >
+                          <CloudUpload className="h-10 w-10 text-gray-400" />
+                          <span className="mt-2 text-sm text-gray-500">
+                            Upload File SK
+                          </span>
+                          <span className="mt-2 text-sm text-gray-500">
+                            maks. 2MB bertipe Pdf jpg png
+                          </span>
+                          <input
+                            id="uploadFotoSk"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) =>
+                              handleFileChange(e, setUploadFotoSk, "Papan_Nama")
+                            }
+                          />
+                        </label>
+                      )}
+                    </div>
+                    {uploadFotoSk && (
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Upload className="h-4 w-4 mr-1" />
+                        <span className="truncate">{uploadFotoSk.name}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div></div>
               </div>
             </form>
           </Form>
