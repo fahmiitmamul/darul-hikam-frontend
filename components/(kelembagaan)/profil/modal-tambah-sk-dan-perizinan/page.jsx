@@ -43,24 +43,27 @@ import {
 } from "@/components/ui/select";
 
 export default function ModalTambahSkDanPerizinan() {
-  const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
+  const [tanggalSkIzinOperasional, setTanggalSkIzinOperasional] =
+    useState(null);
+  const [berlakuSampaiDengan, setBerlakuSampaiDengan] = useState(null);
 
   const schemaDokumen = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
+    no_sk_izin_operasional: z.string({
+      message: "Masukkan No SK Izin Operasional",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
+    tanggal_sk_izin_operasional: z.string({
+      message: "Masukkan tanggal SK Izin Operasional",
+    }),
+    berlaku_sampai_dengan: z.string({
+      message: "Masukkan berlaku sampai dengan",
+    }),
+    instansi_penerbit_izin_operasional: z.string({
+      message: "Masukkan instansi penerbit izin operasional",
     }),
   });
 
   const dokumenForm = useForm({
     resolver: zodResolver(schemaDokumen),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
   });
 
   const onSubmit = (data) => {
@@ -118,13 +121,13 @@ export default function ModalTambahSkDanPerizinan() {
                                   variant={"outline"}
                                   className={cn(
                                     "w-full justify-start text-left font-normal",
-                                    !tahunBerdiriHijriah &&
+                                    !tanggalSkIzinOperasional &&
                                       "text-muted-foreground"
                                   )}
                                 >
                                   <CalendarIcon />
-                                  {tahunBerdiriHijriah ? (
-                                    format(tahunBerdiriHijriah, "PPP")
+                                  {tanggalSkIzinOperasional ? (
+                                    format(tanggalSkIzinOperasional, "PPP")
                                   ) : (
                                     <span>
                                       Pilih Tanggal SK Izin Operasional
@@ -135,8 +138,8 @@ export default function ModalTambahSkDanPerizinan() {
                               <PopoverContent className="w-auto p-0">
                                 <Calendar
                                   mode="single"
-                                  selected={tahunBerdiriHijriah}
-                                  onSelect={setTahunBerdiriHijriah}
+                                  selected={tanggalSkIzinOperasional}
+                                  onSelect={setTanggalSkIzinOperasional}
                                   initialFocus
                                 />
                               </PopoverContent>
@@ -161,13 +164,13 @@ export default function ModalTambahSkDanPerizinan() {
                                   variant={"outline"}
                                   className={cn(
                                     "w-full justify-start text-left font-normal",
-                                    !tahunBerdiriHijriah &&
+                                    !berlakuSampaiDengan &&
                                       "text-muted-foreground"
                                   )}
                                 >
                                   <CalendarIcon />
-                                  {tahunBerdiriHijriah ? (
-                                    format(tahunBerdiriHijriah, "PPP")
+                                  {berlakuSampaiDengan ? (
+                                    format(berlakuSampaiDengan, "PPP")
                                   ) : (
                                     <span>Pilih Berlaku Sampai Dengan</span>
                                   )}
@@ -176,8 +179,8 @@ export default function ModalTambahSkDanPerizinan() {
                               <PopoverContent className="w-auto p-0">
                                 <Calendar
                                   mode="single"
-                                  selected={tahunBerdiriHijriah}
-                                  onSelect={setTahunBerdiriHijriah}
+                                  selected={berlakuSampaiDengan}
+                                  onSelect={setBerlakuSampaiDengan}
                                   initialFocus
                                 />
                               </PopoverContent>
