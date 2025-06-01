@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function UploadIzinOperasinal() {
-  const [file, setFile] = useState(null);
+export default function UploadIzinOperasional({
+  fileUploadIzinOperasional,
+  setFileUploadIzinOperasional,
+}) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
@@ -29,7 +31,7 @@ export default function UploadIzinOperasinal() {
       return;
     }
 
-    setFile(selectedFile);
+    setFileUploadIzinOperasional(selectedFile);
   };
 
   const handleDrop = (e) => {
@@ -60,7 +62,7 @@ export default function UploadIzinOperasinal() {
   };
 
   const removeFile = () => {
-    setFile(null);
+    setFileUploadIzinOperasional(null);
     setError("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -125,16 +127,18 @@ export default function UploadIzinOperasinal() {
         </div>
       )}
 
-      {file && (
+      {fileUploadIzinOperasional && (
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <FileText className="h-8 w-8 text-red-500" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{file.name}</p>
+                  <p className="text-sm font-medium truncate">
+                    {fileUploadIzinOperasional.name}
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    {formatFileSize(file.size)}
+                    {formatFileSize(fileUploadIzinOperasional.size)}
                   </p>
                 </div>
               </div>
@@ -150,8 +154,6 @@ export default function UploadIzinOperasinal() {
           </CardContent>
         </Card>
       )}
-
-      {file && <Button className="w-full">Upload Izin Operasional</Button>}
     </div>
   );
 }

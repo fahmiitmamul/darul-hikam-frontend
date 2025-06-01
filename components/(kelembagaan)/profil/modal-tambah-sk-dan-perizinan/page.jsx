@@ -41,10 +41,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import UploadIzinOperasinal from "@/components/upload-izin-operasional";
 import UploadPiagamSkIjop from "@/components/upload-piagam-sk-ijop";
+import UploadIzinOperasional from "@/components/upload-izin-operasional";
 
 export default function ModalTambahSkDanPerizinan() {
+  const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
+    useState(null);
+  const [fileUploadPiagamSkIjop, setFileUploadPiagamSkIjop] = useState(null);
+
   const schemaDokumen = z.object({
     no_sk_izin_operasional: z.string({
       message: "Masukkan No SK Izin Operasional",
@@ -66,6 +70,8 @@ export default function ModalTambahSkDanPerizinan() {
 
   const onSubmit = (data) => {
     console.log("Form data:", data);
+    console.log(fileUploadIzinOperasional);
+    console.log(fileUploadPiagamSkIjop);
   };
 
   return (
@@ -252,10 +258,18 @@ export default function ModalTambahSkDanPerizinan() {
                   </div>
 
                   <div>
-                    <UploadIzinOperasinal />
+                    <UploadIzinOperasional
+                      fileUploadIzinOperasional={fileUploadIzinOperasional}
+                      setFileUploadIzinOperasional={
+                        setFileUploadIzinOperasional
+                      }
+                    />
                   </div>
                   <div>
-                    <UploadPiagamSkIjop />
+                    <UploadPiagamSkIjop
+                      fileUploadPiagamSkIjop={fileUploadPiagamSkIjop}
+                      setFileUploadPiagamSkIjop={setFileUploadPiagamSkIjop}
+                    />
                   </div>
                 </div>
               </ScrollArea>
