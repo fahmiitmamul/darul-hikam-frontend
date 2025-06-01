@@ -225,6 +225,33 @@ export default function Profil() {
     alamat_website: z.string({
       message: "Masukkan alamat website",
     }),
+    email: z.string({
+      message: "Masukkan email",
+    }),
+    tahun_berdiri_hijriah: z.string({
+      message: "Masukkan tahun berdiri hijriah",
+    }),
+    tahun_berdiri_masehi: z.string({
+      message: "Masukkan tahun berdiri masehi",
+    }),
+    tipe_penyelenggara_lembaga: z.string({
+      message: "Masukkan tipe penyelenggara lembaga",
+    }),
+    nama_penyelenggara_lembaga: z.string({
+      message: "Masukkan nama penyelenggara lembaga",
+    }),
+    afilisasi_organisasi_keagamaan: z.string({
+      message: "Masukkan afilisasi organisasi keagamaan",
+    }),
+    nama_bank: z.string({
+      message: "Masukkan nama bank",
+    }),
+    nomor_rekening: z.string({
+      message: "Masukkan nomor rekening",
+    }),
+    rekening_atas_nama: z.string({
+      message: "Masukkan rekening atas nama",
+    }),
   });
 
   const schemaLokasi = z.object({
@@ -239,13 +266,23 @@ export default function Profil() {
   });
 
   const schemaDokumenPerijinan = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
+    alamat: z.string({ message: "Masukkan alamat" }),
+    rt: z.string({ message: "Masukkan rt" }),
+    rw: z.string({ message: "Masukkan rw" }),
+    desa_atau_kelurahan: z.string({
+      message: "Masukkan desa atau kelurahan",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
+    kecamatan: z.string({
+      message: "Masukkan kecamatan",
+    }),
+    kabupaten: z.string({
+      message: "Masukkan kabupaten",
+    }),
+    provinsi: z.string({
+      message: "Masukkan provinsi",
+    }),
+    kode_pos: z.string({
+      message: "Masukkan kode pos",
     }),
   });
 
@@ -1438,6 +1475,7 @@ export default function Profil() {
                             <FormItem>
                               <FormLabel>
                                 Akta Pendirian Penyelenggara
+                                <span className="text-red-500">*</span>
                               </FormLabel>
                               <FormControl>
                                 <Input
@@ -1457,7 +1495,11 @@ export default function Profil() {
                             name="tanggal_akta_pendirian"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Tanggal Akta Pendirian</FormLabel>
+                                <FormLabel>
+                                  Tanggal Akta Pendirian
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+
                                 <FormControl>
                                   <Popover>
                                     <PopoverTrigger asChild>
