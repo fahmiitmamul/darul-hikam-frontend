@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function UploadAktaPendirianPenyelenggara() {
-  const [file, setFile] = useState(null);
+export default function UploadAktaPendirianPenyelenggara({
+  fileUploadAktaPendirianPenyelenggara,
+  setFileUploadAktaPendirianPenyelenggara,
+}) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
@@ -29,7 +31,7 @@ export default function UploadAktaPendirianPenyelenggara() {
       return;
     }
 
-    setFile(selectedFile);
+    setFileUploadAktaPendirianPenyelenggara(selectedFile);
   };
 
   const handleDrop = (e) => {
@@ -60,7 +62,7 @@ export default function UploadAktaPendirianPenyelenggara() {
   };
 
   const removeFile = () => {
-    setFile(null);
+    setFileUploadAktaPendirianPenyelenggara(null);
     setError("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -125,16 +127,18 @@ export default function UploadAktaPendirianPenyelenggara() {
         </div>
       )}
 
-      {file && (
+      {fileUploadAktaPendirianPenyelenggara && (
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <FileText className="h-8 w-8 text-red-500" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{file.name}</p>
+                  <p className="text-sm font-medium truncate">
+                    {fileUploadAktaPendirianPenyelenggara.name}
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    {formatFileSize(file.size)}
+                    {formatFileSize(fileUploadAktaPendirianPenyelenggara.size)}
                   </p>
                 </div>
               </div>
@@ -149,10 +153,6 @@ export default function UploadAktaPendirianPenyelenggara() {
             </div>
           </CardContent>
         </Card>
-      )}
-
-      {file && (
-        <Button className="w-full">Upload Akta Pendirian Penyelenggara</Button>
       )}
     </div>
   );

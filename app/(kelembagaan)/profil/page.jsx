@@ -171,6 +171,10 @@ export default function Profil() {
   const [fotoHalaman, setFotoHalaman] = useState(null);
   const [fotoDenahLembaga, setFotoDenahLembaga] = useState(null);
   const [fotoMusholaAtauMasjid, setFotoMusholaAtauMasjid] = useState(null);
+  const [
+    fileUploadAktaPendirianPenyelenggara,
+    setFileUploadAktaPendirianPenyelenggara,
+  ] = useState(null);
 
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
@@ -1556,7 +1560,14 @@ export default function Profil() {
                   </div>
 
                   <div className="pt-5">
-                    <UploadAktaPendirianPenyelenggara />
+                    <UploadAktaPendirianPenyelenggara
+                      fileUploadAktaPendirianPenyelenggara={
+                        fileUploadAktaPendirianPenyelenggara
+                      }
+                      setFileUploadAktaPendirianPenyelenggara={
+                        setFileUploadAktaPendirianPenyelenggara
+                      }
+                    />
                   </div>
 
                   <div className="w-full flex justify-end">
