@@ -61,6 +61,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
+import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
 
 const defaultData = [
   {
@@ -111,6 +112,15 @@ const defaultColumns = [
   {
     accessorKey: "file_sk_ioup",
     header: "File SK IUOP",
+    /*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * @description
+     * Renders a button to view the file associated with the SK IUOP.
+     * The button will alert the user with a "Lihat Dokumen" message when clicked.
+     * @param {{ row: import('react-table').Row<ProfileData> }} props
+     * @returns {JSX.Element}
+     */
+    /*******  69b77677-f689-43da-b101-375b322b807d  *******/
     cell: ({ row }) => (
       <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
         <Files />
@@ -1476,6 +1486,10 @@ export default function Profil() {
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div>
+                    <UploadAktaPendirianPenyelenggara />
                   </div>
 
                   <div className="w-full flex justify-between">
