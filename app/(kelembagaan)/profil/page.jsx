@@ -60,6 +60,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
+import { Files } from "lucide-react";
 
 const defaultData = [
   {
@@ -112,6 +113,7 @@ const defaultColumns = [
     header: "File SK IUOP",
     cell: ({ row }) => (
       <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
+        <Files />
         Lihat Dokumen
       </Button>
     ),
@@ -124,6 +126,7 @@ const defaultColumns = [
         onClick={() => alert("Belum Diupload")}
         className="cursor-pointer"
       >
+        <Files />
         Belum Diupload
       </Button>
     ),
