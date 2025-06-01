@@ -82,21 +82,48 @@ export default function ModalTambahMudirAtauPimpinan({
   ];
 
   const mudirAtauPimpinanSchema = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
+    nama_lengkap: z.string({ message: "Masukkan NSPP" }),
+    nik: z.string({ message: "Masukkan NIK" }),
+    gelar_depan: z.string({
+      message: "Masukkan gelar depan",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
+    gelar_belakang: z.string({
+      message: "Masukkan gelar belakang",
+    }),
+    jenis_kelamin: z.string({
+      message: "Masukkan jenis kelamin",
+    }),
+    status_kepegawaian: z.string({
+      message: "Masukkan status kepegawaian",
+    }),
+    pendidikan_terakhir: z.string({
+      message: "Masukkan pendidikan terakhir",
+    }),
+    lama_pendidikan_ponpes: z.string({
+      message: "Masukkan lama pendidikan ponpes",
+    }),
+    lama_pendidikan_lainnya: z.string({
+      message: "Masukkan lama pendidikan lainnya",
+    }),
+    kompetensi: z.string({
+      message: "Masukkan kompetensi",
+    }),
+    no_handphone: z.string({
+      message: "Masukkan no handphone",
+    }),
+    email: z.string({
+      message: "Masukkan email",
+    }),
+    status_keaktifan: z.string({
+      message: "Masukkan status keaktifan",
+    }),
+    kewarganegaraan: z.string({
+      message: "Masukkan kewarganegaraan",
     }),
   });
 
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
   });
 
   const onSubmit = (data) => {
@@ -590,24 +617,22 @@ export default function ModalTambahMudirAtauPimpinan({
                     </div>
                   </div>
                 </ScrollArea>
+
+                <div className="grid grid-cols-2 gap-5">
+                  <SheetClose asChild>
+                    <Button type="submit" className="cursor-pointer">
+                      Batal
+                    </Button>
+                  </SheetClose>
+                  <Button type="submit" className="cursor-pointer">
+                    Simpan
+                  </Button>
+                </div>
               </form>
             </Form>
           </div>
 
-          <SheetFooter>
-            <div className="grid grid-cols-2 gap-5">
-              <SheetClose asChild>
-                <Button type="submit" className="cursor-pointer">
-                  Batal
-                </Button>
-              </SheetClose>
-              <SheetClose asChild>
-                <Button type="submit" className="cursor-pointer">
-                  Simpan
-                </Button>
-              </SheetClose>
-            </div>
-          </SheetFooter>
+          <SheetFooter></SheetFooter>
         </SheetContent>
       </Sheet>
     </div>
