@@ -243,15 +243,6 @@ export default function Profil() {
     afilisasi_organisasi_keagamaan: z.string({
       message: "Masukkan afilisasi organisasi keagamaan",
     }),
-    nama_bank: z.string({
-      message: "Masukkan nama bank",
-    }),
-    nomor_rekening: z.string({
-      message: "Masukkan nomor rekening",
-    }),
-    rekening_atas_nama: z.string({
-      message: "Masukkan rekening atas nama",
-    }),
   });
 
   const schemaLokasi = z.object({
@@ -357,7 +348,6 @@ export default function Profil() {
                           <FormControl>
                             <Input placeholder="Masukkan NSPP" {...field} />
                           </FormControl>
-                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -379,7 +369,6 @@ export default function Profil() {
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
                           </FormItem>
                         )}
                       />
@@ -548,28 +537,25 @@ export default function Profil() {
                         name="tahun_berdiri_hijriah"
                         render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>Tahun Berdiri Hijriah</FormLabel>
+                            <FormLabel
+                              className={fieldState.error ? "text-red-500" : ""}
+                            >
+                              Tahun Berdiri Hijriah
+                            </FormLabel>
                             <FormControl>
-                              <Popover
-                                className={cn(
-                                  "w-full",
-                                  fieldState.error
-                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                    : ""
-                                )}
-                              >
+                              <Popover>
                                 <PopoverTrigger asChild>
                                   <Button
                                     variant={"outline"}
                                     className={cn(
                                       "w-full justify-start text-left font-normal",
-                                      !tahunBerdiriHijriah &&
-                                        "text-muted-foreground"
+                                      !field.value && "text-muted-foreground",
+                                      fieldState.error && "border-red-500"
                                     )}
                                   >
-                                    <CalendarIcon />
-                                    {tahunBerdiriHijriah ? (
-                                      format(tahunBerdiriHijriah, "PPP")
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {field.value ? (
+                                      format(field.value, "PPP")
                                     ) : (
                                       <span>Pilih Tahun Berdiri Hijriah</span>
                                     )}
@@ -578,8 +564,8 @@ export default function Profil() {
                                 <PopoverContent className="w-auto p-0">
                                   <Calendar
                                     mode="single"
-                                    selected={tahunBerdiriHijriah}
-                                    onSelect={setTahunBerdiriHijriah}
+                                    selected={field.value}
+                                    onSelect={field.onChange}
                                     initialFocus
                                   />
                                 </PopoverContent>
@@ -594,9 +580,13 @@ export default function Profil() {
                       <FormField
                         control={identitasForm.control}
                         name="tahun_berdiri_masehi"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>Tahun Berdiri Masehi</FormLabel>
+                            <FormLabel
+                              className={fieldState.error ? "text-red-500" : ""}
+                            >
+                              Tahun Berdiri Masehi
+                            </FormLabel>
                             <FormControl>
                               <Popover>
                                 <PopoverTrigger asChild>
@@ -604,13 +594,13 @@ export default function Profil() {
                                     variant={"outline"}
                                     className={cn(
                                       "w-full justify-start text-left font-normal",
-                                      !tahunBerdiriMasehi &&
-                                        "text-muted-foreground"
+                                      !field.value && "text-muted-foreground",
+                                      fieldState.error && "border-red-500"
                                     )}
                                   >
-                                    <CalendarIcon />
-                                    {tahunBerdiriMasehi ? (
-                                      format(tahunBerdiriMasehi, "PPP")
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {field.value ? (
+                                      format(field.value, "PPP")
                                     ) : (
                                       <span>Pilih Tahun Berdiri Masehi</span>
                                     )}
@@ -619,8 +609,8 @@ export default function Profil() {
                                 <PopoverContent className="w-auto p-0">
                                   <Calendar
                                     mode="single"
-                                    selected={tahunBerdiriMasehi}
-                                    onSelect={setTahunBerdiriMasehi}
+                                    selected={field.value}
+                                    onSelect={field.onChange}
                                     initialFocus
                                   />
                                 </PopoverContent>
@@ -643,7 +633,7 @@ export default function Profil() {
                       <FormField
                         control={identitasForm.control}
                         name="tipe_penyelenggara_lembaga"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Tipe Penyelenggara Lembaga</FormLabel>
                             <FormControl>
@@ -652,7 +642,14 @@ export default function Profil() {
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full",
+                                    fieldState.error
+                                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                      : ""
+                                  )}
+                                >
                                   <SelectValue placeholder="Tipe Penyelenggara Lembaga" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -696,7 +693,7 @@ export default function Profil() {
                         <FormField
                           control={identitasForm.control}
                           name="afilisasi_organisasi_keagamaan"
-                          render={({ field }) => (
+                          render={({ field, fieldState }) => (
                             <FormItem>
                               <FormLabel>
                                 Afilisasi Organisasi Keagamaan
@@ -707,7 +704,14 @@ export default function Profil() {
                                   onValueChange={field.onChange}
                                   defaultValue=""
                                 >
-                                  <SelectTrigger className="w-full">
+                                  <SelectTrigger
+                                    className={cn(
+                                      "w-full",
+                                      fieldState.error
+                                        ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                        : ""
+                                    )}
+                                  >
                                     <SelectValue placeholder="Afilisasi Organisasi Keagamaan" />
                                   </SelectTrigger>
                                   <SelectContent>
@@ -911,7 +915,7 @@ export default function Profil() {
                           <FormField
                             control={lokasiForm.control}
                             name="desa_atau_kelurahan"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                               <FormItem>
                                 <FormLabel>Kecamatan</FormLabel>
                                 <FormControl>
@@ -920,7 +924,12 @@ export default function Profil() {
                                     onValueChange={field.onChange}
                                     defaultValue=""
                                   >
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger
+                                      className={cn(
+                                        "w-full text-left border rounded-md p-2",
+                                        fieldState.error && "border-red-500"
+                                      )}
+                                    >
                                       <SelectValue placeholder="Kecamatan" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -943,7 +952,7 @@ export default function Profil() {
                           <FormField
                             control={lokasiForm.control}
                             name="kabupaten"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                               <FormItem>
                                 <FormLabel>Kabupaten</FormLabel>
                                 <FormControl>
@@ -952,7 +961,12 @@ export default function Profil() {
                                     onValueChange={field.onChange}
                                     defaultValue=""
                                   >
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger
+                                      className={cn(
+                                        "w-full text-left border rounded-md p-2",
+                                        fieldState.error && "border-red-500"
+                                      )}
+                                    >
                                       <SelectValue placeholder="Kabupaten" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -976,7 +990,7 @@ export default function Profil() {
                           <FormField
                             control={lokasiForm.control}
                             name="provinsi"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                               <FormItem>
                                 <FormLabel>Provinsi</FormLabel>
                                 <FormControl>
@@ -985,7 +999,12 @@ export default function Profil() {
                                     onValueChange={field.onChange}
                                     defaultValue=""
                                   >
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger
+                                      className={cn(
+                                        "w-full text-left border rounded-md p-2",
+                                        fieldState.error && "border-red-500"
+                                      )}
+                                    >
                                       <SelectValue placeholder="Provinsi" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -1017,7 +1036,6 @@ export default function Profil() {
                                     {...field}
                                   />
                                 </FormControl>
-                                <FormMessage />
                               </FormItem>
                             )}
                           />
@@ -1493,23 +1511,25 @@ export default function Profil() {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
                             </FormItem>
                           )}
                         />
                       </div>
+
                       <div>
                         <div>
                           <FormField
                             control={dokumenPerijinanForm.control}
                             name="tanggal_akta_pendirian"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                               <FormItem>
-                                <FormLabel>
+                                <FormLabel
+                                  className={
+                                    fieldState.error ? "text-red-500" : ""
+                                  }
+                                >
                                   Tanggal Akta Pendirian
-                                  <span className="text-red-500">*</span>
                                 </FormLabel>
-
                                 <FormControl>
                                   <Popover>
                                     <PopoverTrigger asChild>
@@ -1517,13 +1537,14 @@ export default function Profil() {
                                         variant={"outline"}
                                         className={cn(
                                           "w-full justify-start text-left font-normal",
-                                          !tanggalAktaPendirian &&
-                                            "text-muted-foreground"
+                                          !field.value &&
+                                            "text-muted-foreground",
+                                          fieldState.error && "border-red-500"
                                         )}
                                       >
-                                        <CalendarIcon />
-                                        {tanggalAktaPendirian ? (
-                                          format(tanggalAktaPendirian, "PPP")
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        {field.value ? (
+                                          format(field.value, "PPP")
                                         ) : (
                                           <span>
                                             Pilih Tanggal Akta Pendirian
@@ -1534,8 +1555,8 @@ export default function Profil() {
                                     <PopoverContent className="w-auto p-0">
                                       <Calendar
                                         mode="single"
-                                        selected={tanggalAktaPendirian}
-                                        onSelect={setTanggalAktaPendirian}
+                                        selected={field.value}
+                                        onSelect={field.onChange}
                                         initialFocus
                                       />
                                     </PopoverContent>
