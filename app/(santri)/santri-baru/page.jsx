@@ -36,120 +36,15 @@ import {
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Eye, Pencil, Trash } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const defaultData = [
-  {
-    no: "1",
-    no_sk_iuop: "983457345",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-12-2023",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SK/SD/2001/2022",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "2",
-    no_sk_iuop: "987654678",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-05-2000",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SD/SD/2002/2005",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-];
-
-const defaultColumns = [
-  {
-    accessorKey: "no",
-    header: "No",
-  },
-  {
-    accessorKey: "no_sk_iuop",
-    header: "No SK IUOP",
-  },
-  {
-    accessorKey: "tanggal_sk_iuop",
-    header: "Tanggal SK IUOP",
-  },
-  {
-    accessorKey: "berlaku_sampai",
-    header: "Berlaku Sampai",
-  },
-  {
-    accessorKey: "instansi_penerbit_iuop",
-    header: "Instansi Penerbit IUOP",
-  },
-  {
-    accessorKey: "file_sk_ioup",
-    header: "File SK IUOP",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
-        Lihat Dokumen
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "file_piagam_sk_iuop",
-    header: "File Piagam SK IUOP",
-    cell: ({ row }) => (
-      <Button
-        onClick={() => alert("Belum Diupload")}
-        className="cursor-pointer"
-      >
-        Belum Diupload
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "Aksi",
-    header: "Aksi",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem className="cursor-pointer">
-            <Eye />
-            View
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Pencil />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-500 cursor-pointer">
-            <Trash />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
-
 export default function SantriBaru() {
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
+  const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
+  const [isNikChecked, setIsNikChecked] = useState(false);
+  const [isNisnChecked, setIsNisnChecked] = useState(false);
 
   const schemaIdentitas = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -162,7 +57,7 @@ export default function SantriBaru() {
     }),
   });
 
-  const identitasForm = useForm({
+  const santriBaruForm = useForm({
     resolver: zodResolver(schemaIdentitas),
     defaultValues: {
       nspp: "",
@@ -195,15 +90,15 @@ export default function SantriBaru() {
 
           <Separator className="mt-5" />
 
-          <Form {...identitasForm}>
+          <Form {...santriBaruForm}>
             <form
-              onSubmit={identitasForm.handleSubmit(onSubmit)}
+              onSubmit={santriBaruForm.handleSubmit(onSubmit)}
               className="space-y-5 mt-5"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="tanggal_masuk"
                     render={({ field }) => (
                       <FormItem>
@@ -244,7 +139,7 @@ export default function SantriBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="tingkat_kelas"
                     render={({ field }) => (
                       <FormItem>
@@ -299,7 +194,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="nama_lengkap"
                     render={({ field }) => (
                       <FormItem>
@@ -310,7 +205,6 @@ export default function SantriBaru() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -320,7 +214,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="kewarganegaraan"
                     render={({ field }) => (
                       <FormItem>
@@ -354,15 +248,18 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="nik"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>NIK</FormLabel>
                         <FormControl>
-                          <Input placeholder="Masukkan NIK" {...field} />
+                          <Input
+                            placeholder="Masukkan NIK"
+                            {...field}
+                            disabled={isNikChecked}
+                          />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -370,7 +267,12 @@ export default function SantriBaru() {
 
                 <div className="flex items-center">
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="nik" />
+                    <Checkbox
+                      id="nik"
+                      onClick={() => {
+                        setIsNikChecked(!isNikChecked);
+                      }}
+                    />
                     <label
                       htmlFor="nik"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -384,15 +286,18 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="nisn"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>NISN</FormLabel>
                         <FormControl>
-                          <Input placeholder="Masukkan NISN" {...field} />
+                          <Input
+                            placeholder="Masukkan NISN"
+                            {...field}
+                            disabled={isNisnChecked}
+                          />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -400,7 +305,10 @@ export default function SantriBaru() {
 
                 <div className="flex items-center">
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="nisn" />
+                    <Checkbox
+                      id="nisn"
+                      onClick={() => setIsNisnChecked(!isNisnChecked)}
+                    />
                     <label
                       htmlFor="nisn"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -437,7 +345,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="tempat_lahir"
                     render={({ field }) => (
                       <FormItem>
@@ -455,12 +363,12 @@ export default function SantriBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="tanggal_lahir"
                     render={({ field }) => (
                       <div>
                         <FormField
-                          control={identitasForm.control}
+                          control={santriBaruForm.control}
                           name="tanggal_lahir"
                           render={({ field }) => (
                             <FormItem>
@@ -508,7 +416,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="agama"
                     render={({ field }) => (
                       <FormItem>
@@ -538,7 +446,12 @@ export default function SantriBaru() {
 
               <div className="flex items-center">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="no_handphone" />
+                  <Checkbox
+                    id="no_handphone"
+                    onClick={() => {
+                      setIsNoHandphoneChecked(!isNoHandphoneChecked);
+                    }}
+                  />
                   <label
                     htmlFor="no_handphone"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -551,7 +464,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="no_handphone"
                     render={({ field }) => (
                       <FormItem>
@@ -560,10 +473,10 @@ export default function SantriBaru() {
                           <Input
                             placeholder="Masukkan No Handphone"
                             {...field}
+                            disabled={isNoHandphoneChecked}
                           />
                         </FormControl>
                         <FormDescription>Contoh : 08123456789</FormDescription>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -579,7 +492,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="nama_lengkap"
                     render={({ field }) => (
                       <FormItem>
@@ -603,7 +516,7 @@ export default function SantriBaru() {
 
               <div>
                 <FormField
-                  control={identitasForm.control}
+                  control={santriBaruForm.control}
                   name="status"
                   render={({ field }) => (
                     <FormItem>
@@ -642,7 +555,7 @@ export default function SantriBaru() {
               <div className="grid grid-cols-1 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={santriBaruForm.control}
                     name="ibu_kandung"
                     render={({ field }) => (
                       <FormItem>
@@ -666,7 +579,7 @@ export default function SantriBaru() {
 
               <div>
                 <FormField
-                  control={identitasForm.control}
+                  control={santriBaruForm.control}
                   name="status"
                   render={({ field }) => (
                     <FormItem>
@@ -702,7 +615,7 @@ export default function SantriBaru() {
 
               <div>
                 <FormField
-                  control={identitasForm.control}
+                  control={santriBaruForm.control}
                   name="wali"
                   render={({ field }) => (
                     <FormItem>
