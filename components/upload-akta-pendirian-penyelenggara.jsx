@@ -151,7 +151,9 @@ export default function UploadAktaPendirianPenyelenggara() {
         </Card>
       )}
 
-      {file && <Button className="w-full">Upload Izin Operasional</Button>}
+      {file && (
+        <Button className="w-full">Upload Akta Pendirian Penyelenggara</Button>
+      )}
     </div>
   );
 }

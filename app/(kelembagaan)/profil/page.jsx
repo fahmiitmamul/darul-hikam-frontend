@@ -216,6 +216,15 @@ export default function Profil() {
     program_pendidikan: z.string({
       message: "Masukkan program pendidikan",
     }),
+    npwp: z.string({
+      message: "Masukkan npwp",
+    }),
+    nomor_telepon: z.string({
+      message: "Masukkan nomor telepon",
+    }),
+    alamat_website: z.string({
+      message: "Masukkan alamat website",
+    }),
   });
 
   const schemaLokasi = z.object({
