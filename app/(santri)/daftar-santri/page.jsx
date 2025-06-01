@@ -37,10 +37,9 @@ import { useState } from "react";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function DaftarSantri() {
-  const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
-    useState(false);
   const [
     openDialogHapusMudirAtauPimpinan,
     setOpenDialogHapusMudirAtauPimpinan,
@@ -340,7 +339,7 @@ export default function DaftarSantri() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                setOpenDialogEditMudirAtauPimpinan(true);
+                router.push("/detail-santri");
               }}
             >
               <Pencil />
@@ -349,7 +348,7 @@ export default function DaftarSantri() {
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
               onClick={() => {
-                setOpenDialogHapusMudirAtauPimpinan(true);
+                toast;
               }}
             >
               <Trash />
