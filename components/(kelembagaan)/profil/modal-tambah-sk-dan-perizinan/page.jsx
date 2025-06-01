@@ -289,7 +289,13 @@ export default function ModalTambahSkDanPerizinan() {
                       Batal
                     </Button>
                   </SheetClose>
-                  <Button type="submit" className="cursor-pointer">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      dokumenForm.handleSubmit(onSubmit)();
+                    }}
+                    className="cursor-pointer"
+                  >
                     Simpan
                   </Button>
                 </div>
