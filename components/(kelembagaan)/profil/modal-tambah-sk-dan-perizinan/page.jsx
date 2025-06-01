@@ -113,9 +113,13 @@ export default function ModalTambahSkDanPerizinan() {
                     <FormField
                       control={dokumenForm.control}
                       name="tanggal_sk_izin_operasional"
-                      render={({ field }) => (
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Tanggal SK Izin Operasional</FormLabel>
+                          <FormLabel
+                            className={fieldState.error ? "text-red-500" : ""}
+                          >
+                            Tanggal SK Izin Operasional
+                          </FormLabel>
                           <FormControl>
                             <Popover>
                               <PopoverTrigger asChild>
@@ -123,13 +127,13 @@ export default function ModalTambahSkDanPerizinan() {
                                   variant={"outline"}
                                   className={cn(
                                     "w-full justify-start text-left font-normal",
-                                    !tanggalSkIzinOperasional &&
-                                      "text-muted-foreground"
+                                    !field.value && "text-muted-foreground",
+                                    fieldState.error && "border-red-500"
                                   )}
                                 >
-                                  <CalendarIcon />
-                                  {tanggalSkIzinOperasional ? (
-                                    format(tanggalSkIzinOperasional, "PPP")
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {field.value ? (
+                                    format(field.value, "PPP")
                                   ) : (
                                     <span>
                                       Pilih Tanggal SK Izin Operasional
@@ -140,8 +144,8 @@ export default function ModalTambahSkDanPerizinan() {
                               <PopoverContent className="w-auto p-0">
                                 <Calendar
                                   mode="single"
-                                  selected={tanggalSkIzinOperasional}
-                                  onSelect={setTanggalSkIzinOperasional}
+                                  selected={field.value}
+                                  onSelect={field.onChange}
                                   initialFocus
                                 />
                               </PopoverContent>
@@ -156,9 +160,13 @@ export default function ModalTambahSkDanPerizinan() {
                     <FormField
                       control={dokumenForm.control}
                       name="berlaku_sampai_dengan"
-                      render={({ field }) => (
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Berlaku Sampai Dengan</FormLabel>
+                          <FormLabel
+                            className={fieldState.error ? "text-red-500" : ""}
+                          >
+                            Berlaku Sampai Dengan
+                          </FormLabel>
                           <FormControl>
                             <Popover>
                               <PopoverTrigger asChild>
@@ -166,13 +174,13 @@ export default function ModalTambahSkDanPerizinan() {
                                   variant={"outline"}
                                   className={cn(
                                     "w-full justify-start text-left font-normal",
-                                    !berlakuSampaiDengan &&
-                                      "text-muted-foreground"
+                                    !field.value && "text-muted-foreground",
+                                    fieldState.error && "border-red-500"
                                   )}
                                 >
-                                  <CalendarIcon />
-                                  {berlakuSampaiDengan ? (
-                                    format(berlakuSampaiDengan, "PPP")
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {field.value ? (
+                                    format(field.value, "PPP")
                                   ) : (
                                     <span>Pilih Berlaku Sampai Dengan</span>
                                   )}
@@ -181,8 +189,8 @@ export default function ModalTambahSkDanPerizinan() {
                               <PopoverContent className="w-auto p-0">
                                 <Calendar
                                   mode="single"
-                                  selected={berlakuSampaiDengan}
-                                  onSelect={setBerlakuSampaiDengan}
+                                  selected={field.value}
+                                  onSelect={field.onChange}
                                   initialFocus
                                 />
                               </PopoverContent>
@@ -198,7 +206,7 @@ export default function ModalTambahSkDanPerizinan() {
                       <FormField
                         control={dokumenForm.control}
                         name="instansi_penerbit_izin_operasional"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>
                               Instansi Penerbit Izin Operasional
@@ -209,7 +217,12 @@ export default function ModalTambahSkDanPerizinan() {
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Instansi Penerbit Izin Operasional" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -250,24 +263,22 @@ export default function ModalTambahSkDanPerizinan() {
                   </div>
                 </div>
               </ScrollArea>
+
+              <SheetFooter>
+                <div className="grid grid-cols-2 gap-5">
+                  <SheetClose asChild>
+                    <Button type="button" className="cursor-pointer">
+                      Batal
+                    </Button>
+                  </SheetClose>
+                  <Button type="submit" className="cursor-pointer">
+                    Simpan
+                  </Button>
+                </div>
+              </SheetFooter>
             </form>
           </Form>
         </div>
-
-        <SheetFooter>
-          <div className="grid grid-cols-2 gap-5">
-            <SheetClose asChild>
-              <Button type="submit" className="cursor-pointer">
-                Batal
-              </Button>
-            </SheetClose>
-            <SheetClose asChild>
-              <Button type="submit" className="cursor-pointer">
-                Simpan
-              </Button>
-            </SheetClose>
-          </div>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
