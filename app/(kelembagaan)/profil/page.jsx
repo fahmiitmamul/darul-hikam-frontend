@@ -12,7 +12,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -112,15 +111,6 @@ const defaultColumns = [
   {
     accessorKey: "file_sk_ioup",
     header: "File SK IUOP",
-    /*************  ✨ Windsurf Command ⭐  *************/
-    /**
-     * @description
-     * Renders a button to view the file associated with the SK IUOP.
-     * The button will alert the user with a "Lihat Dokumen" message when clicked.
-     * @param {{ row: import('react-table').Row<ProfileData> }} props
-     * @returns {JSX.Element}
-     */
-    /*******  69b77677-f689-43da-b101-375b322b807d  *******/
     cell: ({ row }) => (
       <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
         <Files />
@@ -175,9 +165,6 @@ const defaultColumns = [
 ];
 
 export default function Profil() {
-  const [tahunBerdiriMasehi, setTahunBerdiriMasehi] = useState(null);
-  const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
-  const [tanggalAktaPendirian, setTanggalAktaPendirian] = useState(null);
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
   const [fotoGedung, setFotoGedung] = useState(null);
   const [fotoKelas, setFotoKelas] = useState(null);
@@ -283,9 +270,7 @@ export default function Profil() {
     resolver: zodResolver(schemaLokasi),
   });
 
-  const galeriForm = useForm({
-    resolver: zodResolver(schemaLokasi),
-  });
+  const galeriForm = useForm();
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
@@ -914,7 +899,7 @@ export default function Profil() {
                         <div>
                           <FormField
                             control={lokasiForm.control}
-                            name="desa_atau_kelurahan"
+                            name="kecamatan"
                             render={({ field, fieldState }) => (
                               <FormItem>
                                 <FormLabel>Kecamatan</FormLabel>
@@ -1497,7 +1482,7 @@ export default function Profil() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <FormField
-                          control={identitasForm.control}
+                          control={dokumenPerijinanForm.control}
                           name="akta_pendirian_penyelenggara"
                           render={({ field }) => (
                             <FormItem>
