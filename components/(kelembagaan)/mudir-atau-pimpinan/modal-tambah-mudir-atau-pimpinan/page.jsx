@@ -156,7 +156,7 @@ export default function ModalTambahMudirAtauPimpinan({
                     <div>
                       <FormField
                         control={mudirAtauPimpinanForm.control}
-                        name="no_sk_izin_operasional"
+                        name="nama_lengkap"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nama Lengkap</FormLabel>
@@ -281,7 +281,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="jenis_kelamin"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Jenis Kelamin</FormLabel>
                             <FormControl>
@@ -290,7 +290,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Jenis Kelamin" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -315,7 +320,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="status_kepegawaian"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Status Kepegawaian</FormLabel>
                             <FormControl>
@@ -324,7 +329,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Status Kepegawaian" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -351,7 +361,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="pendidikan_terakhir"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Pendidikan Terakhir</FormLabel>
                             <FormControl>
@@ -360,7 +370,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Pendidikan Terakhir" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -384,7 +399,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="lama_pendidikan_ponpes"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Lama Pendidikan Ponpes</FormLabel>
                             <FormControl>
@@ -393,7 +408,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Lama Pendidikan Ponpes" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -429,7 +449,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="lama_pendidikan_lainnya"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Lama Pendidikan Lainnya</FormLabel>
                             <FormControl>
@@ -438,7 +458,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Lama Pendidikan Lainnya" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -474,7 +499,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="kompetensi"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kompetensi</FormLabel>
                             <FormControl>
@@ -483,7 +508,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Kompetensi" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -558,7 +588,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="status_keaktifan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Status Keaktifan</FormLabel>
                             <FormControl>
@@ -567,7 +597,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Status Keaktifan" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -590,7 +625,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="kewarganegaraan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kewarganegaraan</FormLabel>
                             <FormControl>
@@ -599,7 +634,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
                                   <SelectValue placeholder="Kewarganegaraan" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -617,22 +657,25 @@ export default function ModalTambahMudirAtauPimpinan({
                     </div>
                   </div>
                 </ScrollArea>
-
-                <div className="grid grid-cols-2 gap-5">
-                  <SheetClose asChild>
-                    <Button type="submit" className="cursor-pointer">
-                      Batal
-                    </Button>
-                  </SheetClose>
-                  <Button type="submit" className="cursor-pointer">
-                    Simpan
-                  </Button>
-                </div>
               </form>
             </Form>
           </div>
 
-          <SheetFooter></SheetFooter>
+          <SheetFooter>
+            <div className="grid grid-cols-2 gap-5">
+              <SheetClose asChild>
+                <Button type="button" className="cursor-pointer">
+                  Batal
+                </Button>
+              </SheetClose>
+              <Button
+                type="button"
+                onClick={mudirAtauPimpinanForm.handleSubmit(onSubmit)}
+              >
+                Simpan
+              </Button>
+            </div>
+          </SheetFooter>
         </SheetContent>
       </Sheet>
     </div>
