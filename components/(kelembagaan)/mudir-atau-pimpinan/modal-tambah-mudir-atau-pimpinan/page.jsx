@@ -157,7 +157,7 @@ export default function ModalTambahMudirAtauPimpinan({
                       <FormField
                         control={mudirAtauPimpinanForm.control}
                         name="nama_lengkap"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Nama Lengkap</FormLabel>
                             <FormControl>
@@ -167,7 +167,11 @@ export default function ModalTambahMudirAtauPimpinan({
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={open}
-                                    className="w-full justify-between"
+                                    className={cn(
+                                      "w-full justify-between",
+                                      fieldState.invalid &&
+                                        "border-red-500 text-red-600"
+                                    )}
                                   >
                                     {value
                                       ? frameworks.find(
@@ -200,6 +204,12 @@ export default function ModalTambahMudirAtauPimpinan({
                                                   : currentValue
                                               );
                                               setOpen(false);
+                                              // Update react-hook-form value
+                                              field.onChange(
+                                                currentValue === value
+                                                  ? ""
+                                                  : currentValue
+                                              );
                                             }}
                                           >
                                             {framework.label}
