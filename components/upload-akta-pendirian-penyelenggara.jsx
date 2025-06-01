@@ -78,7 +78,7 @@ export default function UploadAktaPendirianPenyelenggara() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-4">
+    <div className="w-full max-w-md space-y-4">
       <div className="space-y-2">
         <Label htmlFor="pdf-upload">Upload Akta Pendirian Penyelenggara</Label>
         <Card

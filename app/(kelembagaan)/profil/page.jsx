@@ -1488,7 +1488,7 @@ export default function Profil() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="pt-5">
                     <UploadAktaPendirianPenyelenggara />
                   </div>
 
