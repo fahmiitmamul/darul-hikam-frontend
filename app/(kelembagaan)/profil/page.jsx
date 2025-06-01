@@ -255,17 +255,6 @@ export default function Profil() {
   });
 
   const schemaLokasi = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
-
-  const schemaDokumenPerijinan = z.object({
     alamat: z.string({ message: "Masukkan alamat" }),
     rt: z.string({ message: "Masukkan rt" }),
     rw: z.string({ message: "Masukkan rw" }),
@@ -286,32 +275,29 @@ export default function Profil() {
     }),
   });
 
+  const schemaDokumenPerijinan = z.object({
+    akta_pendirian_penyelenggara: z.string({
+      message: "Masukkan akta pendirian penyelenggara",
+    }),
+    tanggal_akta_pendirian: z.string({
+      message: "Masukkan tanggal akta pendirian",
+    }),
+  });
+
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
-    defaultValues: {
-      nspp: "",
-    },
   });
 
   const lokasiForm = useForm({
     resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
   });
 
   const galeriForm = useForm({
     resolver: zodResolver(schemaLokasi),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
   });
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
-    defaultValues: {
-      alamat_lengkap: "",
-    },
   });
 
   const onSubmit = (data) => {
@@ -405,7 +391,7 @@ export default function Profil() {
                       <FormField
                         control={identitasForm.control}
                         name="satuan_pendidikan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Satuan Pendidikan</FormLabel>
                             <FormControl>
@@ -414,7 +400,14 @@ export default function Profil() {
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full",
+                                    fieldState.error
+                                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                      : ""
+                                  )}
+                                >
                                   <SelectValue placeholder="Satuan Pendidikan" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -434,7 +427,7 @@ export default function Profil() {
                       <FormField
                         control={identitasForm.control}
                         name="program_pendidikan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Program Pendidikan</FormLabel>
                             <FormControl>
@@ -443,7 +436,14 @@ export default function Profil() {
                                 onValueChange={field.onChange}
                                 defaultValue=""
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full",
+                                    fieldState.error
+                                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                      : ""
+                                  )}
+                                >
                                   <SelectValue placeholder="Program Pendidikan" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -546,11 +546,18 @@ export default function Profil() {
                       <FormField
                         control={identitasForm.control}
                         name="tahun_berdiri_hijriah"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Tahun Berdiri Hijriah</FormLabel>
                             <FormControl>
-                              <Popover>
+                              <Popover
+                                className={cn(
+                                  "w-full",
+                                  fieldState.error
+                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                    : ""
+                                )}
+                              >
                                 <PopoverTrigger asChild>
                                   <Button
                                     variant={"outline"}
@@ -790,12 +797,15 @@ export default function Profil() {
                     </div>
                     <div></div>
                   </div>
+
+                  <Button
+                    type="submit"
+                    className="uppercase cursor-pointer mt-5"
+                  >
+                    Simpan
+                  </Button>
                 </form>
               </Form>
-
-              <Button type="submit" className="uppercase cursor-pointer mt-5">
-                Simpan
-              </Button>
             </TabsContent>
 
             <TabsContent value="lokasi" className="flex flex-col space-y-5">
@@ -1470,7 +1480,7 @@ export default function Profil() {
                       <div>
                         <FormField
                           control={identitasForm.control}
-                          name="nama_lembaga"
+                          name="akta_pendirian_penyelenggara"
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>
@@ -1541,6 +1551,15 @@ export default function Profil() {
 
                   <div className="pt-5">
                     <UploadAktaPendirianPenyelenggara />
+                  </div>
+
+                  <div className="w-full flex justify-end">
+                    <Button
+                      type="submit"
+                      className="uppercase cursor-pointer mt-5"
+                    >
+                      Simpan
+                    </Button>
                   </div>
 
                   <div className="w-full flex justify-between">
