@@ -215,11 +215,11 @@ export default function Profil() {
     email: z.string({
       message: "Masukkan email",
     }),
-    tahun_berdiri_hijriah: z.string({
-      message: "Masukkan tahun berdiri hijriah",
+    tahun_berdiri_hijriah: z.date({
+      required_error: "Tahun Berdiri Hijriah wajib diisi",
     }),
-    tahun_berdiri_masehi: z.string({
-      message: "Masukkan tahun berdiri masehi",
+    tahun_berdiri_masehi: z.date({
+      required_error: "Tahun Berdiri Masehi wajib diisi",
     }),
     tipe_penyelenggara_lembaga: z.string({
       message: "Masukkan tipe penyelenggara lembaga",
