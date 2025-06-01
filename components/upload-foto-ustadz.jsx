@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Camera, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function RoundedUploadButton({
+export default function UploadFotoUstadz({
   size = "lg",
   onImageUpload,
   className,

@@ -36,7 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import RoundedUploadButton from "@/components/profile-photo-uploader";
+import UploadFotoUstadz from "@/components/upload-foto-ustadz";
 import { PdfUploader } from "@/components/pdf-uploader";
 import { ImagePlus } from "lucide-react";
 import { CloudUpload } from "lucide-react";
@@ -95,7 +95,7 @@ export default function UstadzBaru() {
               className="space-y-5 mt-5"
             >
               <div className="flex gap-10 items-center w-full">
-                <RoundedUploadButton />
+                <UploadFotoUstadz />
 
                 <div className="grid grid-cols-3 gap-5 w-full">
                   <div>

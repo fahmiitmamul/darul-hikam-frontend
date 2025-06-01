@@ -50,19 +50,13 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import ModalTambahSkDanPerizinan from "@/components/(kelembagaan)/profil/modal-tambah-sk-dan-perizinan/page";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Eye, Pencil, Trash } from "lucide-react";
 import { useCallback } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import UploadKKSantri from "@/components/upload-kk-santri";
+import UploadKipSantri from "@/components/upload-kip-santri";
+import UploadFotoSantri from "@/components/upload-foto-santri";
 
 const defaultData = [
   {
@@ -138,6 +132,7 @@ const defaultColumns = [
 
 export default function DetailSantri() {
   const [tanggalLahir, setTanggalLahir] = useState(null);
+  const [isNoHpChecked, setIsNoHpChecked] = useState(null);
 
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
@@ -351,36 +346,7 @@ export default function DetailSantri() {
                   className="space-y-5 mt-5"
                 >
                   <div className="flex flex-col md:flex-row gap-5">
-                    <div className="flex w-32 gap-5">
-                      <div>
-                        <div className="flex flex-col gap-5 justify-center items-center">
-                          <Image
-                            className="w-24 h-24 rounded-full"
-                            src="/user.png"
-                            alt="logo"
-                            width={1000}
-                            height={1000}
-                          />
-
-                          <Button
-                            variant="outline"
-                            className="cursor-pointer"
-                            onClick={() =>
-                              document.getElementById("file-input")?.click()
-                            }
-                          >
-                            Upload Foto
-                          </Button>
-                          <input
-                            id="file-input"
-                            type="file"
-                            multiple
-                            className="hidden"
-                            onChange={handleFileInputChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <UploadFotoSantri />
 
                     <div className="w-full flex flex-col gap-8 flex-1">
                       <div className="grid grid-cols-1 gap-2">
@@ -446,7 +412,9 @@ export default function DetailSantri() {
                               <SelectContent>
                                 <SelectGroup>
                                   <SelectLabel>Kewarganegaraan</SelectLabel>
-                                  <SelectItem value="lpq">LPQ</SelectItem>
+                                  <SelectItem value="indonesia">
+                                    Indonesia
+                                  </SelectItem>
                                 </SelectGroup>
                               </SelectContent>
                             </Select>
@@ -632,7 +600,12 @@ export default function DetailSantri() {
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="terms" />
+                    <Checkbox
+                      id="terms"
+                      onClick={() => {
+                        setIsNoHpChecked(!isNoHpChecked);
+                      }}
+                    />
                     <label
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -653,6 +626,7 @@ export default function DetailSantri() {
                               <Input
                                 type="number"
                                 placeholder="Nomor Handphone"
+                                disabled={isNoHpChecked}
                                 {...field}
                               />
                             </FormControl>
@@ -706,10 +680,13 @@ export default function DetailSantri() {
                     </div>
                   </div>
 
-                  <div className="w-full">
-                    <Button className="uppercase cursor-pointer w-full">
-                      Upload Kartu Keluarga
-                    </Button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <UploadKKSantri />
+                    </div>
+                    <div>
+                      <UploadKipSantri />
+                    </div>
                   </div>
                 </form>
               </Form>
