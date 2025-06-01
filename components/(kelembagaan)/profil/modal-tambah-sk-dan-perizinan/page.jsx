@@ -45,19 +45,15 @@ import UploadIzinOperasinal from "@/components/upload-izin-operasional";
 import UploadPiagamSkIjop from "@/components/upload-piagam-sk-ijop";
 
 export default function ModalTambahSkDanPerizinan() {
-  const [tanggalSkIzinOperasional, setTanggalSkIzinOperasional] =
-    useState(null);
-  const [berlakuSampaiDengan, setBerlakuSampaiDengan] = useState(null);
-
   const schemaDokumen = z.object({
     no_sk_izin_operasional: z.string({
       message: "Masukkan No SK Izin Operasional",
     }),
-    tanggal_sk_izin_operasional: z.string({
-      message: "Masukkan tanggal SK Izin Operasional",
+    tanggal_sk_izin_operasional: z.date({
+      required_error: "Tanggal SK Izin Operasional wajib diisi",
     }),
-    berlaku_sampai_dengan: z.string({
-      message: "Masukkan berlaku sampai dengan",
+    berlaku_sampai_dengan: z.date({
+      required_error: "Berlaku sampai dengan wajib diisi",
     }),
     instansi_penerbit_izin_operasional: z.string({
       message: "Masukkan instansi penerbit izin operasional",

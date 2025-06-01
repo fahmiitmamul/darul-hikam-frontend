@@ -257,8 +257,8 @@ export default function Profil() {
     akta_pendirian_penyelenggara: z.string({
       message: "Masukkan akta pendirian penyelenggara",
     }),
-    tanggal_akta_pendirian: z.string({
-      message: "Masukkan tanggal akta pendirian",
+    tanggal_akta_pendirian: z.date({
+      required_error: "Tanggal akta pendirian wajib diisi",
     }),
   });
 
