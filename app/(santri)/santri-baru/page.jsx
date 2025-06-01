@@ -12,7 +12,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -46,22 +45,57 @@ export default function SantriBaru() {
   const [isNikChecked, setIsNikChecked] = useState(false);
   const [isNisnChecked, setIsNisnChecked] = useState(false);
 
-  const schemaIdentitas = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
+  const schemaSantriBaru = z.object({
+    tanggal_masuk: z.date({
+      required_error: "Tanggal Masuk wajib diisi",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
+    tingkat_kelas: z.string({ message: "Masukkan tingkat kelas" }),
+    nama_lengkap: z.string({
+      message: "Masukkan nama lengkap",
+    }),
+    kewarganegaraan: z.string({
+      message: "Masukkan kewarganegaraan",
+    }),
+    nik: z.string({
+      message: "Masukkan nik",
+    }),
+    kewarganegaraan: z.string({
+      message: "Masukkan kewarganegaraan",
+    }),
+    nisn: z.string({
+      message: "Masukkan nisn",
+    }),
+    tempat_lahir: z.string({
+      message: "Masukkan tempat lahir",
+    }),
+    tanggal_lahir: z.string({
+      message: "Masukkan tanggal lahir",
+    }),
+    agama: z.string({
+      message: "Masukkan agama",
+    }),
+    no_handphone: z.string({
+      message: "Masukkan no handphone",
+    }),
+    ayah_kandung: z.string({
+      message: "Masukkan ayah kandung",
+    }),
+    status_ayah_kandung: z.string({
+      message: "Masukkan status ayah kandung",
+    }),
+    ibu_kandung: z.string({
+      message: "Masukkan ibu kandung",
+    }),
+    status_ibu_kandung: z.string({
+      message: "Masukkan status ibu kandung",
+    }),
+    wali: z.string({
+      message: "Masukkan wali",
     }),
   });
 
   const santriBaruForm = useForm({
-    resolver: zodResolver(schemaIdentitas),
-    defaultValues: {
-      nspp: "",
-    },
+    resolver: zodResolver(schemaSantriBaru),
   });
 
   const onSubmit = (data) => {
@@ -100,9 +134,13 @@ export default function SantriBaru() {
                   <FormField
                     control={santriBaruForm.control}
                     name="tanggal_masuk"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Tanggal Masuk</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal Masuk
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -110,13 +148,13 @@ export default function SantriBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
                                   <span>Pilih Tanggal Masuk</span>
                                 )}
@@ -125,8 +163,8 @@ export default function SantriBaru() {
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -141,7 +179,7 @@ export default function SantriBaru() {
                   <FormField
                     control={santriBaruForm.control}
                     name="tingkat_kelas"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Tingkat Kelas</FormLabel>
                         <FormControl>
@@ -150,7 +188,12 @@ export default function SantriBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full text-left border rounded-md p-2",
+                                fieldState.error && "border-red-500"
+                              )}
+                            >
                               <SelectValue placeholder="Tingkat Kelas" />
                             </SelectTrigger>
                             <SelectContent>
@@ -216,7 +259,7 @@ export default function SantriBaru() {
                   <FormField
                     control={santriBaruForm.control}
                     name="kewarganegaraan"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Kewarganegaraan</FormLabel>
                         <FormControl>
@@ -225,7 +268,12 @@ export default function SantriBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full text-left border rounded-md p-2",
+                                fieldState.error && "border-red-500"
+                              )}
+                            >
                               <SelectValue placeholder="Kewarganegaraan" />
                             </SelectTrigger>
                             <SelectContent>
@@ -328,12 +376,12 @@ export default function SantriBaru() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="laki_laki" id="r1" />
-                        <Label htmlFor="r1">Laki-laki</Label>
+                        <RadioGroupItem value="laki_laki" id="laki-laki" />
+                        <Label htmlFor="laki-laki">Laki-laki</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="perempuan" id="r2" />
-                        <Label htmlFor="r2">Perempuan</Label>
+                        <RadioGroupItem value="perempuan" id="perempuan" />
+                        <Label htmlFor="perempuan">Perempuan</Label>
                       </div>
                     </div>
 
@@ -365,47 +413,43 @@ export default function SantriBaru() {
                   <FormField
                     control={santriBaruForm.control}
                     name="tanggal_lahir"
-                    render={({ field }) => (
-                      <div>
-                        <FormField
-                          control={santriBaruForm.control}
-                          name="tanggal_lahir"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Tanggal Lahir</FormLabel>
-                              <FormControl>
-                                <Popover>
-                                  <PopoverTrigger asChild>
-                                    <Button
-                                      variant={"outline"}
-                                      className={cn(
-                                        "w-full justify-start text-left font-normal",
-                                        !tahunBerdiriHijriah &&
-                                          "text-muted-foreground"
-                                      )}
-                                    >
-                                      <CalendarIcon />
-                                      {tahunBerdiriHijriah ? (
-                                        format(tahunBerdiriHijriah, "PPP")
-                                      ) : (
-                                        <span>Pilih Tanggal Lahir</span>
-                                      )}
-                                    </Button>
-                                  </PopoverTrigger>
-                                  <PopoverContent className="w-auto p-0">
-                                    <Calendar
-                                      mode="single"
-                                      selected={tahunBerdiriHijriah}
-                                      onSelect={setTahunBerdiriHijriah}
-                                      initialFocus
-                                    />
-                                  </PopoverContent>
-                                </Popover>
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
+                    render={({ field, fieldState }) => (
+                      <FormItem>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal Lahir
+                        </FormLabel>
+                        <FormControl>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full justify-start text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
+                                )}
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pilih Tanggal Lahir</span>
+                                )}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </FormControl>
+                      </FormItem>
                     )}
                   />
                 </div>
@@ -418,7 +462,7 @@ export default function SantriBaru() {
                   <FormField
                     control={santriBaruForm.control}
                     name="agama"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Agama</FormLabel>
                         <FormControl>
@@ -427,7 +471,12 @@ export default function SantriBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full text-left border rounded-md p-2",
+                                fieldState.error && "border-red-500"
+                              )}
+                            >
                               <SelectValue placeholder="Agama" />
                             </SelectTrigger>
                             <SelectContent>
@@ -493,7 +542,7 @@ export default function SantriBaru() {
                 <div>
                   <FormField
                     control={santriBaruForm.control}
-                    name="nama_lengkap"
+                    name="ayah_kandung"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Ayah Kandung</FormLabel>
@@ -517,8 +566,8 @@ export default function SantriBaru() {
               <div>
                 <FormField
                   control={santriBaruForm.control}
-                  name="status"
-                  render={({ field }) => (
+                  name="status_ayah_kandung"
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormControl>
                         <Select
@@ -526,7 +575,12 @@ export default function SantriBaru() {
                           onValueChange={field.onChange}
                           defaultValue=""
                         >
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger
+                            className={cn(
+                              "w-full text-left border rounded-md p-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                          >
                             <SelectValue placeholder="Status" />
                           </SelectTrigger>
                           <SelectContent>
@@ -580,8 +634,8 @@ export default function SantriBaru() {
               <div>
                 <FormField
                   control={santriBaruForm.control}
-                  name="status"
-                  render={({ field }) => (
+                  name="status_ibu_kandung"
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormControl>
                         <Select
@@ -589,7 +643,12 @@ export default function SantriBaru() {
                           onValueChange={field.onChange}
                           defaultValue=""
                         >
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger
+                            className={cn(
+                              "w-full text-left border rounded-md p-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                          >
                             <SelectValue placeholder="Status" />
                           </SelectTrigger>
                           <SelectContent>
@@ -617,7 +676,7 @@ export default function SantriBaru() {
                 <FormField
                   control={santriBaruForm.control}
                   name="wali"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>Wali</FormLabel>
                       <FormControl>
@@ -626,7 +685,12 @@ export default function SantriBaru() {
                           onValueChange={field.onChange}
                           defaultValue=""
                         >
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger
+                            className={cn(
+                              "w-full text-left border rounded-md p-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                          >
                             <SelectValue placeholder="Status" />
                           </SelectTrigger>
                           <SelectContent>
@@ -647,12 +711,12 @@ export default function SantriBaru() {
                   )}
                 />
               </div>
+
+              <Button type="submit" className="uppercase cursor-pointer mt-5">
+                Simpan
+              </Button>
             </form>
           </Form>
-
-          <Button type="submit" className="uppercase cursor-pointer mt-5">
-            Simpan
-          </Button>
         </div>
       </div>
     </Sidebar>
