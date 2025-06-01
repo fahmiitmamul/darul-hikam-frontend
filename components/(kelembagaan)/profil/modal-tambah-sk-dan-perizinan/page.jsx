@@ -43,6 +43,7 @@ import {
 } from "@/components/ui/select";
 import UploadPiagamSkIjop from "@/components/upload-piagam-sk-ijop";
 import UploadIzinOperasional from "@/components/upload-izin-operasional";
+import { toast } from "sonner";
 
 export default function ModalTambahSkDanPerizinan() {
   const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
@@ -70,8 +71,15 @@ export default function ModalTambahSkDanPerizinan() {
 
   const onSubmit = (data) => {
     console.log("Form data:", data);
-    console.log(fileUploadIzinOperasional);
-    console.log(fileUploadPiagamSkIjop);
+    if (!fileUploadIzinOperasional) {
+      toast("Dokumen upload izin operasional belum diunggah");
+      return;
+    }
+
+    if (!fileUploadPiagamSkIjop) {
+      toast("Dokumen upload piagam SK Ijop belum diunggah");
+      return;
+    }
   };
 
   return (
