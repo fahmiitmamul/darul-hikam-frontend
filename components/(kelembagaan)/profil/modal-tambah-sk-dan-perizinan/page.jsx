@@ -41,6 +41,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import UploadIzinOperasinal from "@/components/upload-izin-operasional";
+import UploadPiagamSkIjop from "@/components/upload-piagam-sk-ijop";
 
 export default function ModalTambahSkDanPerizinan() {
   const [tanggalSkIzinOperasional, setTanggalSkIzinOperasional] =
@@ -238,6 +240,13 @@ export default function ModalTambahSkDanPerizinan() {
                         )}
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <UploadIzinOperasinal />
+                  </div>
+                  <div>
+                    <UploadPiagamSkIjop />
                   </div>
                 </div>
               </ScrollArea>

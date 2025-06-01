@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function PiagamSkIjop() {
+export default function UploadPiagamSkIjop() {
   const [file, setFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
@@ -80,7 +80,7 @@ export default function PiagamSkIjop() {
   return (
     <div className="w-full max-w-md mx-auto space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="pdf-upload">Upload PDF Document</Label>
+        <Label htmlFor="pdf-upload">Upload Piagam SK Izin Operasional</Label>
         <Card
           className={cn(
             "border-2 border-dashed transition-colors",
@@ -100,11 +100,11 @@ export default function PiagamSkIjop() {
             <Upload className="h-10 w-10 text-muted-foreground mb-4" />
             <div className="space-y-2">
               <p className="text-sm font-medium">
-                Drop your PDF here, or{" "}
-                <span className="text-primary underline">browse</span>
+                Tarik dokumen disini atau{" "}
+                <span className="text-primary underline">pilih</span>
               </p>
               <p className="text-xs text-muted-foreground">
-                Only PDF files are accepted (max 10MB)
+                max 2MB bertipe pdf, png, jpg
               </p>
             </div>
             <Input
