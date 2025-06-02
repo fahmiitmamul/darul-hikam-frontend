@@ -335,7 +335,11 @@ export default function Profil() {
                         <FormItem>
                           <FormLabel>NSPP</FormLabel>
                           <FormControl>
-                            <Input placeholder="Masukkan NSPP" {...field} />
+                            <Input
+                              type="number"
+                              placeholder="Masukkan NSPP"
+                              {...field}
+                            />
                           </FormControl>
                         </FormItem>
                       )}
