@@ -136,7 +136,7 @@ export default function UstadzBaru() {
     fungsi_atau_jabatan: z.string({
       message: "Masukkan fungsi atau jabatan",
     }),
-    tanggal_sk_ptk: z.string({
+    tmt_ustadz_atau_tanggal_sk_ptk: z.string({
       message: "Masukkan tanggal SK PTK",
     }),
     status_penugasan: z.string({
@@ -456,9 +456,13 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="tanggal_lahir"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Tanggal Lahir</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal Lahir
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -466,13 +470,13 @@ export default function UstadzBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
                                   <span>Pilih Tanggal Lahir</span>
                                 )}
@@ -481,8 +485,8 @@ export default function UstadzBaru() {
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -499,7 +503,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="agama"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Agama</FormLabel>
                         <FormControl>
@@ -508,7 +512,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Agama" />
                             </SelectTrigger>
                             <SelectContent>
@@ -531,7 +542,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="golongan_darah"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Golongan Darah</FormLabel>
                         <FormControl>
@@ -540,7 +551,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Golongan Darah" />
                             </SelectTrigger>
                             <SelectContent>
@@ -565,7 +583,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="pendidikan_terakhir"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Pendidikan Terakhir</FormLabel>
                         <FormControl>
@@ -574,7 +592,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Pendidikan Terakhir" />
                             </SelectTrigger>
                             <SelectContent>
@@ -617,9 +642,13 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="tanggal_ijazah"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Tanggal Ijazah</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal Akta Pendirian
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -627,23 +656,23 @@ export default function UstadzBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
-                                  <span>Pilih Tanggal Ijazah</span>
+                                  <span>Pilih Tanggal Akta Pendirian</span>
                                 )}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -666,7 +695,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="status_tempat_tinggal"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Status Tempat Tinggal</FormLabel>
                         <FormControl>
@@ -675,7 +704,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Status Tempat Tinggal" />
                             </SelectTrigger>
                             <SelectContent>
@@ -712,7 +748,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="provinsi"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Provinsi</FormLabel>
                         <FormControl>
@@ -721,7 +757,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Provinsi" />
                             </SelectTrigger>
                             <SelectContent>
@@ -739,7 +782,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="kabupaten"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Kabupaten / Kota</FormLabel>
                         <FormControl>
@@ -748,7 +791,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Kabupaten / Kota" />
                             </SelectTrigger>
                             <SelectContent>
@@ -769,7 +819,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="kecamatan"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Kecamatan</FormLabel>
                         <FormControl>
@@ -778,7 +828,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Provinsi" />
                             </SelectTrigger>
                             <SelectContent>
@@ -796,8 +853,8 @@ export default function UstadzBaru() {
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="kelurahan"
-                    render={({ field }) => (
+                    name="kelurahan_atau_desa"
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Kelurahan / Desa</FormLabel>
                         <FormControl>
@@ -806,7 +863,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Kelurahan / Desa" />
                             </SelectTrigger>
                             <SelectContent>
@@ -901,7 +965,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="transportasi_ke_pontren"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Transportasi Ke Pontren</FormLabel>
                         <FormControl>
@@ -910,7 +974,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Transportasi Ke Pontren" />
                             </SelectTrigger>
                             <SelectContent>
@@ -953,7 +1024,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="jarak_tempat_tinggal_pontren"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Jarak Tempat Tinggal Pontren</FormLabel>
                         <FormControl>
@@ -962,7 +1033,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Jarak Tempat Tinggal Pontren" />
                             </SelectTrigger>
                             <SelectContent>
@@ -998,7 +1076,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="waktu_tempuh"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Waktu Tempuh</FormLabel>
                         <FormControl>
@@ -1007,7 +1085,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Waktu Tempuh" />
                             </SelectTrigger>
                             <SelectContent>
@@ -1133,9 +1218,13 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="tanggal_efektif"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Tanggal Efektif</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal Efektif
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -1143,23 +1232,23 @@ export default function UstadzBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
-                                  <span>Pilih Tanggal Efektif</span>
+                                  <span>Pilih Tanggal Akta Pendirian</span>
                                 )}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1174,7 +1263,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="fungsi_atau_jabatan"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Fungsi Atau Jabatan</FormLabel>
                         <FormControl>
@@ -1183,7 +1272,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Fungsi Atau Jabatan" />
                             </SelectTrigger>
                             <SelectContent>
@@ -1208,10 +1304,14 @@ export default function UstadzBaru() {
                 <div>
                   <FormField
                     control={identitasForm.control}
-                    name="tanggal_efektif"
-                    render={({ field }) => (
+                    name="tmt_ustadz_atau_tanggal_sk_ptk"
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>TMT Ustadz / Tanggal SK PTK</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          TMT Ustadz / Tanggal SK PTK
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -1219,13 +1319,13 @@ export default function UstadzBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
                                   <span>TMT Ustadz / Tanggal SK PTK</span>
                                 )}
@@ -1234,8 +1334,8 @@ export default function UstadzBaru() {
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1253,7 +1353,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="status_penugasan"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Status Penugasan</FormLabel>
                         <FormControl>
@@ -1262,7 +1362,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Status Penugasan" />
                             </SelectTrigger>
                             <SelectContent>
@@ -1286,7 +1393,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="instansi_yang_mengeluarkan_sk"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Instansi Yang Mengeluarkan SK</FormLabel>
                         <FormControl>
@@ -1295,7 +1402,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="Instansi Yang Mengeluarkan SK" />
                             </SelectTrigger>
                             <SelectContent>
@@ -1323,7 +1437,7 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="no_sk"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>No SK</FormLabel>
                         <FormControl>
@@ -1332,7 +1446,14 @@ export default function UstadzBaru() {
                             onValueChange={field.onChange}
                             defaultValue=""
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger
+                              className={cn(
+                                "w-full",
+                                fieldState.error
+                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                  : ""
+                              )}
+                            >
                               <SelectValue placeholder="No SK" />
                             </SelectTrigger>
                             <SelectContent>
@@ -1356,9 +1477,13 @@ export default function UstadzBaru() {
                   <FormField
                     control={identitasForm.control}
                     name="tanggal_sk"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Tanggal SK</FormLabel>
+                        <FormLabel
+                          className={fieldState.error ? "text-red-500" : ""}
+                        >
+                          Tanggal SK
+                        </FormLabel>
                         <FormControl>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -1366,23 +1491,23 @@ export default function UstadzBaru() {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full justify-start text-left font-normal",
-                                  !tahunBerdiriHijriah &&
-                                    "text-muted-foreground"
+                                  !field.value && "text-muted-foreground",
+                                  fieldState.error && "border-red-500"
                                 )}
                               >
-                                <CalendarIcon />
-                                {tahunBerdiriHijriah ? (
-                                  format(tahunBerdiriHijriah, "PPP")
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(field.value, "PPP")
                                 ) : (
-                                  <span>Tanggal SK</span>
+                                  <span>Pilih Tanggal SK</span>
                                 )}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={tahunBerdiriHijriah}
-                                onSelect={setTahunBerdiriHijriah}
+                                selected={field.value}
+                                onSelect={field.onChange}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1400,7 +1525,7 @@ export default function UstadzBaru() {
                     <FormField
                       control={identitasForm.control}
                       name="jenis_sk"
-                      render={({ field }) => (
+                      render={({ field, fieldState }) => (
                         <FormItem>
                           <FormLabel>Jenis SK</FormLabel>
                           <FormControl>
@@ -1409,7 +1534,14 @@ export default function UstadzBaru() {
                               onValueChange={field.onChange}
                               defaultValue=""
                             >
-                              <SelectTrigger className="w-full">
+                              <SelectTrigger
+                                className={cn(
+                                  "w-full",
+                                  fieldState.error
+                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                    : ""
+                                )}
+                              >
                                 <SelectValue placeholder="Jenis SK" />
                               </SelectTrigger>
                               <SelectContent>
@@ -1467,12 +1599,12 @@ export default function UstadzBaru() {
                 </div>
                 <div></div>
               </div>
+
+              <Button type="submit" className="uppercase cursor-pointer mt-5">
+                Simpan
+              </Button>
             </form>
           </Form>
-
-          <Button type="submit" className="uppercase cursor-pointer mt-5">
-            Simpan
-          </Button>
         </div>
       </div>
     </Sidebar>
