@@ -1,52 +1,25 @@
 "use client";
-import { Plus, CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
+import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { format } from "date-fns";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectItem,
-} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { PdfUploader } from "@/components/pdf-uploader";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
 
 export default function ModalTambahBukuPelajaran() {
-  const [tanggalSkIzinOperasional, setTanggalSkIzinOperasional] =
-    useState(null);
-  const [berlakuSampaiDengan, setBerlakuSampaiDengan] = useState(null);
+  const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
   const schemaDokumen = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -89,7 +62,10 @@ export default function ModalTambahBukuPelajaran() {
                 onSubmit={dokumenForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
-                <PdfUploader />
+                <UploadBukuPelajaran
+                  fileUploadBukuPelajaran={fileUploadBukuPelajaran}
+                  setFileUploadBukuPelajaran={setFileUploadBukuPelajaran}
+                />
 
                 <div className="flex gap-5">
                   <div className="w-full">

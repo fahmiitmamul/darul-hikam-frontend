@@ -27,7 +27,6 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { ChevronsLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
@@ -76,17 +75,6 @@ export default function BukuPelajaran() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  });
-
-  const schemaIdentitas = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
   });
 
   return (
