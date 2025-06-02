@@ -37,30 +37,127 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import UploadFotoUstadz from "@/components/upload-foto-ustadz";
-import { PdfUploader } from "@/components/pdf-uploader";
-import { ImagePlus } from "lucide-react";
-import { CloudUpload } from "lucide-react";
+import UploadFileSk from "@/components/upload-file-sk";
 
 export default function UstadzBaru() {
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
-  const [uploadFotoSk, setUploadFotoSk] = useState(null);
+  const [fileUploadSk, setFileUploadSk] = useState(null);
 
   const schemaIdentitas = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
+    gelar_depan: z.string({ message: "Masukkan gelar depan" }),
+    nama_lengkap: z.string({ message: "Masukkan nama lengkap" }),
+    gelar_belakang: z.string({
       message: "Masukkan satuan pendidikan",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
+    npk: z.string({
+      message: "Masukkan npk",
+    }),
+    nik: z.string({
+      message: "Masukkan nik",
+    }),
+    nuptk: z.string({
+      message: "Masukkan nuptk",
+    }),
+    no_handphone: z.string({
+      message: "Masukkan no_handphone",
+    }),
+    email: z.string({
+      message: "Masukkan email",
+    }),
+    npwp: z.string({
+      message: "Masukkan npwp",
+    }),
+    tempat_lahir: z.string({
+      message: "Masukkan tempat lahir",
+    }),
+    tanggal_lahir: z.string({
+      message: "Masukkan tanggal lahir",
+    }),
+    agama: z.string({
+      message: "Masukkan agama",
+    }),
+    golongan_darah: z.string({
+      message: "Masukkan golongan darah",
+    }),
+    pendidikan_terakhir: z.string({
+      message: "Masukkan pendidikan terakhir",
+    }),
+    prodi_terakhir: z.string({
+      message: "Masukkan prodi terakhir",
+    }),
+    tanggal_ijazah: z.string({
+      message: "Masukkan tanggal ijazah",
+    }),
+    status_tempat_tinggal: z.string({
+      message: "Masukkan status tempat tinggal",
+    }),
+    provinsi: z.string({
+      message: "Masukkan provinsi",
+    }),
+    kabupaten: z.string({
+      message: "Masukkan kabupaten",
+    }),
+    kecamatan: z.string({
+      message: "Masukkan kecamatan",
+    }),
+    kelurahan_atau_desa: z.string({
+      message: "Masukkan kelurahan atau desa",
+    }),
+    rt: z.string({
+      message: "Masukkan rt",
+    }),
+    rw: z.string({
+      message: "Masukkan rw",
+    }),
+    alamat: z.string({
+      message: "Masukkan alamat",
+    }),
+    kode_pos: z.string({
+      message: "Masukkan kode_pos",
+    }),
+    transportasi_ke_pontren: z.string({
+      message: "Masukkan transportasi ke pontren",
+    }),
+    jarak_tempat_tinggal_pontren: z.string({
+      message: "Masukkan jarak tempat tinggal pontren",
+    }),
+    waktu_tempuh: z.string({
+      message: "Masukkan waktu tempuh",
+    }),
+    nama_ibu_kandung: z.string({
+      message: "Masukkan nama ibu kandung",
+    }),
+    nomor_kk: z.string({
+      message: "Masukkan nomor kk",
+    }),
+    tanggal_efektif: z.string({
+      message: "Masukkan tanggal efektif",
+    }),
+    fungsi_atau_jabatan: z.string({
+      message: "Masukkan fungsi atau jabatan",
+    }),
+    tanggal_sk_ptk: z.string({
+      message: "Masukkan tanggal SK PTK",
+    }),
+    status_penugasan: z.string({
+      message: "Masukkan status penugasan",
+    }),
+    instansi_yang_mengeluarkan_sk: z.string({
+      message: "Masukkan instansi yang mengeluarkan SK",
+    }),
+    no_sk: z.string({
+      message: "Masukkan no sk",
+    }),
+    tanggal_sk: z.string({
+      message: "Masukkan tanggal sk",
+    }),
+    jenis_sk: z.string({
+      message: "Masukkan jenis sk",
     }),
   });
 
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
-    defaultValues: {
-      nspp: "",
-    },
   });
 
   const onSubmit = (data) => {
@@ -1363,67 +1460,10 @@ export default function UstadzBaru() {
 
               <div className="grid grid-cols-2 gap-5">
                 <div>
-                  {" "}
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="uploadFotoSk"
-                      className="text-base font-medium"
-                    >
-                      Foto Papan Nama <span className="text-red-500">*</span>
-                    </Label>
-                    <div className="relative border border-dashed rounded-md p-1 h-[200px] flex flex-col items-center justify-center">
-                      {uploadFotoSk ? (
-                        <>
-                          <div className="absolute top-2 right-2 z-10 flex space-x-1">
-                            <Button
-                              variant="secondary"
-                              size="icon"
-                              className="h-8 w-8 bg-gray-200 hover:bg-gray-300"
-                              onClick={() => handleRemove(setUploadFotoSk)}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                          <div className="relative w-full h-full">
-                            <Image
-                              src={uploadFotoSk.url || "/placeholder.svg"}
-                              alt="Foto Papan Nama"
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <label
-                          htmlFor="uploadFotoSk"
-                          className="flex flex-col items-center justify-center w-full h-full cursor-pointer"
-                        >
-                          <CloudUpload className="h-10 w-10 text-gray-400" />
-                          <span className="mt-2 text-sm text-gray-500">
-                            Upload File SK
-                          </span>
-                          <span className="mt-2 text-sm text-gray-500">
-                            maks. 2MB bertipe Pdf jpg png
-                          </span>
-                          <input
-                            id="uploadFotoSk"
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) =>
-                              handleFileChange(e, setUploadFotoSk, "Papan_Nama")
-                            }
-                          />
-                        </label>
-                      )}
-                    </div>
-                    {uploadFotoSk && (
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Upload className="h-4 w-4 mr-1" />
-                        <span className="truncate">{uploadFotoSk.name}</span>
-                      </div>
-                    )}
-                  </div>
+                  <UploadFileSk
+                    fileUploadSk={fileUploadSk}
+                    setFileUploadSk={setFileUploadSk}
+                  />
                 </div>
                 <div></div>
               </div>
