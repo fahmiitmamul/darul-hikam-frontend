@@ -61,6 +61,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
+import { useQuery } from "@tanstack/react-query";
 
 const defaultData = [
   {
@@ -268,6 +269,9 @@ export default function Profil() {
 
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
+    defaultValues: {
+      nspp: "2839424234",
+    },
   });
 
   const lokasiForm = useForm({
@@ -283,6 +287,20 @@ export default function Profil() {
   const onSubmit = (data) => {
     console.log("Form data:", data);
   };
+
+  async function fetchIdentitas() {
+    const { data } = await http(token).get("/profil/identitas");
+    return data.results;
+  }
+
+  const { data: identitasData } = useQuery({
+    queryKey: ["identitas"],
+    queryFn: () => fetchIdentitas(),
+    staleTime: 10 * 60 * 1000,
+    cacheTime: 60 * 60 * 1000,
+  });
+
+  console.log(identitasData);
 
   return (
     <Sidebar>
