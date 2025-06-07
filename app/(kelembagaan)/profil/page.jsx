@@ -288,20 +288,6 @@ export default function Profil() {
     console.log("Form data:", data);
   };
 
-  async function fetchIdentitas() {
-    const { data } = await http(token).get("/profil/identitas");
-    return data.results;
-  }
-
-  const { data: identitasData } = useQuery({
-    queryKey: ["identitas"],
-    queryFn: () => fetchIdentitas(),
-    staleTime: 10 * 60 * 1000,
-    cacheTime: 60 * 60 * 1000,
-  });
-
-  console.log(identitasData);
-
   return (
     <Sidebar>
       <div className="flex flex-col w-full">
