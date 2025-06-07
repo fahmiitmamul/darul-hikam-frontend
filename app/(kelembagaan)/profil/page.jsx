@@ -61,7 +61,6 @@ import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
-import { useQuery } from "@tanstack/react-query";
 
 const defaultData = [
   {
