@@ -3,7 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "./providers";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,14 +20,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // const queryClient = new QueryClient();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <QueryClientProvider client={queryClient}> */}
         <AuthProvider>
           <ThemeProvider
             attribute="class"
@@ -40,7 +36,6 @@ export default async function RootLayout({ children }) {
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
-        {/* </QueryClientProvider> */}
       </body>
     </html>
   );
