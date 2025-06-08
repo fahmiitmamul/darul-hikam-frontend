@@ -286,7 +286,6 @@ export default function Profil() {
   const galeriForm = useForm({
     defaultValues: async () => {
       const { data } = await http().get(`/profil/galeri-foto`);
-      console.log(data);
       const fileName = `${Date.now()}.jpg`;
       setFotoPapanNama({
         url: data.results?.data[0]?.foto_papan_nama,
@@ -319,6 +318,13 @@ export default function Profil() {
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
+    defaultValues: async () => {
+      const { data } = await http().get(`/profil/dokumen-perijinan`);
+      setFileUploadAktaPendirianPenyelenggara(
+        data.results?.data[0]?.file_akta_pendirian
+      );
+      return data.results?.data[0];
+    },
   });
 
   const onSubmit = (data) => {

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function UploadAktaPendirianPenyelenggara({
   fileUploadAktaPendirianPenyelenggara,
@@ -81,45 +82,49 @@ export default function UploadAktaPendirianPenyelenggara({
 
   return (
     <div className="w-full max-w-md space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="pdf-upload">Upload Akta Pendirian Penyelenggara</Label>
-        <Card
-          className={cn(
-            "border-2 border-dashed transition-colors",
-            isDragOver
-              ? "border-primary bg-primary/5"
-              : "border-muted-foreground/25",
-            error ? "border-destructive" : ""
-          )}
-        >
-          <CardContent
-            className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onClick={() => fileInputRef.current?.click()}
+      {!fileUploadAktaPendirianPenyelenggara && (
+        <div className="space-y-2">
+          <Label htmlFor="pdf-upload">
+            Upload Akta Pendirian Penyelenggara
+          </Label>
+          <Card
+            className={cn(
+              "border-2 border-dashed transition-colors",
+              isDragOver
+                ? "border-primary bg-primary/5"
+                : "border-muted-foreground/25",
+              error ? "border-destructive" : ""
+            )}
           >
-            <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-            <div className="space-y-2">
-              <p className="text-sm font-medium">
-                Tarik dokumen disini atau{" "}
-                <span className="text-primary underline">pilih</span>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                max 2MB bertipe pdf, png, jpg{" "}
-              </p>
-            </div>
-            <Input
-              ref={fileInputRef}
-              id="pdf-upload"
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handleFileInputChange}
-              className="hidden"
-            />
-          </CardContent>
-        </Card>
-      </div>
+            <CardContent
+              className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-10 w-10 text-muted-foreground mb-4" />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">
+                  Tarik dokumen disini atau{" "}
+                  <span className="text-primary underline">pilih</span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  max 2MB bertipe pdf, png, jpg{" "}
+                </p>
+              </div>
+              <Input
+                ref={fileInputRef}
+                id="pdf-upload"
+                type="file"
+                accept=".pdf,application/pdf"
+                onChange={handleFileInputChange}
+                className="hidden"
+              />
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {error && (
         <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
@@ -130,27 +135,26 @@ export default function UploadAktaPendirianPenyelenggara({
       {fileUploadAktaPendirianPenyelenggara && (
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <FileText className="h-8 w-8 text-red-500" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">
-                    {fileUploadAktaPendirianPenyelenggara.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatFileSize(fileUploadAktaPendirianPenyelenggara.size)}
-                  </p>
+            <Link href={fileUploadAktaPendirianPenyelenggara} target="_blank">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <FileText className="h-8 w-8 text-red-500" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">
+                      File Upload Akta Pendirian Penyelenggara
+                    </p>
+                  </div>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={removeFile}
+                  className="h-8 w-8 p-0"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={removeFile}
-                className="h-8 w-8 p-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
+            </Link>
           </CardContent>
         </Card>
       )}
