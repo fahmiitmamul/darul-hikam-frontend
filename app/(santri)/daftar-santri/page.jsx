@@ -38,6 +38,7 @@ import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-at
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function DaftarSantri() {
   const [
@@ -50,6 +51,8 @@ export default function DaftarSantri() {
   const tableData = [
     {
       no: "1",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -61,6 +64,8 @@ export default function DaftarSantri() {
     },
     {
       no: "2",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -72,6 +77,8 @@ export default function DaftarSantri() {
     },
     {
       no: "3",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -83,6 +90,8 @@ export default function DaftarSantri() {
     },
     {
       no: "4",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -94,6 +103,8 @@ export default function DaftarSantri() {
     },
     {
       no: "5",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -105,6 +116,8 @@ export default function DaftarSantri() {
     },
     {
       no: "6",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -116,6 +129,8 @@ export default function DaftarSantri() {
     },
     {
       no: "7",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -127,6 +142,8 @@ export default function DaftarSantri() {
     },
     {
       no: "8",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -138,6 +155,8 @@ export default function DaftarSantri() {
     },
     {
       no: "9",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -149,6 +168,8 @@ export default function DaftarSantri() {
     },
     {
       no: "10",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -160,6 +181,8 @@ export default function DaftarSantri() {
     },
     {
       no: "11",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -171,6 +194,8 @@ export default function DaftarSantri() {
     },
     {
       no: "12",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -182,6 +207,8 @@ export default function DaftarSantri() {
     },
     {
       no: "13",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -193,6 +220,8 @@ export default function DaftarSantri() {
     },
     {
       no: "14",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -204,6 +233,8 @@ export default function DaftarSantri() {
     },
     {
       no: "15",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -215,6 +246,8 @@ export default function DaftarSantri() {
     },
     {
       no: "16",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -226,6 +259,8 @@ export default function DaftarSantri() {
     },
     {
       no: "17",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -237,6 +272,8 @@ export default function DaftarSantri() {
     },
     {
       no: "18",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -248,6 +285,8 @@ export default function DaftarSantri() {
     },
     {
       no: "19",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -259,6 +298,8 @@ export default function DaftarSantri() {
     },
     {
       no: "20",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -270,6 +311,8 @@ export default function DaftarSantri() {
     },
     {
       no: "21",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -281,6 +324,8 @@ export default function DaftarSantri() {
     },
     {
       no: "22",
+      photo:
+        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
       nama_lengkap: "Itmamul Fahmi",
       nisn: "1212754367",
       tempat_lahir: "Banyumas",
@@ -296,6 +341,22 @@ export default function DaftarSantri() {
     {
       accessorKey: "no",
       header: "No",
+    },
+    {
+      accessorKey: "photo",
+      header: "Foto",
+      cell: ({ row }) => {
+        const photoUrl = row.original.photo;
+        return (
+          <Image
+            src={photoUrl}
+            alt="Foto Profil"
+            width={40}
+            height={40}
+            className="rounded-full object-cover"
+          />
+        );
+      },
     },
     {
       accessorKey: "nama_lengkap",
