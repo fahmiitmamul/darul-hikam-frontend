@@ -40,7 +40,6 @@ import UploadFotoUstadz from "@/components/upload-foto-ustadz";
 import UploadFileSk from "@/components/upload-file-sk";
 
 export default function UstadzBaru() {
-  const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
   const [fileUploadSk, setFileUploadSk] = useState(null);
 
   const schemaIdentitas = z.object({

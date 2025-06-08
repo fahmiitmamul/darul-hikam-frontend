@@ -39,6 +39,7 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
+import { Download } from "lucide-react";
 
 export default function DaftarSantri() {
   const [
@@ -405,6 +406,15 @@ export default function DaftarSantri() {
             >
               <Pencil />
               Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/detail-santri");
+              }}
+            >
+              <Download />
+              Portfolio Santri
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"

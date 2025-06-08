@@ -38,6 +38,7 @@ import React from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import UploadFotoSantri from "@/components/upload-foto-santri";
 
 export default function SantriBaru() {
   const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
@@ -129,6 +130,8 @@ export default function SantriBaru() {
               onSubmit={santriBaruForm.handleSubmit(onSubmit)}
               className="space-y-5 mt-5"
             >
+              <UploadFotoSantri />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
