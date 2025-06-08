@@ -35,6 +35,8 @@ import { Pencil } from "lucide-react";
 import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { useState } from "react";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
+import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
 
 export default function MudirAtauPimpinan() {
   const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
@@ -43,6 +45,38 @@ export default function MudirAtauPimpinan() {
     openDialogHapusMudirAtauPimpinan,
     setOpenDialogHapusMudirAtauPimpinan,
   ] = useState(false);
+  const [allContractPage, setAllContractPage] = useState(1);
+  const [allContractLimit, setAllContractLimit] = useState(5);
+  const [allContractSearchData, setAllContractSearchData] = useState("");
+
+  async function fetchMudirAtauPimpinan(pageData, search, limitData) {
+    const { data } = await http().get(
+      "/mudir-atau-pimpinan?page=" +
+        pageData +
+        "&search=" +
+        search +
+        "&limit=" +
+        limitData
+    );
+    return data.results;
+  }
+
+  const { data: mudirAtauPimpinanData } = useQuery({
+    queryKey: [
+      "all-contract",
+      allContractPage,
+      allContractSearchData,
+      allContractLimit,
+    ],
+    queryFn: () =>
+      fetchMudirAtauPimpinan(
+        allContractPage,
+        allContractSearchData,
+        allContractLimit
+      ),
+    staleTime: 10 * 60 * 1000,
+    cacheTime: 60 * 60 * 1000,
+  });
 
   const tableData = [
     {
