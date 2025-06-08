@@ -61,6 +61,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
+import http from "@/helpers/http.helper";
 
 const defaultData = [
   {
@@ -268,8 +269,9 @@ export default function Profil() {
 
   const identitasForm = useForm({
     resolver: zodResolver(schemaIdentitas),
-    defaultValues: {
-      nspp: "2839424234",
+    defaultValues: async () => {
+      const { data } = await http().get(`/profil/identitas`);
+      return data.results?.data[0];
     },
   });
 
