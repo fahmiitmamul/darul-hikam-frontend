@@ -50,6 +50,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
 
 export default function ModalTambahMudirAtauPimpinan({
   openDialogEditMudirAtauPimpinan,
@@ -110,7 +112,23 @@ export default function ModalTambahMudirAtauPimpinan({
     resolver: zodResolver(mudirAtauPimpinanSchema),
   });
 
-  const onSubmit = (data) => {};
+  const queryClient = useQueryClient();
+
+  const postMudirAtauPimpinan = useMutation({
+    mutationFn: async (values) => {
+      const data = new URLSearchParams(values).toString();
+      return http().post(`/profil/mudir-atau-pimpinan`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["mudir-atau-pimpinan"] });
+      dispatch(setLoading(false));
+    },
+    onError: (err) => {},
+  });
+
+  const onSubmit = (data) => {
+    postMudirAtauPimpinan.mutate(data);
+  };
 
   return (
     <div>
