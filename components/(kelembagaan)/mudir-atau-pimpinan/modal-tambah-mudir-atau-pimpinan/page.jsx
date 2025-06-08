@@ -127,6 +127,7 @@ export default function ModalTambahMudirAtauPimpinan({
 
   const onSubmit = (data) => {
     postMudirAtauPimpinan.mutate(data);
+    setOpenDialogEditMudirAtauPimpinan(false);
   };
 
   return (
