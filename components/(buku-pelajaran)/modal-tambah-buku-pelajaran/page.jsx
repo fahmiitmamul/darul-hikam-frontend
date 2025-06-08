@@ -65,7 +65,7 @@ export default function ModalTambahBukuPelajaran() {
                   <div className="w-full">
                     <FormField
                       control={dokumenForm.control}
-                      name="kelas"
+                      name="judul_buku"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Judul Buku</FormLabel>
