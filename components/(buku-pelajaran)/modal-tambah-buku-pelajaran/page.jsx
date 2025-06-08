@@ -61,10 +61,24 @@ export default function ModalTambahBukuPelajaran() {
                 onSubmit={dokumenForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
-                <UploadBukuPelajaran
-                  fileUploadBukuPelajaran={fileUploadBukuPelajaran}
-                  setFileUploadBukuPelajaran={setFileUploadBukuPelajaran}
-                />
+                <div className="flex gap-5">
+                  <div className="w-full">
+                    <FormField
+                      control={dokumenForm.control}
+                      name="kelas"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Judul Buku</FormLabel>
+                          <Input
+                            type="text"
+                            placeholder="Silahkan Tulis Judul Buku"
+                            {...field}
+                          />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
                 <div className="flex gap-5">
                   <div className="w-full">
@@ -84,6 +98,11 @@ export default function ModalTambahBukuPelajaran() {
                     />
                   </div>
                 </div>
+
+                <UploadBukuPelajaran
+                  fileUploadBukuPelajaran={fileUploadBukuPelajaran}
+                  setFileUploadBukuPelajaran={setFileUploadBukuPelajaran}
+                />
               </form>
             </Form>
           </div>

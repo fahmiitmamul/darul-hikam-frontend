@@ -82,7 +82,7 @@ export default function UploadBukuPelajaran({
   return (
     <div className="w-full max-w-md space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="pdf-upload">Upload File SK</Label>
+        <Label htmlFor="pdf-upload">Upload Buku Pelajaran</Label>
         <Card
           className={cn(
             "border-2 border-dashed transition-colors",
