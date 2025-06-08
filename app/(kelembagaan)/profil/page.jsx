@@ -277,9 +277,45 @@ export default function Profil() {
 
   const lokasiForm = useForm({
     resolver: zodResolver(schemaLokasi),
+    defaultValues: async () => {
+      const { data } = await http().get(`/profil/lokasi`);
+      return data.results?.data[0];
+    },
   });
 
-  const galeriForm = useForm();
+  const galeriForm = useForm({
+    defaultValues: async () => {
+      const { data } = await http().get(`/profil/galeri-foto`);
+      console.log(data);
+      const fileName = `${Date.now()}.jpg`;
+      setFotoPapanNama({
+        url: data.results?.data[0]?.foto_papan_nama,
+        filename: fileName,
+      });
+      setFotoGedung({
+        url: data.results?.data[0]?.foto_gedung_tampak_depan,
+        filename: fileName,
+      });
+      setFotoKelas({
+        url: data.results?.data[0]?.foto_kelas,
+        filename: fileName,
+      });
+      setFotoHalaman({
+        url: data.results?.data[0]?.foto_halaman,
+        filename: fileName,
+      });
+      setFotoDenahLembaga({
+        url: data.results?.data[0]?.foto_denah_lembaga,
+        filename: fileName,
+      });
+      setFotoMusholaAtauMasjid({
+        url: data.results?.data[0]?.foto_mushola_atau_masjid,
+        filename: fileName,
+      });
+
+      return data.results?.data[0];
+    },
+  });
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
