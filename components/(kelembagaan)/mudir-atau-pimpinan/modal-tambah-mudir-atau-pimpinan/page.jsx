@@ -110,9 +110,7 @@ export default function ModalTambahMudirAtauPimpinan({
     resolver: zodResolver(mudirAtauPimpinanSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
-  };
+  const onSubmit = (data) => {};
 
   return (
     <div>
