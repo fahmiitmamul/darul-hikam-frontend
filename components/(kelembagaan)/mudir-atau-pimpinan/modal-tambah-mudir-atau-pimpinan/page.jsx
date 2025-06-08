@@ -117,7 +117,7 @@ export default function ModalTambahMudirAtauPimpinan({
   const postMudirAtauPimpinan = useMutation({
     mutationFn: async (values) => {
       const data = new URLSearchParams(values).toString();
-      return http().post(`/profil/mudir-atau-pimpinan`, data);
+      return http().post(`/mudir-atau-pimpinan`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mudir-atau-pimpinan"] });
