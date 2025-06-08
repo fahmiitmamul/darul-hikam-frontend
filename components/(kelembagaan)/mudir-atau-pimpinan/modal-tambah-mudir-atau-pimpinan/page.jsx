@@ -121,7 +121,6 @@ export default function ModalTambahMudirAtauPimpinan({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mudir-atau-pimpinan"] });
-      dispatch(setLoading(false));
     },
     onError: (err) => {},
   });
