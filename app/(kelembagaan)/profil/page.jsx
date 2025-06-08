@@ -319,7 +319,7 @@ export default function Profil() {
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
     defaultValues: async () => {
-      const { data } = await http().get(`/profil/dokumen-perijinan`);
+      const { data } = await http().get(`/profil/akta-pendirian-penyelenggara`);
       setFileUploadAktaPendirianPenyelenggara(
         data.results?.data[0]?.file_akta_pendirian
       );
