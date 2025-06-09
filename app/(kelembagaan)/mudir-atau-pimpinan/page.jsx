@@ -77,7 +77,7 @@ export default function MudirAtauPimpinan() {
       header: "No Handphone",
     },
     {
-      accessorKey: "tanggal_sk",
+      accessorKey: "tanggal_mulai",
       header: "Tanggal SK",
     },
     {
