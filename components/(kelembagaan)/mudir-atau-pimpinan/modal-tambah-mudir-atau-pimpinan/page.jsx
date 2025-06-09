@@ -122,8 +122,15 @@ export default function ModalTambahMudirAtauPimpinan({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mudir-pimpinan"] });
+      toast("Mudir atau pimpinan berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
     },
-    onError: (err) => {},
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
   });
 
   const onSubmit = (data) => {
