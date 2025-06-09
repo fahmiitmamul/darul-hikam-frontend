@@ -10,11 +10,48 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import http from "@/helpers/http.helper";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function ModalHapusMudirAtauPimpinan({
+  mudirAtauPimpinanId,
   openDialogHapusMudirAtauPimpinan,
   setOpenDialogHapusMudirAtauPimpinan,
 }) {
+  const queryClient = useQueryClient();
+
+  const handleDelete = useMutation({
+    mutationFn: async () => {
+      return http().delete(`/mudir-atau-pimpinan/${mudirAtauPimpinanId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["mudir-pimpinan"] });
+      toast("Berhasil menghapus mudir atau pimpinan", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
+  const onSubmit = (data) => {
+    showDeleteAnnouncementModal(false);
+    handleDelete.mutate();
+    dispatch(setLoading(true));
+  };
+
+  const onClick = (data) => {
+    postMudirAtauPimpinan.mutate(data);
+    setOpenDialogEditMudirAtauPimpinan(false);
+    toast("Mudir atau pimpinan berhasil ditambahkan", {
+      description: new Date().toLocaleString(),
+    });
+  };
+
   return (
     <AlertDialog
       open={openDialogHapusMudirAtauPimpinan}
@@ -30,7 +67,13 @@ export function ModalHapusMudirAtauPimpinan({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction>Hapus</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              handleDelete.mutate();
+            }}
+          >
+            Hapus
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

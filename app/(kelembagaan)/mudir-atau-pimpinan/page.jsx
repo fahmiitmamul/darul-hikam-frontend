@@ -47,6 +47,7 @@ export default function MudirAtauPimpinan() {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [mudirAtauPimpinanId, setMudirAtauPimpinanId] = useState(null);
 
   const getDataMudirPimpinan = async (page, limit, search) => {
     const { data } = await http().get(
@@ -78,7 +79,7 @@ export default function MudirAtauPimpinan() {
     {
       accessorKey: "tanggal_sk",
       header: "Tanggal SK",
-      cell: () => "-", // placeholder jika tidak ada field
+      cell: () => "-",
     },
     {
       accessorKey: "status_keaktifan",
@@ -100,7 +101,10 @@ export default function MudirAtauPimpinan() {
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => setOpenDialogHapus(true)}
+              onClick={() => {
+                setOpenDialogHapus(true);
+                setMudirAtauPimpinanId(row.original.id);
+              }}
               className="text-red-600"
             >
               <Trash className="mr-2 h-4 w-4" />
@@ -223,6 +227,7 @@ export default function MudirAtauPimpinan() {
         </div>
 
         <ModalHapusMudirAtauPimpinan
+          mudirAtauPimpinanId={mudirAtauPimpinanId}
           openDialogHapusMudirAtauPimpinan={openDialogHapus}
           setOpenDialogHapusMudirAtauPimpinan={setOpenDialogHapus}
         />
