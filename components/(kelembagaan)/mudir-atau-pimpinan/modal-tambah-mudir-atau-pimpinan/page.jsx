@@ -53,6 +53,9 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { toast } from "sonner";
+import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
 export default function ModalTambahMudirAtauPimpinan({
   openDialogEditMudirAtauPimpinan,
@@ -650,34 +653,42 @@ export default function ModalTambahMudirAtauPimpinan({
                     <div>
                       <FormField
                         control={mudirAtauPimpinanForm.control}
-                        name="tanggal_sk"
+                        name="tanggal_mulai"
                         render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>Tanggal SK</FormLabel>
+                            <FormLabel
+                              className={fieldState.error ? "text-red-500" : ""}
+                            >
+                              Tanggal SK
+                            </FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger
-                                  className={cn(
-                                    "w-full text-left border rounded-md p-2",
-                                    fieldState.error && "border-red-500"
-                                  )}
-                                >
-                                  <SelectValue placeholder="Tanggal SK" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Tanggal SK</SelectLabel>
-                                    <SelectItem value="Aktif">Aktif</SelectItem>
-                                    <SelectItem value="Non Aktif">
-                                      Non Aktif
-                                    </SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-full justify-start text-left font-normal",
+                                      !field.value && "text-muted-foreground",
+                                      fieldState.error && "border-red-500"
+                                    )}
+                                  >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {field.value ? (
+                                      format(field.value, "PPP")
+                                    ) : (
+                                      <span>Pilih Tanggal SK</span>
+                                    )}
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                  <Calendar
+                                    mode="single"
+                                    selected={field.value}
+                                    onSelect={field.onChange}
+                                    initialFocus
+                                  />
+                                </PopoverContent>
+                              </Popover>
                             </FormControl>
                           </FormItem>
                         )}
