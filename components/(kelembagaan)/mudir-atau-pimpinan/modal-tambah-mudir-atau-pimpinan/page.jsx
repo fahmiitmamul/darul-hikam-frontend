@@ -52,6 +52,7 @@ import {
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
+import { toast } from "sonner";
 
 export default function ModalTambahMudirAtauPimpinan({
   openDialogEditMudirAtauPimpinan,
@@ -128,6 +129,9 @@ export default function ModalTambahMudirAtauPimpinan({
   const onSubmit = (data) => {
     postMudirAtauPimpinan.mutate(data);
     setOpenDialogEditMudirAtauPimpinan(false);
+    toast("Mudir atau pimpinan berhasil ditambahkan", {
+      description: new Date().toLocaleString(),
+    });
   };
 
   return (
