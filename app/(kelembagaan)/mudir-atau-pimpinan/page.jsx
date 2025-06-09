@@ -79,7 +79,6 @@ export default function MudirAtauPimpinan() {
     {
       accessorKey: "tanggal_sk",
       header: "Tanggal SK",
-      cell: () => "-",
     },
     {
       accessorKey: "status_keaktifan",

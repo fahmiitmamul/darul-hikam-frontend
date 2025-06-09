@@ -63,7 +63,7 @@ export default function ModalTambahMudirAtauPimpinan({
 
   const frameworks = [
     {
-      value: "itmamul_fahmi",
+      value: "Itmamul Fahmi",
       label: "Itmamul Fahmi",
     },
   ];
@@ -645,8 +645,8 @@ export default function ModalTambahMudirAtauPimpinan({
                                 <SelectContent>
                                   <SelectGroup>
                                     <SelectLabel>Status Keaktifan</SelectLabel>
-                                    <SelectItem value="aktif">Aktif</SelectItem>
-                                    <SelectItem value="non_aktif">
+                                    <SelectItem value="Aktif">Aktif</SelectItem>
+                                    <SelectItem value="Non Aktif">
                                       Non Aktif
                                     </SelectItem>
                                   </SelectGroup>
