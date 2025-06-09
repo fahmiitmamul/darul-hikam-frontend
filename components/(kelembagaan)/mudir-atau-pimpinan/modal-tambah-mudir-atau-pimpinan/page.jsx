@@ -58,8 +58,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 
 export default function ModalTambahMudirAtauPimpinan({
-  openDialogEditMudirAtauPimpinan,
-  setOpenDialogEditMudirAtauPimpinan,
+  openDialogAddMudirAtauPimpinan,
+  setOpenDialogAddMudirAtauPimpinan,
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -183,14 +183,14 @@ export default function ModalTambahMudirAtauPimpinan({
 
   const onSubmit = (data) => {
     postMudirAtauPimpinan.mutate(data);
-    setOpenDialogEditMudirAtauPimpinan(false);
+    setOpenDialogAddMudirAtauPimpinan(false);
   };
 
   return (
     <div>
       <Sheet
-        open={openDialogEditMudirAtauPimpinan}
-        onOpenChange={setOpenDialogEditMudirAtauPimpinan}
+        open={openDialogAddMudirAtauPimpinan}
+        onOpenChange={setOpenDialogAddMudirAtauPimpinan}
       >
         <SheetTrigger asChild>
           <Button className="cursor-pointer uppercase">

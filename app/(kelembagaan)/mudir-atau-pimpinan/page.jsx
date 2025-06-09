@@ -43,6 +43,7 @@ import { format, parseISO } from "date-fns";
 import ModalEditMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/form-edit-mudir-atau-pimpinan/page";
 
 export default function MudirAtauPimpinan() {
+  const [openDialogAdd, setOpenDialogAdd] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogHapus, setOpenDialogHapus] = useState(false);
 
@@ -159,8 +160,8 @@ export default function MudirAtauPimpinan() {
           <div className="flex justify-between mb-4">
             <h3 className="text-2xl font-semibold">Mudir Atau Pimpinan</h3>
             <ModalTambahMudirAtauPimpinan
-              openDialogEditMudirAtauPimpinan={openDialogEdit}
-              setOpenDialogEditMudirAtauPimpinan={setOpenDialogEdit}
+              openDialogAddMudirAtauPimpinan={openDialogAdd}
+              setOpenDialogAddMudirAtauPimpinan={setOpenDialogAdd}
             />
           </div>
 

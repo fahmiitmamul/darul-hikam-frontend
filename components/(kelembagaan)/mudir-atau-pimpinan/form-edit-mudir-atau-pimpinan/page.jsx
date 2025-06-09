@@ -145,13 +145,11 @@ export default function ModalEditMudirAtauPimpinan({
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
     defaultValues: async () => {
-      if (!mudirAtauPimpinanId) return;
       const { data } = await http().get(
         `/mudir-atau-pimpinan/${mudirAtauPimpinanId}`
       );
 
-      console.log(data);
-      return data.results?.data[0];
+      return data.results?.[0];
     },
   });
 
@@ -160,7 +158,7 @@ export default function ModalEditMudirAtauPimpinan({
   const patchMudirAtauPimpinan = useMutation({
     mutationFn: async (values) => {
       const data = new URLSearchParams(values).toString();
-      return http().post(`/mudir-atau-pimpinan/${mudirAtauPimpinanId}`, data);
+      return http().patch(`/mudir-atau-pimpinan/${mudirAtauPimpinanId}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mudir-pimpinan"] });
