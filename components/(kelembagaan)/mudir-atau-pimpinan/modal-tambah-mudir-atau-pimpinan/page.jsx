@@ -624,6 +624,43 @@ export default function ModalTambahMudirAtauPimpinan({
                     <div>
                       <FormField
                         control={mudirAtauPimpinanForm.control}
+                        name="tanggal_sk"
+                        render={({ field, fieldState }) => (
+                          <FormItem>
+                            <FormLabel>Tanggal SK</FormLabel>
+                            <FormControl>
+                              <Select
+                                {...field}
+                                onValueChange={field.onChange}
+                                defaultValue=""
+                              >
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-full text-left border rounded-md p-2",
+                                    fieldState.error && "border-red-500"
+                                  )}
+                                >
+                                  <SelectValue placeholder="Tanggal SK" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Tanggal SK</SelectLabel>
+                                    <SelectItem value="Aktif">Aktif</SelectItem>
+                                    <SelectItem value="Non Aktif">
+                                      Non Aktif
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div>
+                      <FormField
+                        control={mudirAtauPimpinanForm.control}
                         name="status_keaktifan"
                         render={({ field, fieldState }) => (
                           <FormItem>
