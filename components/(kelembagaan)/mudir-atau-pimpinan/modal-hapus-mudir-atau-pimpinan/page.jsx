@@ -39,17 +39,7 @@ export function ModalHapusMudirAtauPimpinan({
   });
 
   const onSubmit = (data) => {
-    showDeleteAnnouncementModal(false);
     handleDelete.mutate();
-    dispatch(setLoading(true));
-  };
-
-  const onClick = (data) => {
-    postMudirAtauPimpinan.mutate(data);
-    setOpenDialogEditMudirAtauPimpinan(false);
-    toast("Mudir atau pimpinan berhasil ditambahkan", {
-      description: new Date().toLocaleString(),
-    });
   };
 
   return (
