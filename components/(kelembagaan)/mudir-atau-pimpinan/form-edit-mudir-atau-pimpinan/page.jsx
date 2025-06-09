@@ -53,11 +53,12 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { toast } from "sonner";
-import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 
-export default function ModalTambahMudirAtauPimpinan({
+export default function ModalEditMudirAtauPimpinan({
+  mudirAtauPimpinanId,
   openDialogEditMudirAtauPimpinan,
   setOpenDialogEditMudirAtauPimpinan,
 }) {
@@ -143,34 +144,27 @@ export default function ModalTambahMudirAtauPimpinan({
 
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
-    defaultValues: {
-      nama_lengkap: "",
-      nik: "",
-      gelar_depan: "",
-      gelar_belakang: "",
-      jenis_kelamin: "",
-      status_kepegawaian: "",
-      pendidikan_terakhir: "",
-      lama_pendidikan_ponpes: "",
-      lama_pendidikan_lainnya: "",
-      kompetensi: "",
-      no_handphone: "",
-      email: "",
-      status_keaktifan: "",
-      kewarganegaraan: "",
+    defaultValues: async () => {
+      if (!mudirAtauPimpinanId) return;
+      const { data } = await http().get(
+        `/mudir-atau-pimpinan/${mudirAtauPimpinanId}`
+      );
+
+      console.log(data);
+      return data.results?.data[0];
     },
   });
 
   const queryClient = useQueryClient();
 
-  const postMudirAtauPimpinan = useMutation({
+  const patchMudirAtauPimpinan = useMutation({
     mutationFn: async (values) => {
       const data = new URLSearchParams(values).toString();
-      return http().post(`/mudir-atau-pimpinan`, data);
+      return http().post(`/mudir-atau-pimpinan/${mudirAtauPimpinanId}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mudir-pimpinan"] });
-      toast("Mudir atau pimpinan berhasil ditambahkan", {
+      toast("Mudir atau pimpinan berhasil diedit", {
         description: new Date().toLocaleString(),
       });
     },
@@ -182,7 +176,7 @@ export default function ModalTambahMudirAtauPimpinan({
   });
 
   const onSubmit = (data) => {
-    postMudirAtauPimpinan.mutate(data);
+    patchMudirAtauPimpinan.mutate(data);
     setOpenDialogEditMudirAtauPimpinan(false);
   };
 
@@ -192,15 +186,9 @@ export default function ModalTambahMudirAtauPimpinan({
         open={openDialogEditMudirAtauPimpinan}
         onOpenChange={setOpenDialogEditMudirAtauPimpinan}
       >
-        <SheetTrigger asChild>
-          <Button className="cursor-pointer uppercase">
-            <Plus />
-            Tambah
-          </Button>
-        </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Tambah Mudir Atau Pimpinan</SheetTitle>
+            <SheetTitle>Edit Mudir Atau Pimpinan</SheetTitle>
             <SheetDescription></SheetDescription>
           </SheetHeader>
 

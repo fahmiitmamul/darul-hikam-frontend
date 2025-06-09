@@ -40,6 +40,7 @@ import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-at
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
+import ModalEditMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/form-edit-mudir-atau-pimpinan/page";
 
 export default function MudirAtauPimpinan() {
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
@@ -101,7 +102,12 @@ export default function MudirAtauPimpinan() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => setOpenDialogEdit(true)}>
+            <DropdownMenuItem
+              onClick={() => {
+                setOpenDialogEdit(true);
+                setMudirAtauPimpinanId(row.original.id);
+              }}
+            >
               <Pencil className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
@@ -246,6 +252,12 @@ export default function MudirAtauPimpinan() {
           mudirAtauPimpinanId={mudirAtauPimpinanId}
           openDialogHapusMudirAtauPimpinan={openDialogHapus}
           setOpenDialogHapusMudirAtauPimpinan={setOpenDialogHapus}
+        />
+
+        <ModalEditMudirAtauPimpinan
+          mudirAtauPimpinanId={mudirAtauPimpinanId}
+          openDialogEditMudirAtauPimpinan={openDialogEdit}
+          setOpenDialogEditMudirAtauPimpinan={setOpenDialogEdit}
         />
       </div>
     </Sidebar>
