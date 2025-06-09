@@ -50,49 +50,79 @@ export default function SantriBaru() {
     tanggal_masuk: z.date({
       required_error: "Tanggal Masuk wajib diisi",
     }),
-    tingkat_kelas: z.string({ message: "Masukkan tingkat kelas" }),
-    nama_lengkap: z.string({
-      message: "Masukkan nama lengkap",
-    }),
-    kewarganegaraan: z.string({
-      message: "Masukkan kewarganegaraan",
-    }),
-    nik: z.string({
-      message: "Masukkan nik",
-    }),
-    kewarganegaraan: z.string({
-      message: "Masukkan kewarganegaraan",
-    }),
-    nisn: z.string({
-      message: "Masukkan nisn",
-    }),
-    tempat_lahir: z.string({
-      message: "Masukkan tempat lahir",
-    }),
-    tanggal_lahir: z.string({
-      message: "Masukkan tanggal lahir",
-    }),
-    agama: z.string({
-      message: "Masukkan agama",
-    }),
-    no_handphone: z.string({
-      message: "Masukkan no handphone",
-    }),
-    ayah_kandung: z.string({
-      message: "Masukkan ayah kandung",
-    }),
-    status_ayah_kandung: z.string({
-      message: "Masukkan status ayah kandung",
-    }),
-    ibu_kandung: z.string({
-      message: "Masukkan ibu kandung",
-    }),
-    status_ibu_kandung: z.string({
-      message: "Masukkan status ibu kandung",
-    }),
-    wali: z.string({
-      message: "Masukkan wali",
-    }),
+    tingkat_kelas: z
+      .string({ message: "Masukkan tingkat kelas" })
+      .min(1, "Harap diisi"),
+    nama_lengkap: z
+      .string({
+        message: "Masukkan nama lengkap",
+      })
+      .min(1, "Harap diisi"),
+    kewarganegaraan: z
+      .string({
+        message: "Masukkan kewarganegaraan",
+      })
+      .min(1, "Harap diisi"),
+    nik: z
+      .string({
+        message: "Masukkan nik",
+      })
+      .min(1, "Harap diisi"),
+    kewarganegaraan: z
+      .string({
+        message: "Masukkan kewarganegaraan",
+      })
+      .min(1, "Harap diisi"),
+    nisn: z
+      .string({
+        message: "Masukkan nisn",
+      })
+      .min(1, "Harap diisi"),
+    tempat_lahir: z
+      .string({
+        message: "Masukkan tempat lahir",
+      })
+      .min(1, "Harap diisi"),
+    tanggal_lahir: z
+      .string({
+        message: "Masukkan tanggal lahir",
+      })
+      .min(1, "Harap diisi"),
+    agama: z
+      .string({
+        message: "Masukkan agama",
+      })
+      .min(1, "Harap diisi"),
+    no_handphone: z
+      .string({
+        message: "Masukkan no handphone",
+      })
+      .min(1, "Harap diisi"),
+    ayah_kandung: z
+      .string({
+        message: "Masukkan ayah kandung",
+      })
+      .min(1, "Harap diisi"),
+    status_ayah_kandung: z
+      .string({
+        message: "Masukkan status ayah kandung",
+      })
+      .min(1, "Harap diisi"),
+    ibu_kandung: z
+      .string({
+        message: "Masukkan ibu kandung",
+      })
+      .min(1, "Harap diisi"),
+    status_ibu_kandung: z
+      .string({
+        message: "Masukkan status ibu kandung",
+      })
+      .min(1, "Harap diisi"),
+    wali: z
+      .string({
+        message: "Masukkan wali",
+      })
+      .min(1, "Harap diisi"),
   });
 
   const santriBaruForm = useForm({
@@ -174,7 +204,7 @@ export default function SantriBaru() {
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value ? (
-                                  format(field.value, "PPP")
+                                  format(field.value, "dd-MM-yyyy")
                                 ) : (
                                   <span>Pilih Tanggal Masuk</span>
                                 )}
