@@ -97,6 +97,23 @@ export default function SantriBaru() {
 
   const santriBaruForm = useForm({
     resolver: zodResolver(schemaSantriBaru),
+    defaultValues: {
+      tanggal_masuk: "",
+      tingkat_kelas: "",
+      nama_lengkap: "",
+      kewarganegaraan: "",
+      nik: "",
+      nisn: "",
+      tempat_lahir: "",
+      tanggal_lahir: "",
+      agama: "",
+      no_handphone: "",
+      ayah_kandung: "",
+      status_ayah_kandung: "",
+      ibu_kandung: "",
+      status_ibu_kandung: "",
+      wali: "",
+    },
   });
 
   const onSubmit = (data) => {
