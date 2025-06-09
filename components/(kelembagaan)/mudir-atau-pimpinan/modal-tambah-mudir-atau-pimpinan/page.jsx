@@ -111,6 +111,22 @@ export default function ModalTambahMudirAtauPimpinan({
 
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
+    defaultValues: {
+      nama_lengkap: "",
+      nik: "",
+      gelar_depan: "",
+      gelar_belakang: "",
+      jenis_kelamin: "",
+      status_kepegawaian: "",
+      pendidikan_terakhir: "",
+      lama_pendidikan_ponpes: "",
+      lama_pendidikan_lainnya: "",
+      kompetensi: "",
+      no_handphone: "",
+      email: "",
+      status_keaktifan: "",
+      kewarganegaraan: "",
+    },
   });
 
   const queryClient = useQueryClient();
