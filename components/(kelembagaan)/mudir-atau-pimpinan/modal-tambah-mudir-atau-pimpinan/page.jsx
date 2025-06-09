@@ -126,6 +126,9 @@ export default function ModalTambahMudirAtauPimpinan({
         message: "Masukkan email",
       })
       .min(1, "Wajib diisi"),
+    tanggal_mulai: z.date({
+      message: "Masukkan tanggal mulai",
+    }),
     status_keaktifan: z
       .string({
         message: "Masukkan status keaktifan",
@@ -674,7 +677,7 @@ export default function ModalTambahMudirAtauPimpinan({
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {field.value ? (
-                                      format(field.value, "PPP")
+                                      format(field.value, "dd-MM-yyyy")
                                     ) : (
                                       <span>Pilih Tanggal SK</span>
                                     )}
