@@ -120,7 +120,7 @@ export default function ModalTambahMudirAtauPimpinan({
       return http().post(`/mudir-atau-pimpinan`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["mudir-atau-pimpinan"] });
+      queryClient.invalidateQueries({ queryKey: ["mudir-pimpinan"] });
     },
     onError: (err) => {},
   });
