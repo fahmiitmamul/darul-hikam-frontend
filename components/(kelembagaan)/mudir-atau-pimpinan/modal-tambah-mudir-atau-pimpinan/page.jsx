@@ -69,44 +69,70 @@ export default function ModalTambahMudirAtauPimpinan({
   ];
 
   const mudirAtauPimpinanSchema = z.object({
-    nama_lengkap: z.string({ message: "Masukkan Nama Lengkap" }),
-    nik: z.string({ message: "Masukkan NIK" }),
-    gelar_depan: z.string({
-      message: "Masukkan gelar depan",
-    }),
-    gelar_belakang: z.string({
-      message: "Masukkan gelar belakang",
-    }),
-    jenis_kelamin: z.string({
-      message: "Masukkan jenis kelamin",
-    }),
-    status_kepegawaian: z.string({
-      message: "Masukkan status kepegawaian",
-    }),
-    pendidikan_terakhir: z.string({
-      message: "Masukkan pendidikan terakhir",
-    }),
-    lama_pendidikan_ponpes: z.string({
-      message: "Masukkan lama pendidikan ponpes",
-    }),
-    lama_pendidikan_lainnya: z.string({
-      message: "Masukkan lama pendidikan lainnya",
-    }),
-    kompetensi: z.string({
-      message: "Masukkan kompetensi",
-    }),
-    no_handphone: z.string({
-      message: "Masukkan no handphone",
-    }),
-    email: z.string({
-      message: "Masukkan email",
-    }),
-    status_keaktifan: z.string({
-      message: "Masukkan status keaktifan",
-    }),
-    kewarganegaraan: z.string({
-      message: "Masukkan kewarganegaraan",
-    }),
+    nama_lengkap: z
+      .string({ message: "Masukkan Nama Lengkap" })
+      .min(1, "Wajib diisi"),
+    nik: z.string({ message: "Masukkan NIK" }).min(1, "Wajib diisi"),
+    gelar_depan: z
+      .string({
+        message: "Masukkan gelar depan",
+      })
+      .min(1, "Wajib diisi"),
+    gelar_belakang: z
+      .string({
+        message: "Masukkan gelar belakang",
+      })
+      .min(1, "Wajib diisi"),
+    jenis_kelamin: z
+      .string({
+        message: "Masukkan jenis kelamin",
+      })
+      .min(1, "Wajib diisi"),
+    status_kepegawaian: z
+      .string({
+        message: "Masukkan status kepegawaian",
+      })
+      .min(1, "Wajib diisi"),
+    pendidikan_terakhir: z
+      .string({
+        message: "Masukkan pendidikan terakhir",
+      })
+      .min(1, "Wajib diisi"),
+    lama_pendidikan_ponpes: z
+      .string({
+        message: "Masukkan lama pendidikan ponpes",
+      })
+      .min(1, "Wajib diisi"),
+    lama_pendidikan_lainnya: z
+      .string({
+        message: "Masukkan lama pendidikan lainnya",
+      })
+      .min(1, "Wajib diisi"),
+    kompetensi: z
+      .string({
+        message: "Masukkan kompetensi",
+      })
+      .min(1, "Wajib diisi"),
+    no_handphone: z
+      .string({
+        message: "Masukkan no handphone",
+      })
+      .min(1, "Wajib diisi"),
+    email: z
+      .string({
+        message: "Masukkan email",
+      })
+      .min(1, "Wajib diisi"),
+    status_keaktifan: z
+      .string({
+        message: "Masukkan status keaktifan",
+      })
+      .min(1, "Wajib diisi"),
+    kewarganegaraan: z
+      .string({
+        message: "Masukkan kewarganegaraan",
+      })
+      .min(1, "Wajib diisi"),
   });
 
   const mudirAtauPimpinanForm = useForm({
