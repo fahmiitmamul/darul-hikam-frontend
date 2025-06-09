@@ -39,6 +39,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import UploadFotoSantri from "@/components/upload-foto-santri";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
+import { useRouter } from "next/router";
 
 export default function SantriBaru() {
   const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
@@ -143,8 +146,30 @@ export default function SantriBaru() {
     },
   });
 
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const postSantriBaru = useMutation({
+    mutationFn: async (values) => {
+      const data = new URLSearchParams(values).toString();
+      return http().post(`/santri`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["santri"] });
+      toast("Santri berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+      router.push("/santri");
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
   const onSubmit = (data) => {
-    console.log("Form data:", data);
+    postSantriBaru.mutate(data);
   };
 
   return (
