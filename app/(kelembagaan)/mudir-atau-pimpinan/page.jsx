@@ -39,6 +39,7 @@ import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
+import { format, parseISO } from "date-fns";
 
 export default function MudirAtauPimpinan() {
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
@@ -79,6 +80,11 @@ export default function MudirAtauPimpinan() {
     {
       accessorKey: "tanggal_mulai",
       header: "Tanggal SK",
+      cell: ({ row }) => {
+        const rawDate = row.getValue("tanggal_mulai"); // ISO string
+        const date = parseISO(rawDate); // ubah string ISO ke Date object
+        return format(date, "dd-MM-yyyy"); // format sesuai kebutuhan
+      },
     },
     {
       accessorKey: "status_keaktifan",
