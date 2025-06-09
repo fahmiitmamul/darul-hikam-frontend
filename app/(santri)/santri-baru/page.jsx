@@ -41,14 +41,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import UploadFotoSantri from "@/components/upload-foto-santri";
 
 export default function SantriBaru() {
-  const [tahunBerdiriHijriah, setTahunBerdiriHijriah] = useState(null);
   const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
   const [isNikChecked, setIsNikChecked] = useState(false);
   const [isNisnChecked, setIsNisnChecked] = useState(false);
 
   const schemaSantriBaru = z.object({
     tanggal_masuk: z.date({
-      required_error: "Tanggal Masuk wajib diisi",
+      message: "Masukkan tanggal masuk",
     }),
     tingkat_kelas: z
       .string({ message: "Masukkan tingkat kelas" })
@@ -83,11 +82,9 @@ export default function SantriBaru() {
         message: "Masukkan tempat lahir",
       })
       .min(1, "Harap diisi"),
-    tanggal_lahir: z
-      .string({
-        message: "Masukkan tanggal lahir",
-      })
-      .min(1, "Harap diisi"),
+    tanggal_lahir: z.date({
+      message: "Masukkan tanggal lahir",
+    }),
     agama: z
       .string({
         message: "Masukkan agama",
