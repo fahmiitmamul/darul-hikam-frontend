@@ -69,7 +69,7 @@ export default function ModalTambahMudirAtauPimpinan({
   ];
 
   const mudirAtauPimpinanSchema = z.object({
-    nama_lengkap: z.string({ message: "Masukkan NSPP" }),
+    nama_lengkap: z.string({ message: "Masukkan Nama Lengkap" }),
     nik: z.string({ message: "Masukkan NIK" }),
     gelar_depan: z.string({
       message: "Masukkan gelar depan",
