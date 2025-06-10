@@ -42,12 +42,20 @@ import UploadFotoSantri from "@/components/upload-foto-santri";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SantriBaru() {
   const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
   const [isNikChecked, setIsNikChecked] = useState(false);
   const [isNisnChecked, setIsNisnChecked] = useState(false);
-  const [preview, setPreview] = useState(null);
+  const [fileFotoSantri, setFileFotoSantri] = useState(null);
+  const [selectedJenisKelaminValue, setSelectedJenisKelaminValue] =
+    useState(null);
+
+  const handleValueChange = (value) => {
+    setSelectedJenisKelaminValue(value);
+    console.log("Selected value:", value);
+  };
 
   const schemaSantriBaru = z.object({
     tanggal_masuk: z.date({
@@ -153,17 +161,23 @@ export default function SantriBaru() {
   const postSantriBaru = useMutation({
     mutationFn: async (values) => {
       const data = new FormData();
-      data.append("foto_santri", values.foto_santri);
+      data.append("foto_profil", fileFotoSantri);
       data.append("tanggal_masuk", values.tanggal_masuk);
       data.append("tingkat_kelas", values.tingkat_kelas);
       data.append("nama_lengkap", values.nama_lengkap);
       data.append("kewarganegaraan", values.kewarganegaraan);
       data.append("nik", values.nik);
       data.append("nisn", values.nisn);
-      data.append("jenis_kelamin", values.jenis_kelamin);
+      data.append("jenis_kelamin", selectedJenisKelaminValue);
       data.append("tempat_lahir", values.tempat_lahir);
       data.append("agama", values.agama);
       data.append("no_handphone", values.no_handphone);
+      data.append("ayah_kandung", values.ayah_kandung);
+      data.append("status_ayah_kandung", values.status_ayah_kandung);
+      data.append("ibu_kandung", values.ibu_kandung);
+      data.append("status_ibu_kandung", values.status_ibu_kandung);
+      data.append("wali", values.wali);
+
       return http().post(`/santri`, data);
     },
     onSuccess: () => {
@@ -171,7 +185,7 @@ export default function SantriBaru() {
       toast("Santri berhasil ditambahkan", {
         description: new Date().toLocaleString(),
       });
-      router.push("/santri");
+      router.push("/daftar-santri");
     },
     onError: (err) => {
       toast(err.response.data.message, {
@@ -181,6 +195,7 @@ export default function SantriBaru() {
   });
 
   const onSubmit = (data) => {
+    console.log(100);
     postSantriBaru.mutate(data);
   };
 
@@ -211,7 +226,10 @@ export default function SantriBaru() {
               onSubmit={santriBaruForm.handleSubmit(onSubmit)}
               className="space-y-5 mt-5"
             >
-              <UploadFotoSantri preview={preview} setPreview={setPreview} />
+              <UploadFotoSantri
+                fileFotoSantri={fileFotoSantri}
+                setFileFotoSantri={setFileFotoSantri}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
@@ -456,7 +474,11 @@ export default function SantriBaru() {
               </h4>
 
               <div className="grid grid-cols-1 gap-2">
-                <RadioGroup defaultValue="comfortable">
+                <RadioGroup
+                  value={selectedJenisKelaminValue}
+                  onValueChange={handleValueChange}
+                  defaultValue="comfortable"
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div className="flex items-center space-x-2">

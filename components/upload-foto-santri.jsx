@@ -8,13 +8,14 @@ import { Camera, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function UploadFotoSantri({
-  preview,
-  setPreview,
+  fileFotoSantri,
+  setFileFotoSantri,
   size = "lg",
   onImageUpload,
   className,
 }) {
   const [isUploading, setIsUploading] = useState(false);
+  const [preview, setPreview] = useState(null);
   const fileInputRef = useRef();
 
   const sizeClasses = {
@@ -47,6 +48,8 @@ export default function UploadFotoSantri({
       const result = e.target?.result;
       setPreview(result);
       onImageUpload?.(file, result);
+
+      setFileFotoSantri(file);
     };
     reader.readAsDataURL(file);
 
