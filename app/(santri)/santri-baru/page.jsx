@@ -41,12 +41,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import UploadFotoSantri from "@/components/upload-foto-santri";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SantriBaru() {
   const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
   const [isNikChecked, setIsNikChecked] = useState(false);
   const [isNisnChecked, setIsNisnChecked] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   const schemaSantriBaru = z.object({
     tanggal_masuk: z.date({
@@ -151,7 +152,18 @@ export default function SantriBaru() {
 
   const postSantriBaru = useMutation({
     mutationFn: async (values) => {
-      const data = new URLSearchParams(values).toString();
+      const data = new FormData();
+      data.append("foto_santri", values.foto_santri);
+      data.append("tanggal_masuk", values.tanggal_masuk);
+      data.append("tingkat_kelas", values.tingkat_kelas);
+      data.append("nama_lengkap", values.nama_lengkap);
+      data.append("kewarganegaraan", values.kewarganegaraan);
+      data.append("nik", values.nik);
+      data.append("nisn", values.nisn);
+      data.append("jenis_kelamin", values.jenis_kelamin);
+      data.append("tempat_lahir", values.tempat_lahir);
+      data.append("agama", values.agama);
+      data.append("no_handphone", values.no_handphone);
       return http().post(`/santri`, data);
     },
     onSuccess: () => {
@@ -199,7 +211,7 @@ export default function SantriBaru() {
               onSubmit={santriBaruForm.handleSubmit(onSubmit)}
               className="space-y-5 mt-5"
             >
-              <UploadFotoSantri />
+              <UploadFotoSantri preview={preview} setPreview={setPreview} />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>

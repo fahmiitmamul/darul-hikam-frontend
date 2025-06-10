@@ -8,11 +8,12 @@ import { Camera, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function UploadFotoSantri({
+  preview,
+  setPreview,
   size = "lg",
   onImageUpload,
   className,
 }) {
-  const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef();
 
