@@ -40,6 +40,7 @@ import Image from "next/image";
 import { Download } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
+import { differenceInYears, format, parseISO } from "date-fns";
 
 export default function DaftarSantri() {
   const [
@@ -70,20 +71,21 @@ export default function DaftarSantri() {
     {
       accessorKey: "no",
       header: "No",
+      cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
       accessorKey: "photo",
       header: "Foto",
       cell: ({ row }) => {
-        const photoUrl = row.original.photo;
         return (
-          <Image
-            src={photoUrl}
-            alt="Foto Profil"
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
+          <div className="relative w-10 h-10">
+            <Image
+              src={`https://res.cloudinary.com/dxnewldiy/raw/upload/v1749455641/file/${row.original.foto_profil}`}
+              alt="Foto Profil"
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
         );
       },
     },
@@ -102,6 +104,11 @@ export default function DaftarSantri() {
     {
       accessorKey: "tanggal_lahir",
       header: "Tanggal Lahir",
+      cell: ({ row }) => {
+        const rawDate = row.getValue("tanggal_lahir"); // ISO string
+        const date = parseISO(rawDate); // ubah string ISO ke Date object
+        return format(date, "dd-MM-yyyy"); // format sesuai kebutuhan
+      },
     },
     {
       accessorKey: "tingkat_kelas",
@@ -110,6 +117,12 @@ export default function DaftarSantri() {
     {
       accessorKey: "umur",
       header: "Umur",
+      cell: ({ row }) => {
+        const rawDate = row.getValue("tanggal_lahir");
+        const date = parseISO(rawDate);
+        const umur = differenceInYears(new Date(), date);
+        return umur;
+      },
     },
     {
       accessorKey: "status",
