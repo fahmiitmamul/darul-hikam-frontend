@@ -104,7 +104,7 @@ export default function DaftarSantri() {
       header: "Tanggal Lahir",
     },
     {
-      accessorKey: "tingkat_rombel",
+      accessorKey: "tingkat_kelas",
       header: "Tingkat Rombel",
     },
     {

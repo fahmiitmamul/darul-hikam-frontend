@@ -170,6 +170,7 @@ export default function SantriBaru() {
       data.append("nisn", values.nisn);
       data.append("jenis_kelamin", selectedJenisKelaminValue);
       data.append("tempat_lahir", values.tempat_lahir);
+      data.append("tanggal_lahir", values.tanggal_lahir);
       data.append("agama", values.agama);
       data.append("no_handphone", values.no_handphone);
       data.append("ayah_kandung", values.ayah_kandung);
@@ -539,7 +540,7 @@ export default function SantriBaru() {
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value ? (
-                                  format(field.value, "PPP")
+                                  format(field.value, "dd-MM-yyyy")
                                 ) : (
                                   <span>Pilih Tanggal Lahir</span>
                                 )}
