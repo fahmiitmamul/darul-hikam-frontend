@@ -4,7 +4,6 @@ import AppHeader from "@/components/app-header";
 import {
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
@@ -32,7 +31,6 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Trash } from "lucide-react";
 import { Pencil } from "lucide-react";
-import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { useState } from "react";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import { Plus } from "lucide-react";
@@ -59,7 +57,6 @@ export default function DaftarSantri() {
       `/santri?page=${page}&limit=${limit}&search=${search}`
     );
 
-    console.log(data);
     return data.results;
   };
 
