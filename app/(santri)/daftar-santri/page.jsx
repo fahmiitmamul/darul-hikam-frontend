@@ -40,6 +40,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Download } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
 
 export default function DaftarSantri() {
   const [
@@ -48,297 +50,26 @@ export default function DaftarSantri() {
   ] = useState(false);
 
   const router = useRouter();
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
 
-  const tableData = [
-    {
-      no: "1",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "2",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "3",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "4",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "5",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "6",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "7",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "8",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "9",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "10",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "11",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "12",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "13",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "14",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "15",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "16",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "17",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "18",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "19",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "20",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "21",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "22",
-      photo:
-        "https://res.cloudinary.com/dxnewldiy/image/upload/v1704875850/wc8dmolakkcjb0hesqac.jpg",
-      nama_lengkap: "Itmamul Fahmi",
-      nisn: "1212754367",
-      tempat_lahir: "Banyumas",
-      tanggal_lahir: "31-05-2000",
-      tingkat_rombel: "Kelas 2 - Tsani",
-      umur: "15 Tahun",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-  ];
+  const getDataSantri = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/santri?page=${page}&limit=${limit}&search=${search}`
+    );
 
-  const tableColumns = [
+    console.log(data);
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataSantri(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
+  const columns = [
     {
       accessorKey: "no",
       header: "No",
@@ -431,25 +162,27 @@ export default function DaftarSantri() {
     },
   ];
 
-  const [data] = React.useState(() => [...tableData]);
-  const [columns] = React.useState(() => [...tableColumns]);
-
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 5,
-  });
-
   const table = useReactTable({
-    data,
+    data: data?.data ?? [],
     columns,
+    pageCount: data?.totalPages ?? -1,
+    state: {
+      pagination: { pageIndex: pageIndex - 1, pageSize },
+      globalFilter,
+    },
+    manualPagination: true,
+    onPaginationChange: (updater) => {
+      const next =
+        typeof updater === "function"
+          ? updater({ pageIndex: pageIndex - 1, pageSize })
+          : updater;
+      setPageIndex(next.pageIndex + 1);
+      setPageSize(next.pageSize);
+    },
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: setPagination,
-    state: {
-      pagination,
-    },
   });
 
   return (
@@ -503,18 +236,29 @@ export default function DaftarSantri() {
                     ))}
                   </TableHeader>
                   <TableBody>
-                    {table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id}>
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </TableCell>
-                        ))}
+                    {table.getRowModel().rows.length > 0 ? (
+                      table.getRowModel().rows.map((row) => (
+                        <TableRow key={row.id}>
+                          {row.getVisibleCells().map((cell) => (
+                            <TableCell key={cell.id}>
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell
+                          colSpan={columns.length}
+                          className="text-center py-4"
+                        >
+                          Data tidak ada
+                        </TableCell>
                       </TableRow>
-                    ))}
+                    )}
                   </TableBody>
                 </Table>
               </div>
