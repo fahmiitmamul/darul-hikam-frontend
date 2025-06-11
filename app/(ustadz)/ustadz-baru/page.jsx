@@ -339,7 +339,7 @@ export default function UstadzBaru() {
       data.append("tanggal_sk", values.tanggal_sk);
       data.append("jenis_sk", values.jenis_sk);
       data.append("foto_profil", fileFotoUstadz);
-      data.append("file_sk", fileSk);
+      data.append("file_sk", fileUploadSk);
 
       return http().post(`/ustadz`, data);
     },
