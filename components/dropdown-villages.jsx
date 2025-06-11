@@ -62,7 +62,14 @@ export default function DropdownVillages({ field, fieldState }) {
 
   return (
     <div>
-      <Select {...field} onValueChange={field.onChange} defaultValue="">
+      <Select
+        {...field}
+        onValueChange={(value) => {
+          field.onChange(value);
+          handleChange(value);
+        }}
+        defaultValue=""
+      >
         <SelectTrigger
           className={cn(
             "w-full",
