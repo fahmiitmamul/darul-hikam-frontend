@@ -41,6 +41,7 @@ import UploadFileSk from "@/components/upload-file-sk";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { toast } from "sonner";
+import DropdownProvinces from "@/components/dropdown-provinces";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
@@ -821,27 +822,10 @@ export default function UstadzBaru() {
                       <FormItem>
                         <FormLabel>Provinsi</FormLabel>
                         <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger
-                              className={cn(
-                                "w-full",
-                                fieldState.error
-                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                  : ""
-                              )}
-                            >
-                              <SelectValue placeholder="Provinsi" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Provinsi</SelectLabel>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
+                          <DropdownProvinces
+                            field={field}
+                            fieldState={fieldState}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
