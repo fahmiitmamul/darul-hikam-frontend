@@ -48,8 +48,6 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function DaftarUstadz() {
-  const [openDialogEditMudirAtauPimpinan, setOpenDialogEditMudirAtauPimpinan] =
-    useState(false);
   const [
     openDialogHapusMudirAtauPimpinan,
     setOpenDialogHapusMudirAtauPimpinan,
@@ -466,13 +464,6 @@ export default function DaftarUstadz() {
             </div>
           </div>
         </div>
-
-        <ModalHapusMudirAtauPimpinan
-          openDialogHapusMudirAtauPimpinan={openDialogHapusMudirAtauPimpinan}
-          setOpenDialogHapusMudirAtauPimpinan={
-            setOpenDialogHapusMudirAtauPimpinan
-          }
-        />
       </div>
     </Sidebar>
   );
