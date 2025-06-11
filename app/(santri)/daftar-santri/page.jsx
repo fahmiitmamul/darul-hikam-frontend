@@ -41,6 +41,7 @@ import { Download } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { differenceInYears, format, parseISO } from "date-fns";
+import { ModalHapusDataSantri } from "@/components/(santri)/daftar-santri/modal-hapus-data-santri/page";
 
 export default function DaftarSantri() {
   const [
@@ -318,11 +319,10 @@ export default function DaftarSantri() {
           </div>
         </div>
 
-        <ModalHapusMudirAtauPimpinan
-          openDialogHapusMudirAtauPimpinan={openDialogHapusMudirAtauPimpinan}
-          setOpenDialogHapusMudirAtauPimpinan={
-            setOpenDialogHapusMudirAtauPimpinan
-          }
+        <ModalHapusDataSantri
+          openDialogHapusSantri={openDialogHapusSantri}
+          setOpenDialogHapusSantri={setOpenDialogHapusSantri}
+          santriId={santriId}
         />
       </div>
     </Sidebar>
