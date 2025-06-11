@@ -53,116 +53,192 @@ export default function UstadzBaru() {
   const { idProvince } = useLocationContext();
 
   const schemaUstadz = z.object({
-    gelar_depan: z.string({ message: "Masukkan gelar depan" }),
-    nama_lengkap: z.string({ message: "Masukkan nama lengkap" }),
-    gelar_belakang: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    npk: z.string({
-      message: "Masukkan npk",
-    }),
-    nik: z.string({
-      message: "Masukkan nik",
-    }),
-    nuptk: z.string({
-      message: "Masukkan nuptk",
-    }),
-    no_handphone: z.string({
-      message: "Masukkan no_handphone",
-    }),
-    email: z.string({
-      message: "Masukkan email",
-    }),
-    npwp: z.string({
-      message: "Masukkan npwp",
-    }),
-    tempat_lahir: z.string({
-      message: "Masukkan tempat lahir",
-    }),
-    tanggal_lahir: z.string({
-      message: "Masukkan tanggal lahir",
-    }),
-    agama: z.string({
-      message: "Masukkan agama",
-    }),
-    golongan_darah: z.string({
-      message: "Masukkan golongan darah",
-    }),
-    pendidikan_terakhir: z.string({
-      message: "Masukkan pendidikan terakhir",
-    }),
-    prodi_terakhir: z.string({
-      message: "Masukkan prodi terakhir",
-    }),
-    tanggal_akta_pendirian: z.string({
-      message: "Masukkan tanggal ijazah",
-    }),
-    status_tempat_tinggal: z.string({
-      message: "Masukkan status tempat tinggal",
-    }),
-    provinsi: z.string({
-      message: "Masukkan provinsi",
-    }),
-    kabupaten: z.string({
-      message: "Masukkan kabupaten",
-    }),
-    kecamatan: z.string({
-      message: "Masukkan kecamatan",
-    }),
-    kelurahan_atau_desa: z.string({
-      message: "Masukkan kelurahan atau desa",
-    }),
-    rt: z.string({
-      message: "Masukkan rt",
-    }),
-    rw: z.string({
-      message: "Masukkan rw",
-    }),
-    alamat: z.string({
-      message: "Masukkan alamat",
-    }),
-    kode_pos: z.string({
-      message: "Masukkan kode_pos",
-    }),
-    transportasi_ke_pontren: z.string({
-      message: "Masukkan transportasi ke pontren",
-    }),
-    jarak_tempat_tinggal_pontren: z.string({
-      message: "Masukkan jarak tempat tinggal pontren",
-    }),
-    waktu_tempuh: z.string({
-      message: "Masukkan waktu tempuh",
-    }),
-    nama_ibu_kandung: z.string({
-      message: "Masukkan nama ibu kandung",
-    }),
-    nomor_kk: z.string({
-      message: "Masukkan nomor kk",
-    }),
-    tanggal_efektif: z.string({
-      message: "Masukkan tanggal efektif",
-    }),
-    fungsi_atau_jabatan: z.string({
-      message: "Masukkan fungsi atau jabatan",
-    }),
-    tmt_ustadz_atau_tanggal_sk_ptk: z.string({
-      message: "Masukkan tanggal SK PTK",
-    }),
-    status_penugasan: z.string({
-      message: "Masukkan status penugasan",
-    }),
-    instansi_yang_mengeluarkan_sk: z.string({
-      message: "Masukkan instansi yang mengeluarkan SK",
-    }),
-    no_sk: z.string({
-      message: "Masukkan no sk",
-    }),
-    tanggal_sk: z.string({
-      message: "Masukkan tanggal sk",
-    }),
-    jenis_sk: z.string({
-      message: "Masukkan jenis sk",
-    }),
+    gelar_depan: z
+      .string({ message: "Masukkan gelar depan" })
+      .min(1, "Harap diisi"),
+    nama_lengkap: z
+      .string({ message: "Masukkan nama lengkap" })
+      .min(1, "Harap diisi"),
+    gelar_belakang: z
+      .string({
+        message: "Masukkan satuan pendidikan",
+      })
+      .min(1, "Harap diisi"),
+    npk: z
+      .string({
+        message: "Masukkan npk",
+      })
+      .min(1, "Harap diisi"),
+    nik: z
+      .string({
+        message: "Masukkan nik",
+      })
+      .min(1, "Harap diisi"),
+    nuptk: z
+      .string({
+        message: "Masukkan nuptk",
+      })
+      .min(1, "Harap diisi"),
+    no_handphone: z
+      .string({
+        message: "Masukkan no_handphone",
+      })
+      .min(1, "Harap diisi"),
+    email: z
+      .string({
+        message: "Masukkan email",
+      })
+      .min(1, "Harap diisi"),
+    npwp: z
+      .string({
+        message: "Masukkan npwp",
+      })
+      .min(1, "Harap diisi"),
+    tempat_lahir: z
+      .string({
+        message: "Masukkan tempat lahir",
+      })
+      .min(1, "Harap diisi"),
+    tanggal_lahir: z
+      .string({
+        message: "Masukkan tanggal lahir",
+      })
+      .min(1, "Harap diisi"),
+    agama: z
+      .string({
+        message: "Masukkan agama",
+      })
+      .min(1, "Harap diisi"),
+    golongan_darah: z
+      .string({
+        message: "Masukkan golongan darah",
+      })
+      .min(1, "Harap diisi"),
+    pendidikan_terakhir: z
+      .string({
+        message: "Masukkan pendidikan terakhir",
+      })
+      .min(1, "Harap diisi"),
+    prodi_terakhir: z
+      .string({
+        message: "Masukkan prodi terakhir",
+      })
+      .min(1, "Harap diisi"),
+    tanggal_akta_pendirian: z
+      .string({
+        message: "Masukkan tanggal ijazah",
+      })
+      .min(1, "Harap diisi"),
+    status_tempat_tinggal: z
+      .string({
+        message: "Masukkan status tempat tinggal",
+      })
+      .min(1, "Harap diisi"),
+    provinsi: z
+      .string({
+        message: "Masukkan provinsi",
+      })
+      .min(1, "Harap diisi"),
+    kabupaten: z
+      .string({
+        message: "Masukkan kabupaten",
+      })
+      .min(1, "Harap diisi"),
+    kecamatan: z
+      .string({
+        message: "Masukkan kecamatan",
+      })
+      .min(1, "Harap diisi"),
+    kelurahan_atau_desa: z
+      .string({
+        message: "Masukkan kelurahan atau desa",
+      })
+      .min(1, "Harap diisi"),
+    rt: z
+      .string({
+        message: "Masukkan rt",
+      })
+      .min(1, "Harap diisi"),
+    rw: z
+      .string({
+        message: "Masukkan rw",
+      })
+      .min(1, "Harap diisi"),
+    alamat: z
+      .string({
+        message: "Masukkan alamat",
+      })
+      .min(1, "Harap diisi"),
+    kode_pos: z
+      .string({
+        message: "Masukkan kode_pos",
+      })
+      .min(1, "Harap diisi"),
+    transportasi_ke_pontren: z
+      .string({
+        message: "Masukkan transportasi ke pontren",
+      })
+      .min(1, "Harap diisi"),
+    jarak_tempat_tinggal_pontren: z
+      .string({
+        message: "Masukkan jarak tempat tinggal pontren",
+      })
+      .min(1, "Harap diisi"),
+    waktu_tempuh: z
+      .string({
+        message: "Masukkan waktu tempuh",
+      })
+      .min(1, "Harap diisi"),
+    nama_ibu_kandung: z
+      .string({
+        message: "Masukkan nama ibu kandung",
+      })
+      .min(1, "Harap diisi"),
+    nomor_kk: z
+      .string({
+        message: "Masukkan nomor kk",
+      })
+      .min(1, "Harap diisi"),
+    tanggal_efektif: z
+      .string({
+        message: "Masukkan tanggal efektif",
+      })
+      .min(1, "Harap diisi"),
+    fungsi_atau_jabatan: z
+      .string({
+        message: "Masukkan fungsi atau jabatan",
+      })
+      .min(1, "Harap diisi"),
+    tmt_ustadz_atau_tanggal_sk_ptk: z
+      .string({
+        message: "Masukkan tanggal SK PTK",
+      })
+      .min(1, "Harap diisi"),
+    status_penugasan: z
+      .string({
+        message: "Masukkan status penugasan",
+      })
+      .min(1, "Harap diisi"),
+    instansi_yang_mengeluarkan_sk: z
+      .string({
+        message: "Masukkan instansi yang mengeluarkan SK",
+      })
+      .min(1, "Harap diisi"),
+    no_sk: z
+      .string({
+        message: "Masukkan no sk",
+      })
+      .min(1, "Harap diisi"),
+    tanggal_sk: z
+      .string({
+        message: "Masukkan tanggal sk",
+      })
+      .min(1, "Harap diisi"),
+    jenis_sk: z
+      .string({
+        message: "Masukkan jenis sk",
+      })
+      .min(1, "Harap diisi"),
   });
 
   const ustadzForm = useForm({
@@ -189,6 +265,23 @@ export default function UstadzBaru() {
       kabupaten: "",
       kecamatan: "",
       kelurahan_atau_desa: "",
+      rt: "",
+      rw: "",
+      alamat: "",
+      kode_pos: "",
+      transportasi_ke_pontren: "",
+      jarak_tempat_tinggal_pontren: "s",
+      waktu_tempuh: "",
+      nama_ibu_kandung: "",
+      nomor_kk: "",
+      tanggal_efektif: "",
+      fungsi_atau_jabatan: "",
+      tmt_ustadz_atau_tanggal_sk_ptk: "",
+      status_penugasan: "",
+      instansi_yang_mengeluarkan_sk: "",
+      no_sk: "",
+      tanggal_sk: "",
+      jenis_sk: "",
     },
   });
 
@@ -197,23 +290,56 @@ export default function UstadzBaru() {
   const postUstadzBaru = useMutation({
     mutationFn: async (values) => {
       const data = new FormData();
-      data.append("foto_profil", fileFotoSantri);
-      data.append("tanggal_masuk", values.tanggal_masuk);
-      data.append("tingkat_kelas", values.tingkat_kelas);
+
+      data.append("gelar_depan", values.gelar_depan);
       data.append("nama_lengkap", values.nama_lengkap);
-      data.append("kewarganegaraan", values.kewarganegaraan);
+      data.append("gelar_belakang", values.gelar_belakang);
+      data.append("npk", values.npk);
       data.append("nik", values.nik);
-      data.append("nisn", values.nisn);
-      data.append("jenis_kelamin", selectedJenisKelaminValue);
+      data.append("nuptk", values.nuptk);
+      data.append("no_handphone", values.no_handphone);
+      data.append("email", values.email);
+      data.append("npwp", values.npwp);
       data.append("tempat_lahir", values.tempat_lahir);
       data.append("tanggal_lahir", values.tanggal_lahir);
       data.append("agama", values.agama);
-      data.append("no_handphone", values.no_handphone);
-      data.append("ayah_kandung", values.ayah_kandung);
-      data.append("status_ayah_kandung", values.status_ayah_kandung);
-      data.append("ibu_kandung", values.ibu_kandung);
-      data.append("status_ibu_kandung", values.status_ibu_kandung);
-      data.append("wali", values.wali);
+      data.append("golongan_darah", values.golongan_darah);
+      data.append("pendidikan_terakhir", values.pendidikan_terakhir);
+      data.append("prodi_terakhir", values.prodi_terakhir);
+      data.append("tanggal_akta_pendirian", values.tanggal_akta_pendirian);
+      data.append("status_tempat_tinggal", values.status_tempat_tinggal);
+      data.append("provinsi", values.provinsi);
+      data.append("kabupaten", values.kabupaten);
+      data.append("kecamatan", values.kecamatan);
+      data.append("kelurahan_atau_desa", values.kelurahan_atau_desa);
+      data.append("rt", values.rt);
+      data.append("rw", values.rw);
+      data.append("alamat", values.alamat);
+      data.append("kode_pos", values.kode_pos);
+      data.append("transportasi_ke_pontren", values.transportasi_ke_pontren);
+      data.append(
+        "jarak_tempat_tinggal_pontren",
+        values.jarak_tempat_tinggal_pontren
+      );
+      data.append("waktu_tempuh", values.waktu_tempuh);
+      data.append("nama_ibu_kandung", values.nama_ibu_kandung);
+      data.append("nomor_kk", values.nomor_kk);
+      data.append("tanggal_efektif", values.tanggal_efektif);
+      data.append("fungsi_atau_jabatan", values.fungsi_atau_jabatan);
+      data.append(
+        "tmt_ustadz_atau_tanggal_sk_ptk",
+        values.tmt_ustadz_atau_tanggal_sk_ptk
+      );
+      data.append("status_penugasan", values.status_penugasan);
+      data.append(
+        "instansi_yang_mengeluarkan_sk",
+        values.instansi_yang_mengeluarkan_sk
+      );
+      data.append("no_sk", values.no_sk);
+      data.append("tanggal_sk", values.tanggal_sk);
+      data.append("jenis_sk", values.jenis_sk);
+      data.append("foto_profil", fileFotoUstadz);
+      data.append("file_sk", fileSk);
 
       return http().post(`/ustadz`, data);
     },
