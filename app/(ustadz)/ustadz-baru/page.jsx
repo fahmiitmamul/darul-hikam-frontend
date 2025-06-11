@@ -45,6 +45,7 @@ import DropdownProvinces from "@/components/dropdown-provinces";
 import { useLocationContext } from "@/components/location-context";
 import DropdownRegencies from "@/components/dropdown-regencies";
 import DropdownDistricts from "@/components/dropdown-districts";
+import DropdownVillages from "@/components/dropdown-villages";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
@@ -881,27 +882,10 @@ export default function UstadzBaru() {
                       <FormItem>
                         <FormLabel>Kelurahan / Desa</FormLabel>
                         <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger
-                              className={cn(
-                                "w-full",
-                                fieldState.error
-                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                  : ""
-                              )}
-                            >
-                              <SelectValue placeholder="Kelurahan / Desa" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Kelurahan / Desa</SelectLabel>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
+                          <DropdownVillages
+                            field={field}
+                            fieldState={fieldState}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
