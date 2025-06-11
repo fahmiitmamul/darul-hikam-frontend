@@ -33,7 +33,7 @@ export default function DropdownRegencies({ field, fieldState }) {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/districts/${idProvince}.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/regencies/${idProvince}.json`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch regencies");
@@ -58,7 +58,7 @@ export default function DropdownRegencies({ field, fieldState }) {
 
   // Handle select change
   const handleChange = (value) => {
-    setIdProvince(value);
+    setIdRegency(value);
   };
 
   return (

@@ -14,7 +14,7 @@ import { useLocationContext } from "./location-context";
 export default function DropdownVillages({ field, fieldState }) {
   const [loading, setLoading] = useState(true);
   const [villages, setVillages] = useState([]);
-  const [selectedVillages, setSelectedVillages] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
   const {
     setIdProvince,
@@ -23,17 +23,18 @@ export default function DropdownVillages({ field, fieldState }) {
     setIdVillage,
     idProvince,
     idRegency,
+    idDistrict,
   } = useLocationContext();
 
   // Fetch villages from API
   useEffect(() => {
-    if (!idProvince) return; // Jangan fetch jika idProvince kosong
+    if ((!idProvince, !idRegency, !idDistrict)) return; // Jangan fetch jika idDistrict kosong
 
     const fetchVillages = async () => {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/villages/${idProvince}.json`
+          `${config.apiAddress}/villages/${idDistrict}.json`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch villages");
@@ -49,12 +50,11 @@ export default function DropdownVillages({ field, fieldState }) {
       }
     };
 
-    fetchVillages();
-
     setVillages([]);
-    setSelectedVillages("");
-    setIdRegency("");
-  }, [idProvince]); // Gunakan idProvince dalam dependency array
+    setSelectedVillage();
+    setIdVillage();
+    fetchVillages();
+  }, [idProvince, idRegency, idDistrict]); // Gunakan idProvince dalam dependency array
 
   return (
     <div>
