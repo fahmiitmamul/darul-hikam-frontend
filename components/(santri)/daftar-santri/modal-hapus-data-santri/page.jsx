@@ -7,9 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -49,7 +47,7 @@ export function ModalHapusDataSantri({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Hapus Mudir Atau Pimpinan</AlertDialogTitle>
+          <AlertDialogTitle>Hapus Santri</AlertDialogTitle>
           <AlertDialogDescription>
             Tindakan ini tidak dapat dibatalkan. Tindakan ini akan menghapus
             secara permanen.

@@ -32,7 +32,6 @@ import { MoreHorizontal } from "lucide-react";
 import { Trash } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -44,10 +43,8 @@ import { differenceInYears, format, parseISO } from "date-fns";
 import { ModalHapusDataSantri } from "@/components/(santri)/daftar-santri/modal-hapus-data-santri/page";
 
 export default function DaftarSantri() {
-  const [
-    openDialogHapusMudirAtauPimpinan,
-    setOpenDialogHapusMudirAtauPimpinan,
-  ] = useState(false);
+  const [openDialogHapusSantri, setOpenDialogHapusSantri] = useState(false);
+  const [santriId, setSantriId] = useState(null);
 
   const router = useRouter();
   const [pageIndex, setPageIndex] = useState(1);
@@ -143,7 +140,7 @@ export default function DaftarSantri() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                router.push("/detail-santri");
+                setSantriId(row.original.id);
               }}
             >
               <Pencil />
@@ -161,7 +158,8 @@ export default function DaftarSantri() {
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
               onClick={() => {
-                toast;
+                setSantriId(row.original.id);
+                setOpenDialogHapusSantri(true);
               }}
             >
               <Trash />
