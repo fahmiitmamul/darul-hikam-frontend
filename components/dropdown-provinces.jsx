@@ -48,9 +48,9 @@ export default function DropdownProvinces({ field, fieldState }) {
     <div>
       <Select
         {...field}
-        onValueChange={() => {
-          field.onChange();
-          handleChange(field.value);
+        onValueChange={(value) => {
+          field.onChange(value);
+          handleChange(value);
         }}
         defaultValue=""
       >
@@ -67,11 +67,13 @@ export default function DropdownProvinces({ field, fieldState }) {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Provinsi</SelectLabel>
-            {provinces.map((province) => (
-              <SelectItem key={province.id} value={province.id}>
-                {province.name}
-              </SelectItem>
-            ))}
+            {provinces.map((province) => {
+              return (
+                <SelectItem key={province.id} value={province.id}>
+                  {province.name}
+                </SelectItem>
+              );
+            })}
           </SelectGroup>
         </SelectContent>
       </Select>
