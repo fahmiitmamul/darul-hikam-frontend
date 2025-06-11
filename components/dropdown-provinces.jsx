@@ -9,8 +9,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useLocationContext } from "./location-context";
 
 export default function DropdownProvinces({ field, fieldState }) {
+  const { setIdProvince } = useLocationContext();
   const [provinces, setProvinces] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,9 +39,21 @@ export default function DropdownProvinces({ field, fieldState }) {
     fetchProvinces();
   }, []);
 
+  // Handle select change
+  const handleChange = (value) => {
+    setIdProvince(value);
+  };
+
   return (
     <div>
-      <Select {...field} onValueChange={field.onChange} defaultValue="">
+      <Select
+        {...field}
+        onValueChange={() => {
+          field.onChange();
+          handleChange(field.value);
+        }}
+        defaultValue=""
+      >
         <SelectTrigger
           className={cn(
             "w-full",
