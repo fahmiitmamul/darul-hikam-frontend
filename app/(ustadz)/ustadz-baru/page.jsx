@@ -46,7 +46,7 @@ export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
   const [fileFotoUstadz, setFileFotoUstadz] = useState(null);
 
-  const schemaIdentitas = z.object({
+  const schemaUstadz = z.object({
     gelar_depan: z.string({ message: "Masukkan gelar depan" }),
     nama_lengkap: z.string({ message: "Masukkan nama lengkap" }),
     gelar_belakang: z.string({
@@ -88,7 +88,7 @@ export default function UstadzBaru() {
     prodi_terakhir: z.string({
       message: "Masukkan prodi terakhir",
     }),
-    tanggal_ijazah: z.string({
+    tanggal_akta_pendirian: z.string({
       message: "Masukkan tanggal ijazah",
     }),
     status_tempat_tinggal: z.string({
@@ -159,8 +159,31 @@ export default function UstadzBaru() {
     }),
   });
 
-  const identitasForm = useForm({
-    resolver: zodResolver(schemaIdentitas),
+  const ustadzForm = useForm({
+    resolver: zodResolver(schemaUstadz),
+    defaultValues: {
+      gelar_depan: "",
+      nama_lengkap: "",
+      gelar_belakang: "",
+      npk: "",
+      nik: "",
+      nuptk: "",
+      no_handphone: "",
+      email: "",
+      npwp: "",
+      tempat_lahir: "",
+      tanggal_lahir: "",
+      agama: "",
+      golongan_darah: "",
+      pendidikan_terakhir: "",
+      prodi_terakhir: "",
+      tanggal_akta_pendirian: "",
+      status_tempat_tinggal: "",
+      provinsi: "",
+      kabupaten: "",
+      kecamatan: "",
+      kelurahan_atau_desa: "",
+    },
   });
 
   const queryClient = useQueryClient();
@@ -228,9 +251,9 @@ export default function UstadzBaru() {
 
           <Separator className="mt-5" />
 
-          <Form {...identitasForm}>
+          <Form {...ustadzForm}>
             <form
-              onSubmit={identitasForm.handleSubmit(onSubmit)}
+              onSubmit={ustadzForm.handleSubmit(onSubmit)}
               className="space-y-5 mt-5"
             >
               <div className="flex gap-10 items-center w-full">
@@ -243,7 +266,7 @@ export default function UstadzBaru() {
                   <div>
                     <div>
                       <FormField
-                        control={identitasForm.control}
+                        control={ustadzForm.control}
                         name="gelar_depan"
                         render={({ field }) => (
                           <FormItem>
@@ -264,7 +287,7 @@ export default function UstadzBaru() {
                   <div>
                     <div>
                       <FormField
-                        control={identitasForm.control}
+                        control={ustadzForm.control}
                         name="nama_lengkap"
                         render={({ field }) => (
                           <FormItem>
@@ -285,7 +308,7 @@ export default function UstadzBaru() {
                   <div>
                     <div>
                       <FormField
-                        control={identitasForm.control}
+                        control={ustadzForm.control}
                         name="gelar_belakang"
                         render={({ field }) => (
                           <FormItem>
@@ -335,7 +358,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="npk"
                     render={({ field }) => (
                       <FormItem>
@@ -354,7 +377,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="nik"
                     render={({ field }) => (
                       <FormItem>
@@ -375,7 +398,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="nuptk"
                     render={({ field }) => (
                       <FormItem>
@@ -396,7 +419,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="no_handphone"
                     render={({ field }) => (
                       <FormItem>
@@ -415,15 +438,16 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
+                            type="email"
                             placeholder="Masukkan Email"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -436,7 +460,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="npwp"
                     render={({ field }) => (
                       <FormItem>
@@ -480,14 +504,14 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="tempat_lahir"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Tempat Lahir</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
+                            type="text"
                             placeholder="Masukkan Tempat Lahir"
                             {...field}
                           />
@@ -499,7 +523,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="tanggal_lahir"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -546,7 +570,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="agama"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -585,7 +609,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="golongan_darah"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -626,7 +650,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="pendidikan_terakhir"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -664,7 +688,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="prodi_terakhir"
                     render={({ field }) => (
                       <FormItem>
@@ -685,8 +709,8 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
-                    name="tanggal_ijazah"
+                    control={ustadzForm.control}
+                    name="tanggal_akta_pendirian"
                     render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel
@@ -738,7 +762,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="status_tempat_tinggal"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -791,7 +815,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="provinsi"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -825,7 +849,7 @@ export default function UstadzBaru() {
                 </div>
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="kabupaten"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -862,7 +886,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="kecamatan"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -897,7 +921,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="kelurahan_atau_desa"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -934,7 +958,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="rt"
                     render={({ field }) => (
                       <FormItem>
@@ -953,7 +977,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="rw"
                     render={({ field }) => (
                       <FormItem>
@@ -973,7 +997,7 @@ export default function UstadzBaru() {
 
               <div className="grid grid-cols-1 gap-2">
                 <FormField
-                  control={identitasForm.control}
+                  control={ustadzForm.control}
                   name="alamat"
                   render={({ field }) => (
                     <FormItem>
@@ -989,7 +1013,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="kode_pos"
                     render={({ field }) => (
                       <FormItem>
@@ -1008,7 +1032,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="transportasi_ke_pontren"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1067,7 +1091,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="jarak_tempat_tinggal_pontren"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1119,7 +1143,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="waktu_tempuh"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1182,7 +1206,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="nama_ibu_kandung"
                     render={({ field }) => (
                       <FormItem>
@@ -1234,7 +1258,7 @@ export default function UstadzBaru() {
                 <div>
                   <div>
                     <FormField
-                      control={identitasForm.control}
+                      control={ustadzForm.control}
                       name="nomor_kk"
                       render={({ field }) => (
                         <FormItem>
@@ -1261,7 +1285,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="tanggal_efektif"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1306,7 +1330,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="fungsi_atau_jabatan"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1348,7 +1372,7 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="tmt_ustadz_atau_tanggal_sk_ptk"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1396,7 +1420,7 @@ export default function UstadzBaru() {
               <div className="grid-cols-2 md:grid-cols-2 grid gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="status_penugasan"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1436,7 +1460,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="instansi_yang_mengeluarkan_sk"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1480,7 +1504,7 @@ export default function UstadzBaru() {
               <div className="grid-cols-2 md:grid-cols-2 grid gap-5">
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="no_sk"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1520,7 +1544,7 @@ export default function UstadzBaru() {
 
                 <div>
                   <FormField
-                    control={identitasForm.control}
+                    control={ustadzForm.control}
                     name="tanggal_sk"
                     render={({ field, fieldState }) => (
                       <FormItem>
@@ -1568,7 +1592,7 @@ export default function UstadzBaru() {
                 <div>
                   <div>
                     <FormField
-                      control={identitasForm.control}
+                      control={ustadzForm.control}
                       name="jenis_sk"
                       render={({ field, fieldState }) => (
                         <FormItem>
