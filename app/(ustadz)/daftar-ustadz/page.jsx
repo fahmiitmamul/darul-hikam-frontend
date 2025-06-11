@@ -4,7 +4,6 @@ import AppHeader from "@/components/app-header";
 import {
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
@@ -23,17 +22,7 @@ import { ChevronsLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Trash } from "lucide-react";
-import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import {
   Select,
   SelectContent,
@@ -46,288 +35,50 @@ import {
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import http from "@/helpers/http.helper";
 
 export default function DaftarUstadz() {
-  const [
-    openDialogHapusMudirAtauPimpinan,
-    setOpenDialogHapusMudirAtauPimpinan,
-  ] = useState(false);
-
   const router = useRouter();
 
-  const tableData = [
-    {
-      no: "1",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "2",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "3",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "4",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "5",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "6",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "7",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "8",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "9",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "10",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "11",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "12",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "13",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "14",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "15",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "16",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "17",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "18",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "19",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "20",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "21",
-      nik: "3302124234234234",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "Satminkal",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-    {
-      no: "22",
-      nik: "987654678",
-      nama_lengkap: "Itmamul Fahmi",
-      penempatan: "31-05-2000",
-      tugas: "Tenaga Administrasi",
-      status: "Aktif",
-      aksi: "Aksi",
-    },
-  ];
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
 
-  const tableColumns = [
-    {
-      accessorKey: "no",
-      header: "No",
-    },
-    {
-      accessorKey: "nik",
-      header: "NIK",
-    },
-    {
-      accessorKey: "nama_lengkap",
-      header: "Nama Lengkap",
-    },
-    {
-      accessorKey: "penempatan",
-      header: "Penempatan",
-    },
-    {
-      accessorKey: "tugas",
-      header: "Tugas",
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
-    },
-    {
-      accessorKey: "Aksi",
-      header: "Aksi",
-      cell: ({ row }) => (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
-              <Pencil />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-red-500 cursor-pointer"
-              onClick={() => {}}
-            >
-              <Trash />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ),
-    },
-  ];
+  const getDataUstadz = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/ustadz?page=${page}&limit=${limit}&search=${search}`
+    );
 
-  const [data] = React.useState(() => [...tableData]);
-  const [columns] = React.useState(() => [...tableColumns]);
+    return data.results;
+  };
 
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 5,
+  const { data } = useQuery({
+    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
   });
 
   const table = useReactTable({
-    data,
+    data: data?.data ?? [],
     columns,
+    pageCount: data?.totalPages ?? -1,
+    state: {
+      pagination: { pageIndex: pageIndex - 1, pageSize },
+      globalFilter,
+    },
+    manualPagination: true,
+    onPaginationChange: (updater) => {
+      const next =
+        typeof updater === "function"
+          ? updater({ pageIndex: pageIndex - 1, pageSize })
+          : updater;
+      setPageIndex(next.pageIndex + 1);
+      setPageSize(next.pageSize);
+    },
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: setPagination,
-    state: {
-      pagination,
-    },
   });
 
   return (
