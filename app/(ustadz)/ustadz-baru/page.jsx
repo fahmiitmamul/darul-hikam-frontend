@@ -98,11 +98,9 @@ export default function UstadzBaru() {
         message: "Masukkan tempat lahir",
       })
       .min(1, "Harap diisi"),
-    tanggal_lahir: z
-      .string({
-        message: "Masukkan tanggal lahir",
-      })
-      .min(1, "Harap diisi"),
+    tanggal_lahir: z.date({
+      message: "Masukkan tanggal masuk",
+    }),
     agama: z
       .string({
         message: "Masukkan agama",
@@ -123,11 +121,9 @@ export default function UstadzBaru() {
         message: "Masukkan prodi terakhir",
       })
       .min(1, "Harap diisi"),
-    tanggal_akta_pendirian: z
-      .string({
-        message: "Masukkan tanggal ijazah",
-      })
-      .min(1, "Harap diisi"),
+    tanggal_akta_pendirian: z.date({
+      message: "Masukkan tanggal masuk",
+    }),
     status_tempat_tinggal: z
       .string({
         message: "Masukkan status tempat tinggal",
@@ -198,11 +194,9 @@ export default function UstadzBaru() {
         message: "Masukkan nomor kk",
       })
       .min(1, "Harap diisi"),
-    tanggal_efektif: z
-      .string({
-        message: "Masukkan tanggal efektif",
-      })
-      .min(1, "Harap diisi"),
+    tanggal_efektif: z.date({
+      message: "Masukkan tanggal masuk",
+    }),
     fungsi_atau_jabatan: z
       .string({
         message: "Masukkan fungsi atau jabatan",
@@ -228,11 +222,9 @@ export default function UstadzBaru() {
         message: "Masukkan no sk",
       })
       .min(1, "Harap diisi"),
-    tanggal_sk: z
-      .string({
-        message: "Masukkan tanggal sk",
-      })
-      .min(1, "Harap diisi"),
+    tanggal_sk: z.date({
+      message: "Masukkan tanggal masuk",
+    }),
     jenis_sk: z
       .string({
         message: "Masukkan jenis sk",
