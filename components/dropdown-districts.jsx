@@ -9,33 +9,52 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useLocationContext } from "./location-context";
 
 export default function DropdownDistricts({ field, fieldState }) {
-  const [provinces, setProvinces] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistricts, setSelectedDistricts] = useState("");
 
+  const {
+    setIdProvince,
+    setIdRegency,
+    setIdDistrict,
+    setIdVillage,
+    idProvince,
+    idRegency,
+  } = useLocationContext();
+
+  // Fetch districts from API
   useEffect(() => {
-    const fetchProvinces = async () => {
+    if (!idProvince) return; // Jangan fetch jika idProvince kosong
+
+    const fetchDistricts = async () => {
       try {
-        setLoading(true);
+        setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/provinces.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/districts/${idProvince}.json`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch provinces");
+          throw new Error("Failed to fetch districts");
         }
         const data = await response.json();
-        setProvinces(Array.isArray(data) ? data : []);
+        console.log("Fetched districts:", data);
+        setDistricts(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Error fetching provinces:", error);
-        setProvinces([]);
+        console.error("Error fetching districts:", error);
+        setDistricts([]);
       } finally {
-        setLoading(false);
+        setLoading(false); // Matikan loading
       }
     };
 
-    fetchProvinces();
-  }, []);
+    fetchDistricts();
+
+    setDistricts([]);
+    setSelectedDistricts("");
+    setIdRegency("");
+  }, [idProvince]); // Gunakan idProvince dalam dependency array
 
   return (
     <div>
@@ -48,14 +67,14 @@ export default function DropdownDistricts({ field, fieldState }) {
               : ""
           )}
         >
-          <SelectValue placeholder="Provinsi" />
+          <SelectValue placeholder="Kabupaten / Kota" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Provinsi</SelectLabel>
-            {provinces.map((province) => (
-              <SelectItem key={province.id} value={province.id}>
-                {province.name}
+            <SelectLabel>Kabupaten Atau Kota</SelectLabel>
+            {districts.map((districts) => (
+              <SelectItem key={districts.id} value={districts.id}>
+                {districts.name}
               </SelectItem>
             ))}
           </SelectGroup>

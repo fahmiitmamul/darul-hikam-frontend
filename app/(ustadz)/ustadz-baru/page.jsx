@@ -44,6 +44,7 @@ import { toast } from "sonner";
 import DropdownProvinces from "@/components/dropdown-provinces";
 import { useLocationContext } from "@/components/location-context";
 import DropdownRegencies from "@/components/dropdown-regencies";
+import DropdownDistricts from "@/components/dropdown-districts";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
@@ -841,10 +842,12 @@ export default function UstadzBaru() {
                     render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel>Kabupaten / Kota</FormLabel>
-                        <DropdownRegencies
-                          field={field}
-                          fieldState={fieldState}
-                        />
+                        <FormControl>
+                          <DropdownRegencies
+                            field={field}
+                            fieldState={fieldState}
+                          />
+                        </FormControl>
                       </FormItem>
                     )}
                   />
@@ -860,27 +863,10 @@ export default function UstadzBaru() {
                       <FormItem>
                         <FormLabel>Kecamatan</FormLabel>
                         <FormControl>
-                          <Select
-                            {...field}
-                            onValueChange={field.onChange}
-                            defaultValue=""
-                          >
-                            <SelectTrigger
-                              className={cn(
-                                "w-full",
-                                fieldState.error
-                                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                  : ""
-                              )}
-                            >
-                              <SelectValue placeholder="Provinsi" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Kecamatan</SelectLabel>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
+                          <DropdownDistricts
+                            field={field}
+                            fieldState={fieldState}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
