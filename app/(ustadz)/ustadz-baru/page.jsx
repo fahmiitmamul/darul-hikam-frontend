@@ -50,7 +50,6 @@ import DropdownVillages from "@/components/dropdown-villages";
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
   const [fileFotoUstadz, setFileFotoUstadz] = useState(null);
-  const { idProvince } = useLocationContext();
 
   const schemaUstadz = z.object({
     gelar_depan: z
