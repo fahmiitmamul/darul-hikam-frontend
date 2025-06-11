@@ -35,7 +35,7 @@ export default function DropdownRegencies({ field, fieldState }) {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/regencies/${idProvince}.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/regencies/${idProvince}.json`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch regencies");
