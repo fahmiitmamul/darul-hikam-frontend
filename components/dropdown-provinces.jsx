@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { useLocationContext } from "./location-context";
 
 export default function DropdownProvinces({ field, fieldState }) {
-  const { setIdProvince } = useLocationContext();
+  const { idProvince, setIdProvince } = useLocationContext();
   const [provinces, setProvinces] = useState([]);
   const [loading, setLoading] = useState(true);
 

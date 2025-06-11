@@ -9,33 +9,54 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useLocationContext } from "./location-context";
 
-export default function DropdownProvinces({ field, fieldState }) {
-  const [provinces, setProvinces] = useState([]);
+export default function DropdownRegencies({ field, fieldState }) {
   const [loading, setLoading] = useState(true);
+  const [regencies, setRegencies] = useState([]);
+  const [selectedRegency, setSelectedRegency] = useState("");
 
+  const {
+    setIdProvince,
+    setIdRegency,
+    setIdDistrict,
+    setIdVillage,
+    idProvince,
+    idRegency,
+  } = useLocationContext();
+
+  console.log(idProvince);
+
+  // Fetch regencies from API
   useEffect(() => {
-    const fetchProvinces = async () => {
+    if (!idProvince) return; // Jangan fetch jika idProvince kosong
+
+    const fetchRegencies = async () => {
       try {
-        setLoading(true);
+        setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/provinces.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/regencies/${idProvince}.json`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch provinces");
+          throw new Error("Failed to fetch regencies");
         }
         const data = await response.json();
-        setProvinces(Array.isArray(data) ? data : []);
+        console.log("Fetched regencies:", data);
+        setRegencies(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Error fetching provinces:", error);
-        setProvinces([]);
+        console.error("Error fetching regencies:", error);
+        setRegencies([]);
       } finally {
-        setLoading(false);
+        setLoading(false); // Matikan loading
       }
     };
 
-    fetchProvinces();
-  }, []);
+    fetchRegencies();
+
+    setRegencies([]);
+    setSelectedRegency("");
+    setIdRegency("");
+  }, [idProvince]); // Gunakan idProvince dalam dependency array
 
   return (
     <div>
@@ -48,14 +69,14 @@ export default function DropdownProvinces({ field, fieldState }) {
               : ""
           )}
         >
-          <SelectValue placeholder="Provinsi" />
+          <SelectValue placeholder="Kabupaten / Kota" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Provinsi</SelectLabel>
-            {provinces.map((province) => (
-              <SelectItem key={province.id} value={province.id}>
-                {province.name}
+            <SelectLabel>Kabupaten Atau Kota</SelectLabel>
+            {regencies.map((regencies) => (
+              <SelectItem key={regencies.id} value={regencies.id}>
+                {regencies.name}
               </SelectItem>
             ))}
           </SelectGroup>
