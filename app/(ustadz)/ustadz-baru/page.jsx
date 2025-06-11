@@ -202,11 +202,9 @@ export default function UstadzBaru() {
         message: "Masukkan fungsi atau jabatan",
       })
       .min(1, "Harap diisi"),
-    tmt_ustadz_atau_tanggal_sk_ptk: z
-      .string({
-        message: "Masukkan tanggal SK PTK",
-      })
-      .min(1, "Harap diisi"),
+    tmt_ustadz_atau_tanggal_sk_ptk: z.date({
+      message: "Masukkan tanggal masuk",
+    }),
     status_penugasan: z
       .string({
         message: "Masukkan status penugasan",
