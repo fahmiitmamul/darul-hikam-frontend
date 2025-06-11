@@ -25,8 +25,6 @@ export default function DropdownRegencies({ field, fieldState }) {
     idRegency,
   } = useLocationContext();
 
-  console.log(idProvince);
-
   // Fetch regencies from API
   useEffect(() => {
     if (!idProvince) return; // Jangan fetch jika idProvince kosong
@@ -58,9 +56,21 @@ export default function DropdownRegencies({ field, fieldState }) {
     setIdRegency("");
   }, [idProvince]); // Gunakan idProvince dalam dependency array
 
+  // Handle select change
+  const handleChange = (value) => {
+    setIdProvince(value);
+  };
+
   return (
     <div>
-      <Select {...field} onValueChange={field.onChange} defaultValue="">
+      <Select
+        {...field}
+        onValueChange={(value) => {
+          field.onChange(value);
+          handleChange(value);
+        }}
+        defaultValue=""
+      >
         <SelectTrigger
           className={cn(
             "w-full",

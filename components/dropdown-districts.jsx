@@ -27,13 +27,13 @@ export default function DropdownDistricts({ field, fieldState }) {
 
   // Fetch districts from API
   useEffect(() => {
-    if (!idProvince) return; // Jangan fetch jika idProvince kosong
+    if (!idProvince || !idRegency) return; // Jangan fetch jika idRegency kosong
 
     const fetchDistricts = async () => {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/districts/${idProvince}.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/districts/${idRegency}.json`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch districts");
@@ -53,8 +53,8 @@ export default function DropdownDistricts({ field, fieldState }) {
 
     setDistricts([]);
     setSelectedDistricts("");
-    setIdRegency("");
-  }, [idProvince]); // Gunakan idProvince dalam dependency array
+    setIdDistrict("");
+  }, [idProvince, idRegency]); // Gunakan idProvince dalam dependency array
 
   return (
     <div>
