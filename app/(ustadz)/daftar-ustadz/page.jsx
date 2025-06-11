@@ -32,7 +32,6 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Trash } from "lucide-react";
 import { Pencil } from "lucide-react";
-import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { useState } from "react";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import {
@@ -295,20 +294,13 @@ export default function DaftarUstadz() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                setOpenDialogEditMudirAtauPimpinan(true);
-              }}
-            >
+            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
               <Pencil />
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
-              onClick={() => {
-                setOpenDialogHapusMudirAtauPimpinan(true);
-              }}
+              onClick={() => {}}
             >
               <Trash />
               Delete
