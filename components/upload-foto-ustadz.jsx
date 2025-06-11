@@ -115,6 +115,7 @@ export default function UploadFotoUstadz({
   return (
     <div className={cn("relative", className)}>
       <Button
+        type="button"
         onClick={triggerFileInput}
         size="icon"
         className={cn(
