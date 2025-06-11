@@ -13,8 +13,8 @@ import { useLocationContext } from "./location-context";
 
 export default function DropdownVillages({ field, fieldState }) {
   const [loading, setLoading] = useState(true);
-  const [regencies, setRegencies] = useState([]);
-  const [selectedDistricts, setSelectedDistricts] = useState("");
+  const [villages, setVillages] = useState([]);
+  const [selectedVillages, setSelectedVillages] = useState("");
 
   const {
     setIdProvince,
@@ -25,34 +25,34 @@ export default function DropdownVillages({ field, fieldState }) {
     idRegency,
   } = useLocationContext();
 
-  // Fetch regencies from API
+  // Fetch villages from API
   useEffect(() => {
     if (!idProvince) return; // Jangan fetch jika idProvince kosong
 
-    const fetchRegencies = async () => {
+    const fetchVillages = async () => {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/regencies/${idProvince}.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/villages/${idProvince}.json`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch regencies");
+          throw new Error("Failed to fetch villages");
         }
         const data = await response.json();
-        console.log("Fetched regencies:", data);
-        setRegencies(Array.isArray(data) ? data : []);
+        console.log("Fetched villages:", data);
+        setVillages(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Error fetching regencies:", error);
-        setRegencies([]);
+        console.error("Error fetching villages:", error);
+        setVillages([]);
       } finally {
         setLoading(false); // Matikan loading
       }
     };
 
-    fetchRegencies();
+    fetchVillages();
 
-    setRegencies([]);
-    setSelectedDistricts("");
+    setVillages([]);
+    setSelectedVillages("");
     setIdRegency("");
   }, [idProvince]); // Gunakan idProvince dalam dependency array
 
@@ -67,14 +67,14 @@ export default function DropdownVillages({ field, fieldState }) {
               : ""
           )}
         >
-          <SelectValue placeholder="Kabupaten / Kota" />
+          <SelectValue placeholder="Kelurahan" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Kabupaten Atau Kota</SelectLabel>
-            {regencies.map((regencies) => (
-              <SelectItem key={regencies.id} value={regencies.id}>
-                {regencies.name}
+            <SelectLabel>Kelurahan</SelectLabel>
+            {villages.map((villages) => (
+              <SelectItem key={villages.id} value={villages.id}>
+                {villages.name}
               </SelectItem>
             ))}
           </SelectGroup>
