@@ -34,7 +34,7 @@ export default function DropdownVillages({ field, fieldState }) {
       try {
         setLoading(true); // Mulai loading
         const response = await fetch(
-          `${config.apiAddress}/villages/${idDistrict}.json`
+          `https://sc-copy-api-wilayah-indonesia-master-yhe2.vercel.app/api/villages/${idDistrict}.json`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch villages");
