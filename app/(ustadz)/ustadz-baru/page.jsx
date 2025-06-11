@@ -46,10 +46,13 @@ import { useLocationContext } from "@/components/location-context";
 import DropdownRegencies from "@/components/dropdown-regencies";
 import DropdownDistricts from "@/components/dropdown-districts";
 import DropdownVillages from "@/components/dropdown-villages";
+import { useRouter } from "next/navigation";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
   const [fileFotoUstadz, setFileFotoUstadz] = useState(null);
+
+  const router = useRouter();
 
   const schemaUstadz = z.object({
     gelar_depan: z
