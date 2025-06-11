@@ -26,6 +26,8 @@ export default function DropdownVillages({ field, fieldState }) {
     idDistrict,
   } = useLocationContext();
 
+  console.log(villages);
+
   // Fetch villages from API
   useEffect(() => {
     if ((!idProvince, !idRegency, !idDistrict)) return; // Jangan fetch jika idDistrict kosong

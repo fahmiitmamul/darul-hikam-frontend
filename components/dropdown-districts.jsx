@@ -56,9 +56,20 @@ export default function DropdownDistricts({ field, fieldState }) {
     setIdDistrict("");
   }, [idProvince, idRegency]); // Gunakan idProvince dalam dependency array
 
+  const handleChange = (value) => {
+    setIdVillage(value);
+  };
+
   return (
     <div>
-      <Select {...field} onValueChange={field.onChange} defaultValue="">
+      <Select
+        {...field}
+        onValueChange={(value) => {
+          field.onChange(value);
+          handleChange(value);
+        }}
+        defaultValue=""
+      >
         <SelectTrigger
           className={cn(
             "w-full",
