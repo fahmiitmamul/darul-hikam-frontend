@@ -8,6 +8,8 @@ import { Camera, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function UploadFotoUstadz({
+  fileFotoUstadz,
+  setFileFotoUstadz,
   size = "lg",
   onImageUpload,
   className,
@@ -46,6 +48,8 @@ export default function UploadFotoUstadz({
       const result = e.target?.result;
       setPreview(result);
       onImageUpload?.(file, result);
+
+      setFileFotoUstadz(file);
     };
     reader.readAsDataURL(file);
 

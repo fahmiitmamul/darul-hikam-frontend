@@ -196,7 +196,6 @@ export default function SantriBaru() {
   });
 
   const onSubmit = (data) => {
-    console.log(100);
     postSantriBaru.mutate(data);
   };
 

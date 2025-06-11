@@ -38,9 +38,13 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import UploadFotoUstadz from "@/components/upload-foto-ustadz";
 import UploadFileSk from "@/components/upload-file-sk";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
+import { toast } from "sonner";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
+  const [fileFotoUstadz, setFileFotoUstadz] = useState(null);
 
   const schemaIdentitas = z.object({
     gelar_depan: z.string({ message: "Masukkan gelar depan" }),
@@ -159,8 +163,47 @@ export default function UstadzBaru() {
     resolver: zodResolver(schemaIdentitas),
   });
 
+  const queryClient = useQueryClient();
+
+  const postUstadzBaru = useMutation({
+    mutationFn: async (values) => {
+      const data = new FormData();
+      data.append("foto_profil", fileFotoSantri);
+      data.append("tanggal_masuk", values.tanggal_masuk);
+      data.append("tingkat_kelas", values.tingkat_kelas);
+      data.append("nama_lengkap", values.nama_lengkap);
+      data.append("kewarganegaraan", values.kewarganegaraan);
+      data.append("nik", values.nik);
+      data.append("nisn", values.nisn);
+      data.append("jenis_kelamin", selectedJenisKelaminValue);
+      data.append("tempat_lahir", values.tempat_lahir);
+      data.append("tanggal_lahir", values.tanggal_lahir);
+      data.append("agama", values.agama);
+      data.append("no_handphone", values.no_handphone);
+      data.append("ayah_kandung", values.ayah_kandung);
+      data.append("status_ayah_kandung", values.status_ayah_kandung);
+      data.append("ibu_kandung", values.ibu_kandung);
+      data.append("status_ibu_kandung", values.status_ibu_kandung);
+      data.append("wali", values.wali);
+
+      return http().post(`/ustadz`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["ustadz"] });
+      toast("Ustadz berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+      router.push("/daftar-ustadz");
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
   const onSubmit = (data) => {
-    console.log("Form data:", data);
+    postUstadzBaru.mutate(data);
   };
 
   return (
@@ -191,7 +234,10 @@ export default function UstadzBaru() {
               className="space-y-5 mt-5"
             >
               <div className="flex gap-10 items-center w-full">
-                <UploadFotoUstadz />
+                <UploadFotoUstadz
+                  fileFotoUstadz={fileFotoUstadz}
+                  setFileFotoUstadz={setFileFotoUstadz}
+                />
 
                 <div className="grid grid-cols-3 gap-5 w-full">
                   <div>
