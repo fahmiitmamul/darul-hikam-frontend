@@ -1277,7 +1277,7 @@ export default function UstadzBaru() {
                         <FormLabel>Nama Ibu Kandung</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
+                            type="text"
                             placeholder="Nama Ibu Kandung"
                             {...field}
                           />
