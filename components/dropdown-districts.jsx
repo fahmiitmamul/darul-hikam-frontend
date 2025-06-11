@@ -57,7 +57,7 @@ export default function DropdownDistricts({ field, fieldState }) {
   }, [idProvince, idRegency]); // Gunakan idProvince dalam dependency array
 
   const handleChange = (value) => {
-    setIdVillage(value);
+    setIdDistrict(value);
   };
 
   return (
