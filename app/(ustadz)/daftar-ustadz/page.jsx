@@ -36,6 +36,16 @@ import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { Trash } from "lucide-react";
 
 export default function DaftarUstadz() {
   const router = useRouter();
@@ -57,6 +67,59 @@ export default function DaftarUstadz() {
     queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
     keepPreviousData: true,
   });
+
+  const columns = [
+    {
+      accessorKey: "no",
+      header: "No",
+    },
+    {
+      accessorKey: "nik",
+      header: "NIK",
+    },
+    {
+      accessorKey: "nama_lengkap",
+      header: "Nama Lengkap",
+    },
+    {
+      accessorKey: "penempatan",
+      header: "Penempatan",
+    },
+    {
+      accessorKey: "tugas",
+      header: "Tugas",
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+    },
+    {
+      accessorKey: "Aksi",
+      header: "Aksi",
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
+              <Pencil />
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-red-500 cursor-pointer"
+              onClick={() => {}}
+            >
+              <Trash />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data: data?.data ?? [],
