@@ -331,6 +331,14 @@ export default function Profil() {
     console.log("Form data:", data);
   };
 
+  const skIjinOperasionalForm = useForm({
+    resolver: zodResolver(schemaIdentitas),
+    defaultValues: async () => {
+      const { data } = await http().get(`/profil/identitas`);
+      return data.results?.data[0];
+    },
+  });
+
   return (
     <Sidebar>
       <div className="flex flex-col w-full">

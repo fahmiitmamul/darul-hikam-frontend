@@ -44,6 +44,8 @@ import {
 import UploadPiagamSkIjop from "@/components/upload-piagam-sk-ijop";
 import UploadIzinOperasional from "@/components/upload-izin-operasional";
 import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
 
 export default function ModalTambahSkDanPerizinan() {
   const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
@@ -67,10 +69,50 @@ export default function ModalTambahSkDanPerizinan() {
 
   const dokumenForm = useForm({
     resolver: zodResolver(schemaDokumen),
+    defaultValues: {
+      no_sk_izin_operasional: "",
+      tanggal_sk_izin_operasional: new Date(),
+      berlaku_sampai_dengan: new Date(),
+      instansi_penerbit_izin_operasional: "",
+    },
+  });
+
+  const queryClient = useQueryClient();
+
+  const postSkDanPerizinan = useMutation({
+    mutationFn: async (values) => {
+      const data = new FormData();
+
+      data.append("no_sk_izin_operasional", values.no_sk_izin_operasional);
+      data.append(
+        "tanggal_sk_izin_operasional",
+        values.tanggal_sk_izin_operasional
+      );
+      data.append("berlaku_sampai_dengan", values.berlaku_sampai_dengan);
+      data.append(
+        "instansi_penerbit_izin_operasional",
+        values.instansi_penerbit_izin_operasional
+      );
+      data.append("izin_operasional", fileUploadIzinOperasional);
+      data.append("piagam_sk_ijop", fileUploadPiagamSkIjop);
+      return http().post(`/profil/sk-ijop`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sk-ijop"] });
+      toast("SK Ijop berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
   });
 
   const onSubmit = (data) => {
-    console.log("Form data:", data);
+    postSkDanPerizinan.mutate(data);
+
     if (!fileUploadIzinOperasional) {
       toast("Dokumen upload izin operasional belum diunggah");
       return;
