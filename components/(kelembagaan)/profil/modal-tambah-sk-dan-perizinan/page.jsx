@@ -48,8 +48,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 
 export default function ModalTambahSkDanPerizinan({
-  openDialogTambahSkDanPerizinan,
-  setOpenDialogTambahSkDanPerizinan,
+  openDialogTambahSkIjop,
+  setOpenDialogTambahSkIjop,
 }) {
   const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
     useState(null);
@@ -119,13 +119,13 @@ export default function ModalTambahSkDanPerizinan({
     }
 
     postSkDanPerizinan.mutate(data);
-    setOpenDialogTambahSkDanPerizinan(false);
+    setOpenDialogTambahSkIjop(false);
   };
 
   return (
     <Sheet
-      open={openDialogTambahSkDanPerizinan}
-      onOpenChange={setOpenDialogTambahSkDanPerizinan}
+      open={openDialogTambahSkIjop}
+      onOpenChange={setOpenDialogTambahSkIjop}
     >
       <SheetTrigger asChild>
         <Button className="cursor-pointer uppercase">
