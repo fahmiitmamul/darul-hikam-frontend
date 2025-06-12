@@ -105,26 +105,35 @@ export default function Profil() {
     {
       accessorKey: "no",
       header: "No",
+      cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
-      accessorKey: "no_sk_iuop",
-      header: "No SK IUOP",
+      accessorKey: "no_sk_ijop",
+      header: "No SK IJOP",
     },
     {
-      accessorKey: "tanggal_sk_iuop",
-      header: "Tanggal SK IUOP",
+      accessorKey: "tanggal_sk_ijop",
+      header: "Tanggal SK IJOP",
+      cell: ({ row }) => {
+        const date = new Date(row.original.tanggal_sk_ijop);
+        return format(date, "dd-MM-yyyy");
+      },
     },
     {
-      accessorKey: "berlaku_sampai",
+      accessorKey: "berlaku_sampai_dengan",
       header: "Berlaku Sampai",
+      cell: ({ row }) => {
+        const date = new Date(row.original.berlaku_sampai_dengan);
+        return format(date, "dd-MM-yyyy");
+      },
     },
     {
-      accessorKey: "instansi_penerbit_iuop",
-      header: "Instansi Penerbit IUOP",
+      accessorKey: "instansi_penerbit_ijop",
+      header: "Instansi Penerbit IJOP",
     },
     {
       accessorKey: "file_sk_ioup",
-      header: "File SK IUOP",
+      header: "File SK IJOP",
       cell: ({ row }) => (
         <Button
           onClick={() => alert("Lihat Dokumen")}
@@ -136,8 +145,8 @@ export default function Profil() {
       ),
     },
     {
-      accessorKey: "file_piagam_sk_iuop",
-      header: "File Piagam SK IUOP",
+      accessorKey: "file_piagam_sk_IJOP",
+      header: "File Piagam SK IJOP",
       cell: ({ row }) => (
         <Button
           onClick={() => alert("Belum Diupload")}
