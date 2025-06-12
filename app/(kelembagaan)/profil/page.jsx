@@ -48,6 +48,8 @@ import {
 import {
   useReactTable,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   flexRender,
 } from "@tanstack/react-table";
 import ModalTambahSkDanPerizinan from "@/components/(kelembagaan)/profil/modal-tambah-sk-dan-perizinan/page";
@@ -63,108 +65,6 @@ import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
 import http from "@/helpers/http.helper";
 
-const defaultData = [
-  {
-    no: "1",
-    no_sk_iuop: "983457345",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-12-2023",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SK/SD/2001/2022",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-  {
-    no: "2",
-    no_sk_iuop: "987654678",
-    tanggal_sk_iuop: "31-12-2022",
-    berlaku_sampai: "31-05-2000",
-    instansi_penerbit_iuop: "Kemenag",
-    file_sk_ioup: "SD/SD/2002/2005",
-    file_piagam_sk_iuop: "file.pdf",
-    status: "Aktif",
-    aksi: "Aksi",
-  },
-];
-
-const defaultColumns = [
-  {
-    accessorKey: "no",
-    header: "No",
-  },
-  {
-    accessorKey: "no_sk_iuop",
-    header: "No SK IUOP",
-  },
-  {
-    accessorKey: "tanggal_sk_iuop",
-    header: "Tanggal SK IUOP",
-  },
-  {
-    accessorKey: "berlaku_sampai",
-    header: "Berlaku Sampai",
-  },
-  {
-    accessorKey: "instansi_penerbit_iuop",
-    header: "Instansi Penerbit IUOP",
-  },
-  {
-    accessorKey: "file_sk_ioup",
-    header: "File SK IUOP",
-    cell: ({ row }) => (
-      <Button onClick={() => alert("Lihat Dokumen")} className="cursor-pointer">
-        <Files />
-        Lihat Dokumen
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "file_piagam_sk_iuop",
-    header: "File Piagam SK IUOP",
-    cell: ({ row }) => (
-      <Button
-        onClick={() => alert("Belum Diupload")}
-        className="cursor-pointer"
-      >
-        <Files />
-        Belum Diupload
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "Aksi",
-    header: "Aksi",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem className="cursor-pointer">
-            <Eye />
-            View
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Pencil />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-500 cursor-pointer">
-            <Trash />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
-
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
   const [fotoGedung, setFotoGedung] = useState(null);
@@ -179,14 +79,126 @@ export default function Profil() {
 
   const [openDialogTambahSkDanPerizinan, setOpenDialogTambahSkDanPerizinan] =
     useState(false);
+  const [mudirAtauPimpinanId, setMudirAtauPimpinanId] = useState(null);
 
-  const [data] = React.useState(() => [...defaultData]);
-  const [columns] = React.useState(() => [...defaultColumns]);
+  const getDataSkIjop = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/profil/sk-ijop?page=${page}&limit=${limit}&search=${search}`
+    );
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["sk-ijop", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataSkIjop(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
+  const columns = [
+    {
+      accessorKey: "no",
+      header: "No",
+    },
+    {
+      accessorKey: "no_sk_iuop",
+      header: "No SK IUOP",
+    },
+    {
+      accessorKey: "tanggal_sk_iuop",
+      header: "Tanggal SK IUOP",
+    },
+    {
+      accessorKey: "berlaku_sampai",
+      header: "Berlaku Sampai",
+    },
+    {
+      accessorKey: "instansi_penerbit_iuop",
+      header: "Instansi Penerbit IUOP",
+    },
+    {
+      accessorKey: "file_sk_ioup",
+      header: "File SK IUOP",
+      cell: ({ row }) => (
+        <Button
+          onClick={() => alert("Lihat Dokumen")}
+          className="cursor-pointer"
+        >
+          <Files />
+          Lihat Dokumen
+        </Button>
+      ),
+    },
+    {
+      accessorKey: "file_piagam_sk_iuop",
+      header: "File Piagam SK IUOP",
+      cell: ({ row }) => (
+        <Button
+          onClick={() => alert("Belum Diupload")}
+          className="cursor-pointer"
+        >
+          <Files />
+          Belum Diupload
+        </Button>
+      ),
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+    },
+    {
+      accessorKey: "Aksi",
+      header: "Aksi",
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="cursor-pointer">
+              <Eye />
+              View
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <Pencil />
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500 cursor-pointer">
+              <Trash />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    },
+  ];
+
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
-    data,
+    data: data?.data ?? [],
     columns,
+    pageCount: data?.totalPages ?? -1,
+    state: {
+      pagination: { pageIndex: pageIndex - 1, pageSize },
+      globalFilter,
+    },
+    manualPagination: true,
+    onPaginationChange: (updater) => {
+      const next =
+        typeof updater === "function"
+          ? updater({ pageIndex: pageIndex - 1, pageSize })
+          : updater;
+      setPageIndex(next.pageIndex + 1);
+      setPageSize(next.pageSize);
+    },
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   const handleFileChange = (e, setImage, prefix) => {
