@@ -23,7 +23,7 @@ export default function ModalTambahBukuPelajaran({
 }) {
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
-  const schemaDokumen = z.object({
+  const schemaBukuPelajaran = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
     nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
     satuan_pendidikan: z.string({
@@ -34,10 +34,11 @@ export default function ModalTambahBukuPelajaran({
     }),
   });
 
-  const dokumenForm = useForm({
-    resolver: zodResolver(schemaDokumen),
+  const bukuPelajaranForm = useForm({
+    resolver: zodResolver(schemaBukuPelajaran),
     defaultValues: {
-      alamat_lengkap: "",
+      judul_buku: "",
+      kelas: "",
     },
   });
 
@@ -59,15 +60,15 @@ export default function ModalTambahBukuPelajaran({
             <DialogTitle>Tambah Buku Pelajaran</DialogTitle>
           </DialogHeader>
           <div>
-            <Form {...dokumenForm}>
+            <Form {...bukuPelajaranForm}>
               <form
-                onSubmit={dokumenForm.handleSubmit(onSubmit)}
+                onSubmit={bukuPelajaranForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={dokumenForm.control}
+                      control={bukuPelajaranForm.control}
                       name="judul_buku"
                       render={({ field }) => (
                         <FormItem>
@@ -86,7 +87,7 @@ export default function ModalTambahBukuPelajaran({
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={dokumenForm.control}
+                      control={bukuPelajaranForm.control}
                       name="kelas"
                       render={({ field }) => (
                         <FormItem>
