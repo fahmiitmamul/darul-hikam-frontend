@@ -65,6 +65,7 @@ import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
+import { ModalHapusSkIjop } from "@/components/(kelembagaan)/profil/modal-hapus-sk-ijop/page";
 
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
@@ -170,7 +171,13 @@ export default function Profil() {
               <Pencil />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500 cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => {
+                setopendial(true);
+                setSkIjopId(row.original.id);
+              }}
+              className="text-red-500 cursor-pointer"
+            >
               <Trash />
               Delete
             </DropdownMenuItem>
@@ -1714,6 +1721,12 @@ export default function Profil() {
           </Tabs>
         </div>
       </div>
+
+      <ModalHapusSkIjop
+        skIjopId={skIjopId}
+        openDialogHapusSkIjop={openDialogHapusSkIjop}
+        setOpenDialogHapusSkIjop={setOpenDialogHapusSkIjop}
+      />
     </Sidebar>
   );
 }
