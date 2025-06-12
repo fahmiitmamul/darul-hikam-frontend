@@ -93,8 +93,8 @@ export default function ModalTambahSkDanPerizinan() {
         "instansi_penerbit_izin_operasional",
         values.instansi_penerbit_izin_operasional
       );
-      data.append("izin_operasional", fileUploadIzinOperasional);
-      data.append("piagam_sk_ijop", fileUploadPiagamSkIjop);
+      data.append("upload_ijop", fileUploadIzinOperasional);
+      data.append("upload_piagam_ijop", fileUploadPiagamSkIjop);
       return http().post(`/profil/sk-ijop`, data);
     },
     onSuccess: () => {
