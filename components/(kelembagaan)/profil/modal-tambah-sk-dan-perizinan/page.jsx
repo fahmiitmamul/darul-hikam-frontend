@@ -53,16 +53,16 @@ export default function ModalTambahSkDanPerizinan() {
   const [fileUploadPiagamSkIjop, setFileUploadPiagamSkIjop] = useState(null);
 
   const schemaDokumen = z.object({
-    no_sk_izin_operasional: z.string({
+    no_sk_ijop: z.string({
       message: "Masukkan No SK Izin Operasional",
     }),
-    tanggal_sk_izin_operasional: z.date({
+    tanggal_sk_ijop: z.date({
       required_error: "Tanggal SK Izin Operasional wajib diisi",
     }),
     berlaku_sampai_dengan: z.date({
       required_error: "Berlaku sampai dengan wajib diisi",
     }),
-    instansi_penerbit_izin_operasional: z.string({
+    instansi_penerbit_ijop: z.string({
       message: "Masukkan instansi penerbit izin operasional",
     }),
   });
@@ -70,10 +70,10 @@ export default function ModalTambahSkDanPerizinan() {
   const dokumenForm = useForm({
     resolver: zodResolver(schemaDokumen),
     defaultValues: {
-      no_sk_izin_operasional: "",
-      tanggal_sk_izin_operasional: new Date(),
+      no_sk_ijop: "",
+      tanggal_sk_ijop: new Date(),
       berlaku_sampai_dengan: new Date(),
-      instansi_penerbit_izin_operasional: "",
+      instansi_penerbit_ijop: "",
     },
   });
 
@@ -83,16 +83,10 @@ export default function ModalTambahSkDanPerizinan() {
     mutationFn: async (values) => {
       const data = new FormData();
 
-      data.append("no_sk_izin_operasional", values.no_sk_izin_operasional);
-      data.append(
-        "tanggal_sk_izin_operasional",
-        values.tanggal_sk_izin_operasional
-      );
+      data.append("no_sk_ijop", values.no_sk_ijop);
+      data.append("tanggal_sk_ijop", values.tanggal_sk_ijop);
       data.append("berlaku_sampai_dengan", values.berlaku_sampai_dengan);
-      data.append(
-        "instansi_penerbit_izin_operasional",
-        values.instansi_penerbit_izin_operasional
-      );
+      data.append("instansi_penerbit_ijop", values.instansi_penerbit_ijop);
       data.append("upload_ijop", fileUploadIzinOperasional);
       data.append("upload_piagam_ijop", fileUploadPiagamSkIjop);
       return http().post(`/profil/sk-ijop`, data);
@@ -146,7 +140,7 @@ export default function ModalTambahSkDanPerizinan() {
                   <div>
                     <FormField
                       control={dokumenForm.control}
-                      name="no_sk_izin_operasional"
+                      name="no_sk_ijop"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>No SK Izin Operasional</FormLabel>
@@ -164,7 +158,7 @@ export default function ModalTambahSkDanPerizinan() {
                   <div>
                     <FormField
                       control={dokumenForm.control}
-                      name="tanggal_sk_izin_operasional"
+                      name="tanggal_sk_ijop"
                       render={({ field, fieldState }) => (
                         <FormItem>
                           <FormLabel
@@ -257,7 +251,7 @@ export default function ModalTambahSkDanPerizinan() {
                     <div>
                       <FormField
                         control={dokumenForm.control}
-                        name="instansi_penerbit_izin_operasional"
+                        name="instansi_penerbit_ijop"
                         render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>
