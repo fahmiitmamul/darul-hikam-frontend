@@ -177,6 +177,9 @@ export default function Profil() {
     setFileUploadAktaPendirianPenyelenggara,
   ] = useState(null);
 
+  const [openDialogTambahSkDanPerizinan, setOpenDialogTambahSkDanPerizinan] =
+    useState(false);
+
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
 
@@ -1644,7 +1647,14 @@ export default function Profil() {
                     </h4>
 
                     <div className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
-                      <ModalTambahSkDanPerizinan />
+                      <ModalTambahSkDanPerizinan
+                        openDialogTambahSkDanPerizinan={
+                          openDialogTambahSkDanPerizinan
+                        }
+                        setOpenDialogTambahSkDanPerizinan={
+                          setOpenDialogTambahSkDanPerizinan
+                        }
+                      />
                     </div>
                   </div>
 

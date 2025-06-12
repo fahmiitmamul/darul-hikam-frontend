@@ -47,7 +47,10 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 
-export default function ModalTambahSkDanPerizinan() {
+export default function ModalTambahSkDanPerizinan({
+  openDialogTambahSkDanPerizinan,
+  setOpenDialogTambahSkDanPerizinan,
+}) {
   const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
     useState(null);
   const [fileUploadPiagamSkIjop, setFileUploadPiagamSkIjop] = useState(null);
@@ -105,8 +108,6 @@ export default function ModalTambahSkDanPerizinan() {
   });
 
   const onSubmit = (data) => {
-    postSkDanPerizinan.mutate(data);
-
     if (!fileUploadIzinOperasional) {
       toast("Dokumen upload izin operasional belum diunggah");
       return;
@@ -116,10 +117,15 @@ export default function ModalTambahSkDanPerizinan() {
       toast("Dokumen upload piagam SK Ijop belum diunggah");
       return;
     }
+
+    postSkDanPerizinan.mutate(data);
   };
 
   return (
-    <Sheet>
+    <Sheet
+      open={openDialogTambahSkDanPerizinan}
+      onOpenChange={setOpenDialogTambahSkDanPerizinan}
+    >
       <SheetTrigger asChild>
         <Button className="cursor-pointer uppercase">
           <Plus />
