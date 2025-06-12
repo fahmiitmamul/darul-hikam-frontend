@@ -119,6 +119,7 @@ export default function ModalTambahSkDanPerizinan({
     }
 
     postSkDanPerizinan.mutate(data);
+    setOpenDialogTambahSkDanPerizinan(false);
   };
 
   return (
