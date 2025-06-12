@@ -79,8 +79,8 @@ export default function Profil() {
     setFileUploadAktaPendirianPenyelenggara,
   ] = useState(null);
 
-  const [openDialogTambahSkDanPerizinan, setOpenDialogTambahSkDanPerizinan] =
-    useState(false);
+  const [openDialogTambahSkIjop, setOpenDialogTambahSkIjop] = useState(false);
+  const [openDialogHapusSkIjop, setOpenDialogHapusSkIjop] = useState(false);
 
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -173,7 +173,7 @@ export default function Profil() {
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                setopendial(true);
+                setOpenDialogHapusSkIjop(true);
                 setSkIjopId(row.original.id);
               }}
               className="text-red-500 cursor-pointer"
@@ -1669,12 +1669,8 @@ export default function Profil() {
 
                     <div className="scroll-m-20 text-xl font-semibold tracking-tight mt-5">
                       <ModalTambahSkDanPerizinan
-                        openDialogTambahSkDanPerizinan={
-                          openDialogTambahSkDanPerizinan
-                        }
-                        setOpenDialogTambahSkDanPerizinan={
-                          setOpenDialogTambahSkDanPerizinan
-                        }
+                        openDialogTambahSkIjop={openDialogTambahSkIjop}
+                        setOpenDialogTambahSkIjop={setOpenDialogTambahSkIjop}
                       />
                     </div>
                   </div>
@@ -1700,18 +1696,29 @@ export default function Profil() {
                         ))}
                       </TableHeader>
                       <TableBody>
-                        {table.getRowModel().rows.map((row) => (
-                          <TableRow key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                              <TableCell key={cell.id}>
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                                )}
-                              </TableCell>
-                            ))}
+                        {table.getRowModel().rows.length > 0 ? (
+                          table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id}>
+                              {row.getVisibleCells().map((cell) => (
+                                <TableCell key={cell.id}>
+                                  {flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                  )}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell
+                              colSpan={columns.length}
+                              className="text-center py-4"
+                            >
+                              Data tidak ada
+                            </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </div>
