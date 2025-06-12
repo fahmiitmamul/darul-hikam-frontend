@@ -80,6 +80,11 @@ export default function Profil() {
 
   const [openDialogTambahSkDanPerizinan, setOpenDialogTambahSkDanPerizinan] =
     useState(false);
+
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
+
   const [mudirAtauPimpinanId, setMudirAtauPimpinanId] = useState(null);
 
   const getDataSkIjop = async (page, limit, search) => {
@@ -174,10 +179,6 @@ export default function Profil() {
       ),
     },
   ];
-
-  const [pageIndex, setPageIndex] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data: data?.data ?? [],
