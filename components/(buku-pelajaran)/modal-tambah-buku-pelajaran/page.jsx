@@ -17,7 +17,10 @@ import { useForm } from "react-hook-form";
 import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
 
-export default function ModalTambahBukuPelajaran() {
+export default function ModalTambahBukuPelajaran({
+  openDialogAddBukuPelajaran,
+  setOpenDialogAddBukuPelajaran,
+}) {
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
   const schemaDokumen = z.object({

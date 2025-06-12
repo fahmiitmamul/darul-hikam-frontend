@@ -48,6 +48,10 @@ import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 
 export default function BukuPelajaran() {
+  const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =
+    useState(false);
+  const [openDialogEditBukuPelajaran, setOpenDialogEditBukuPelajaran] =
+    useState(false);
   const [openDialogHapusBukuPelajaran, setOpenDialogHapusBukuPelajaran] =
     useState(false);
   const [bukuPelajaranId, setBukuPelajaranId] = useState(null);
@@ -155,7 +159,10 @@ export default function BukuPelajaran() {
               Buku Pelajaran
             </h3>
             <div>
-              <ModalTambahBukuPelajaran />
+              <ModalTambahBukuPelajaran
+                openDialogAddBukuPelajaran={openDialogAddBukuPelajaran}
+                setOpenDialogAddBukuPelajaran={setOpenDialogAddBukuPelajaran}
+              />
             </div>
           </div>
 
