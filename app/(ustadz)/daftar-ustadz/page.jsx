@@ -67,7 +67,7 @@ export default function DaftarUstadz() {
   };
 
   const { data } = useQuery({
-    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryKey: ["ustadz", pageIndex, pageSize, globalFilter],
     queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
     keepPreviousData: true,
   });
