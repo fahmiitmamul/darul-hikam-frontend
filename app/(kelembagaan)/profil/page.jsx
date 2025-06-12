@@ -64,6 +64,7 @@ import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
 import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
