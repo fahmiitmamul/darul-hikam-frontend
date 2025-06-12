@@ -121,6 +121,7 @@ export default function DaftarUstadz() {
               className="text-red-500 cursor-pointer"
               onClick={() => {
                 setUstadzId(row.original.id);
+                setOpenDialogHapusUstadz(true);
               }}
             >
               <Trash />

@@ -25,7 +25,7 @@ export function ModalHapusDataUstadz({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["ustadz"] });
-      toast("Berhasil menghapus mudir atau pimpinan", {
+      toast("Berhasil menghapus ustadz", {
         description: new Date().toLocaleString(),
       });
     },
