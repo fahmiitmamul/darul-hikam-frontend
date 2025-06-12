@@ -85,7 +85,7 @@ export default function Profil() {
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const [mudirAtauPimpinanId, setMudirAtauPimpinanId] = useState(null);
+  const [skIjopId, setSkIjopId] = useState(null);
 
   const getDataSkIjop = async (page, limit, search) => {
     const { data } = await http().get(
