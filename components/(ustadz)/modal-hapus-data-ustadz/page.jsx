@@ -12,19 +12,19 @@ import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export function ModalHapusUstadz({
-  santriId,
-  openDialogHapusSantri,
-  setOpenDialogHapusSantri,
+export function ModalHapusDataUstadz({
+  ustadzId,
+  openDialogHapusUstadz,
+  setOpenDialogHapusUstadz,
 }) {
   const queryClient = useQueryClient();
 
   const handleDelete = useMutation({
     mutationFn: async () => {
-      return http().delete(`/santri/${santriId}`);
+      return http().delete(`/ustadz/${ustadzId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["santri"] });
+      queryClient.invalidateQueries({ queryKey: ["ustadz"] });
       toast("Berhasil menghapus mudir atau pimpinan", {
         description: new Date().toLocaleString(),
       });
@@ -42,12 +42,12 @@ export function ModalHapusUstadz({
 
   return (
     <AlertDialog
-      open={openDialogHapusSantri}
-      onOpenChange={setOpenDialogHapusSantri}
+      open={openDialogHapusUstadz}
+      onOpenChange={setOpenDialogHapusUstadz}
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Hapus Santri</AlertDialogTitle>
+          <AlertDialogTitle>Hapus Ustadz</AlertDialogTitle>
           <AlertDialogDescription>
             Tindakan ini tidak dapat dibatalkan. Tindakan ini akan menghapus
             secara permanen.

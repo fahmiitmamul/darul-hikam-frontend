@@ -46,8 +46,12 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { Trash } from "lucide-react";
+import { ModalHapusDataUstadz } from "@/components/(ustadz)/modal-hapus-data-ustadz/page";
 
 export default function DaftarUstadz() {
+  const [openDialogHapusUstadz, setOpenDialogHapusUstadz] = useState(false);
+  const [ustadzId, setUstadzId] = useState(null);
+
   const router = useRouter();
 
   const [pageIndex, setPageIndex] = useState(1);
@@ -104,13 +108,20 @@ export default function DaftarUstadz() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                setUstadzId(row.original.id);
+              }}
+            >
               <Pencil />
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
-              onClick={() => {}}
+              onClick={() => {
+                setUstadzId(row.original.id);
+              }}
             >
               <Trash />
               Delete
@@ -279,6 +290,12 @@ export default function DaftarUstadz() {
           </div>
         </div>
       </div>
+
+      <ModalHapusDataUstadz
+        openDialogHapusUstadz={openDialogHapusUstadz}
+        setOpenDialogHapusUstadz={setOpenDialogHapusUstadz}
+        ustadzId={ustadzId}
+      />
     </Sidebar>
   );
 }
