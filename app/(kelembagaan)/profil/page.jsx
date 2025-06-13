@@ -67,6 +67,10 @@ import http from "@/helpers/http.helper";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ModalHapusSkIjop } from "@/components/(kelembagaan)/profil/modal-hapus-sk-ijop/page";
 import { toast } from "sonner";
+import DropdownProvinces from "@/components/dropdown-provinces";
+import DropdownVillages from "@/components/dropdown-villages";
+import DropdownDistricts from "@/components/dropdown-districts";
+import DropdownRegencies from "@/components/dropdown-regencies";
 
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
@@ -305,7 +309,6 @@ export default function Profil() {
     resolver: zodResolver(schemaIdentitas),
     defaultValues: async () => {
       const { data } = await http().get(`/profil/identitas`);
-      console.log(data);
       return data.results?.data[0];
     },
   });
@@ -382,12 +385,30 @@ export default function Profil() {
     },
   });
 
+  const patchLokasi = useMutation({
+    mutationFn: async (values) => {
+      const data = new URLSearchParams(values).toString();
+      return http().patch(`/profil/lokasi/1`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lokasi"] });
+      toast("Lokasi berhasil diupdate", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
   const onSubmitIdentitas = (data) => {
     patchIdentitas.mutate(data);
   };
 
   const onSubmitLokasi = (data) => {
-    console.log("Form data:", data);
+    patchLokasi.mutate(data);
   };
 
   const onSubmitGaleri = (data) => {
@@ -1058,10 +1079,9 @@ export default function Profil() {
                             <FormItem>
                               <FormLabel>Desa / Kelurahan</FormLabel>
                               <FormControl>
-                                <Input
-                                  type="text"
-                                  placeholder="Desa / Kelurahan"
-                                  {...field}
+                                <DropdownVillages
+                                  field={field}
+                                  fieldState={fieldState}
                                 />
                               </FormControl>
                             </FormItem>
@@ -1082,26 +1102,10 @@ export default function Profil() {
                               <FormItem>
                                 <FormLabel>Kecamatan</FormLabel>
                                 <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger
-                                      className={cn(
-                                        "w-full text-left border rounded-md p-2",
-                                        fieldState.error && "border-red-500"
-                                      )}
-                                    >
-                                      <SelectValue placeholder="Kecamatan" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Kecamatan</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
+                                  <DropdownDistricts
+                                    field={field}
+                                    fieldState={fieldState}
+                                  />
                                 </FormControl>
                               </FormItem>
                             )}
@@ -1119,26 +1123,10 @@ export default function Profil() {
                               <FormItem>
                                 <FormLabel>Kabupaten</FormLabel>
                                 <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger
-                                      className={cn(
-                                        "w-full text-left border rounded-md p-2",
-                                        fieldState.error && "border-red-500"
-                                      )}
-                                    >
-                                      <SelectValue placeholder="Kabupaten" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Kabupaten</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
+                                  <DropdownRegencies
+                                    field={field}
+                                    fieldState={fieldState}
+                                  />
                                 </FormControl>
                               </FormItem>
                             )}
@@ -1157,26 +1145,10 @@ export default function Profil() {
                               <FormItem>
                                 <FormLabel>Provinsi</FormLabel>
                                 <FormControl>
-                                  <Select
-                                    {...field}
-                                    onValueChange={field.onChange}
-                                    defaultValue=""
-                                  >
-                                    <SelectTrigger
-                                      className={cn(
-                                        "w-full text-left border rounded-md p-2",
-                                        fieldState.error && "border-red-500"
-                                      )}
-                                    >
-                                      <SelectValue placeholder="Provinsi" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>Provinsi</SelectLabel>
-                                        <SelectItem value="lpq">LPQ</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
+                                  <DropdownProvinces
+                                    field={field}
+                                    fieldState={fieldState}
+                                  />
                                 </FormControl>
                               </FormItem>
                             )}
