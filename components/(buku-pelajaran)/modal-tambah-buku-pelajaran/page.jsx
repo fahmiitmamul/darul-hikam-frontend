@@ -16,6 +16,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
 
 export default function ModalTambahBukuPelajaran({
   openDialogAddBukuPelajaran,
@@ -24,14 +27,8 @@ export default function ModalTambahBukuPelajaran({
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
   const schemaBukuPelajaran = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
+    judul_buku: z.string({ message: "Masukkan Judul Buku" }),
+    kelas: z.string({ message: "Masukkan Kelas" }),
   });
 
   const bukuPelajaranForm = useForm({
@@ -42,8 +39,33 @@ export default function ModalTambahBukuPelajaran({
     },
   });
 
+  const queryClient = useQueryClient();
+
+  const postBukuPelajaran = useMutation({
+    mutationFn: async (values) => {
+      const data = new FormData();
+
+      data.append("judul_buku", values.judul_buku);
+      data.append("kelas", values.kelas);
+      data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
+      return http().post(`/buku-pelajaran`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
+      toast("Buku pelajaran berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
   const onSubmit = (data) => {
-    console.log("Form data:", data);
+    postBukuPelajaran.mutate(data);
+    setOpenDialogAddBukuPelajaran(false);
   };
 
   return (
