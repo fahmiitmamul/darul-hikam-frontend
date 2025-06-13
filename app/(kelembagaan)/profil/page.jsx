@@ -305,6 +305,7 @@ export default function Profil() {
     resolver: zodResolver(schemaIdentitas),
     defaultValues: async () => {
       const { data } = await http().get(`/profil/identitas`);
+      console.log(data);
       return data.results?.data[0];
     },
   });
@@ -669,7 +670,7 @@ export default function Profil() {
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {field.value ? (
-                                      format(field.value, "PPP")
+                                      format(field.value, "dd-MM-yyyy")
                                     ) : (
                                       <span>Pilih Tahun Berdiri Hijriah</span>
                                     )}
@@ -714,7 +715,7 @@ export default function Profil() {
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {field.value ? (
-                                      format(field.value, "PPP")
+                                      format(field.value, "dd-MM-yyyy")
                                     ) : (
                                       <span>Pilih Tahun Berdiri Masehi</span>
                                     )}
