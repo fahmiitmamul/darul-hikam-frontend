@@ -64,8 +64,9 @@ import { Eye, Pencil, Trash } from "lucide-react";
 import { Files } from "lucide-react";
 import UploadAktaPendirianPenyelenggara from "@/components/upload-akta-pendirian-penyelenggara";
 import http from "@/helpers/http.helper";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ModalHapusSkIjop } from "@/components/(kelembagaan)/profil/modal-hapus-sk-ijop/page";
+import { toast } from "sonner";
 
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
@@ -360,7 +361,39 @@ export default function Profil() {
     },
   });
 
-  const onSubmit = (data) => {
+  const queryClient = useQueryClient();
+
+  const patchIdentitas = useMutation({
+    mutationFn: async (values) => {
+      const data = new URLSearchParams(values).toString();
+      return http().patch(`/profil/identitas/1`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["identitas"] });
+      toast("Identitas berhasil diupdate", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
+
+  const onSubmitIdentitas = (data) => {
+    patchIdentitas.mutate(data);
+  };
+
+  const onSubmitLokasi = (data) => {
+    console.log("Form data:", data);
+  };
+
+  const onSubmitGaleri = (data) => {
+    console.log("Form data:", data);
+  };
+
+  const onSubmitDokumenPerijinan = (data) => {
     console.log("Form data:", data);
   };
 
@@ -412,7 +445,7 @@ export default function Profil() {
 
               <Form {...identitasForm}>
                 <form
-                  onSubmit={identitasForm.handleSubmit(onSubmit)}
+                  onSubmit={identitasForm.handleSubmit(onSubmitIdentitas)}
                   className="space-y-5 mt-5"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -738,7 +771,15 @@ export default function Profil() {
                                     <SelectLabel>
                                       Tipe Penyelenggara Lembaga
                                     </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
+                                    <SelectItem value="Organisasi Keagamaan">
+                                      Organisasi Keagamaan
+                                    </SelectItem>
+                                    <SelectItem value="Yayasan">
+                                      Yayasan
+                                    </SelectItem>
+                                    <SelectItem value="Perorangan">
+                                      Perorangan
+                                    </SelectItem>
                                   </SelectGroup>
                                 </SelectContent>
                               </Select>
@@ -800,7 +841,47 @@ export default function Profil() {
                                       <SelectLabel>
                                         Afilisasi Organisasi Keagamaan
                                       </SelectLabel>
-                                      <SelectItem value="lpq">LPQ</SelectItem>
+                                      <SelectItem value="Nahdlatul Ulama">
+                                        Nadhlatul Ulama
+                                      </SelectItem>
+                                      <SelectItem value="Muhammadiyah">
+                                        Muhammadiyah
+                                      </SelectItem>
+                                      <SelectItem value="Persis">
+                                        Persis
+                                      </SelectItem>
+                                      <SelectItem value="PUI">PUI</SelectItem>
+                                      <SelectItem value="DDI">DDI</SelectItem>
+                                      <SelectItem value="Mathlaul Anwar">
+                                        Mathlaul Anwar
+                                      </SelectItem>
+                                      <SelectItem value="Al Khairaat">
+                                        Al Khairaat
+                                      </SelectItem>
+                                      <SelectItem value="PERTI">
+                                        PERTI
+                                      </SelectItem>
+                                      <SelectItem value="Hidayatullah">
+                                        Hidayatullah
+                                      </SelectItem>
+                                      <SelectItem value="Al Washilah">
+                                        Al Washilah
+                                      </SelectItem>
+                                      <SelectItem value="Nadhlatul Wathan">
+                                        Nahdlatul Wathan
+                                      </SelectItem>
+                                      <SelectItem value="Nadhlatul Wathan Diniyah Islamiyah">
+                                        Nahdlatul Wahtan Diniyah Islamiyah
+                                      </SelectItem>
+                                      <SelectItem value="GUPPI">
+                                        GUPPI
+                                      </SelectItem>
+                                      <SelectItem value="Mandiri">
+                                        Mandiri
+                                      </SelectItem>
+                                      <SelectItem value="Lainnya">
+                                        Lainnya
+                                      </SelectItem>
                                     </SelectGroup>
                                   </SelectContent>
                                 </Select>
@@ -896,7 +977,7 @@ export default function Profil() {
             <TabsContent value="lokasi" className="flex flex-col space-y-5">
               <Form {...lokasiForm}>
                 <form
-                  onSubmit={lokasiForm.handleSubmit(onSubmit)}
+                  onSubmit={lokasiForm.handleSubmit(onSubmitLokasi)}
                   className="space-y-5 mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -1138,7 +1219,7 @@ export default function Profil() {
             <TabsContent value="galeri_foto">
               <Form {...galeriForm}>
                 <form
-                  onSubmit={galeriForm.handleSubmit(onSubmit)}
+                  onSubmit={galeriForm.handleSubmit(onSubmitGaleri)}
                   className="mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -1561,7 +1642,11 @@ export default function Profil() {
 
             <TabsContent value="dokumen_perijinan">
               <Form {...dokumenPerijinanForm}>
-                <form onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}>
+                <form
+                  onSubmit={dokumenPerijinanForm.handleSubmit(
+                    onSubmitDokumenPerijinan
+                  )}
+                >
                   <p className="leading-7 rounded-md text-xs">
                     Kolom dengan tanda (*) merupakan kolom yang wajib diisi,
                     sedangkan kolom tanpa tanda (*) merupakan kolom opsional
