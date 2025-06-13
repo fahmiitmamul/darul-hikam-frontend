@@ -77,14 +77,15 @@ export default function BukuPelajaran() {
     {
       accessorKey: "no",
       header: "No",
+      cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
-      accessorKey: "nama_buku_pelajaran",
-      header: "Nama Buku Pelajaran",
+      accessorKey: "judul_buku",
+      header: "Judul Buku",
     },
     {
-      accessorKey: "tanggal_upload",
-      header: "Tanggal Upload",
+      accessorKey: "kelas",
+      header: "Kelas",
     },
     {
       accessorKey: "Aksi",
