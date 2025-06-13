@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 
 export default function ModalTambahBukuPelajaran({
@@ -27,8 +27,10 @@ export default function ModalTambahBukuPelajaran({
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
   const schemaBukuPelajaran = z.object({
-    judul_buku: z.string({ message: "Masukkan Judul Buku" }),
-    kelas: z.string({ message: "Masukkan Kelas" }),
+    judul_buku: z
+      .string({ message: "Masukkan Judul Buku" })
+      .min(1, "Harap diisi"),
+    kelas: z.string({ message: "Masukkan Kelas" }).min(1, "Harap diisi"),
   });
 
   const bukuPelajaranForm = useForm({
@@ -70,7 +72,10 @@ export default function ModalTambahBukuPelajaran({
 
   return (
     <div>
-      <Dialog>
+      <Dialog
+        open={openDialogAddBukuPelajaran}
+        onOpenChange={setOpenDialogAddBukuPelajaran}
+      >
         <DialogTrigger asChild>
           <Button type="button" className="uppercase cursor-pointer">
             <Plus />
@@ -137,10 +142,17 @@ export default function ModalTambahBukuPelajaran({
               type="button"
               variant="outline"
               className="cursor-pointer uppercase"
+              onClick={() => setOpenDialogAddBukuPelajaran(false)}
             >
               Kembali
             </Button>
-            <Button type="button" className="cursor-pointer uppercase">
+            <Button
+              type="button"
+              onClick={() => {
+                bukuPelajaranForm.handleSubmit(onSubmit)();
+              }}
+              className="cursor-pointer uppercase"
+            >
               Simpan
             </Button>
           </DialogFooter>

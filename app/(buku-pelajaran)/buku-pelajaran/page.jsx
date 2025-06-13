@@ -68,7 +68,7 @@ export default function BukuPelajaran() {
   };
 
   const { data } = useQuery({
-    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryKey: ["buku-pelajaran", pageIndex, pageSize, globalFilter],
     queryFn: () => getDataBukuPelajaran(pageIndex, pageSize, globalFilter),
     keepPreviousData: true,
   });
