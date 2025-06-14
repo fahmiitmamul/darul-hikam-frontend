@@ -1070,12 +1070,12 @@ export default function Profil() {
                       <div>
                         <FormField
                           control={lokasiForm.control}
-                          name="desa_atau_kelurahan"
-                          render={({ field }) => (
+                          name="provinsi"
+                          render={({ field, fieldState }) => (
                             <FormItem>
-                              <FormLabel>Desa / Kelurahan</FormLabel>
+                              <FormLabel>Provinsi</FormLabel>
                               <FormControl>
-                                <DropdownVillages
+                                <DropdownProvinces
                                   field={field}
                                   fieldState={fieldState}
                                 />
@@ -1088,27 +1088,6 @@ export default function Profil() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                      <div>
-                        <div>
-                          <FormField
-                            control={lokasiForm.control}
-                            name="kecamatan"
-                            render={({ field, fieldState }) => (
-                              <FormItem>
-                                <FormLabel>Kecamatan</FormLabel>
-                                <FormControl>
-                                  <DropdownDistricts
-                                    field={field}
-                                    fieldState={fieldState}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                    </div>
                     <div>
                       <div>
                         <div>
@@ -1130,18 +1109,39 @@ export default function Profil() {
                         </div>
                       </div>
                     </div>
+                    <div>
+                      <div>
+                        <div>
+                          <FormField
+                            control={lokasiForm.control}
+                            name="kecamatan"
+                            render={({ field, fieldState }) => (
+                              <FormItem>
+                                <FormLabel>Kecamatan</FormLabel>
+                                <FormControl>
+                                  <DropdownDistricts
+                                    field={field}
+                                    fieldState={fieldState}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
                     <div>
                       <div>
                         <div>
                           <FormField
                             control={lokasiForm.control}
-                            name="provinsi"
+                            name="kelurahan_atau_desa"
                             render={({ field, fieldState }) => (
                               <FormItem>
-                                <FormLabel>Provinsi</FormLabel>
+                                <FormLabel>Kelurahan Atau Desa</FormLabel>
                                 <FormControl>
-                                  <DropdownProvinces
+                                  <DropdownVillages
                                     field={field}
                                     fieldState={fieldState}
                                   />
