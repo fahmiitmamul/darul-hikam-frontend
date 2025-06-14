@@ -40,10 +40,11 @@ import { useQuery } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { differenceInYears, format, parseISO } from "date-fns";
 import { ModalHapusDataSantri } from "@/components/(santri)/daftar-santri/modal-hapus-data-santri/page";
+import { useGlobalContext } from "@/context/global-context";
 
 export default function DaftarSantri() {
   const [openDialogHapusSantri, setOpenDialogHapusSantri] = useState(false);
-  const [santriId, setSantriId] = useState(null);
+  const { santriId, setSantriId } = useGlobalContext();
 
   const router = useRouter();
   const [pageIndex, setPageIndex] = useState(1);
