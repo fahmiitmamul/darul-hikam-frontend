@@ -34,7 +34,6 @@ import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import Image from "next/image";
 import { Download } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -137,6 +136,7 @@ export default function DaftarSantri() {
               className="cursor-pointer"
               onClick={() => {
                 setSantriId(row.original.id);
+                router.push("/detail-santri");
               }}
             >
               <Pencil />
