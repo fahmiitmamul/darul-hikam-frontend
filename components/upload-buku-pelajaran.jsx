@@ -83,42 +83,44 @@ export default function UploadBukuPelajaran({
     <div className="w-full max-w-md space-y-4">
       <div className="space-y-2">
         <Label htmlFor="pdf-upload">Upload Buku Pelajaran</Label>
-        <Card
-          className={cn(
-            "border-2 border-dashed transition-colors",
-            isDragOver
-              ? "border-primary bg-primary/5"
-              : "border-muted-foreground/25",
-            error ? "border-destructive" : ""
-          )}
-        >
-          <CardContent
-            className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onClick={() => fileInputRef.current?.click()}
+        {!fileUploadBukuPelajaran && (
+          <Card
+            className={cn(
+              "border-2 border-dashed transition-colors",
+              isDragOver
+                ? "border-primary bg-primary/5"
+                : "border-muted-foreground/25",
+              error ? "border-destructive" : ""
+            )}
           >
-            <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-            <div className="space-y-2">
-              <p className="text-sm font-medium">
-                Tarik dokumen disini atau{" "}
-                <span className="text-primary underline">pilih</span>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                max 2MB bertipe pdf, png, jpg{" "}
-              </p>
-            </div>
-            <Input
-              ref={fileInputRef}
-              id="pdf-upload"
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handleFileInputChange}
-              className="hidden"
-            />
-          </CardContent>
-        </Card>
+            <CardContent
+              className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-10 w-10 text-muted-foreground mb-4" />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">
+                  Tarik dokumen disini atau{" "}
+                  <span className="text-primary underline">pilih</span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  max 2MB bertipe pdf, png, jpg{" "}
+                </p>
+              </div>
+              <Input
+                ref={fileInputRef}
+                id="pdf-upload"
+                type="file"
+                accept=".pdf,application/pdf"
+                onChange={handleFileInputChange}
+                className="hidden"
+              />
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {error && (

@@ -24,7 +24,7 @@ export default function ModalEditBukuPelajaran({
   openDialogEditBukuPelajaran,
   setOpenDialogEditBukuPelajaran,
 }) {
-  const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
+  const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(null);
 
   const schemaDokumen = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -53,6 +53,7 @@ export default function ModalEditBukuPelajaran({
     const fetchData = async () => {
       try {
         const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
+        setFileUploadBukuPelajaran(data?.results?.[0]?.file_buku_pelajaran);
         reset(data.results[0]);
       } catch (err) {
         toast("Gagal memuat data buku", { description: err.message });
@@ -157,10 +158,17 @@ export default function ModalEditBukuPelajaran({
               type="button"
               variant="outline"
               className="cursor-pointer uppercase"
+              onClick={() => setOpenDialogEditBukuPelajaran(false)}
             >
               Kembali
             </Button>
-            <Button type="button" className="cursor-pointer uppercase">
+            <Button
+              type="button"
+              onClick={() => {
+                bukuPelajaranForm.handleSubmit(onSubmit)();
+              }}
+              className="cursor-pointer uppercase"
+            >
               Simpan
             </Button>
           </DialogFooter>
