@@ -41,6 +41,7 @@ import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import ModalEditMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/form-edit-mudir-atau-pimpinan/page";
+import { useLocationContext } from "@/components/location-context";
 
 export default function MudirAtauPimpinan() {
   const [openDialogAdd, setOpenDialogAdd] = useState(false);
@@ -50,7 +51,7 @@ export default function MudirAtauPimpinan() {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [mudirAtauPimpinanId, setMudirAtauPimpinanId] = useState(null);
+  const { mudirPimpinanId, setMudirPimpinanId } = useLocationContext();
 
   const getDataMudirPimpinan = async (page, limit, search) => {
     const { data } = await http().get(
@@ -106,7 +107,7 @@ export default function MudirAtauPimpinan() {
             <DropdownMenuItem
               onClick={() => {
                 setOpenDialogEdit(true);
-                setMudirAtauPimpinanId(row.original.id);
+                setMudirPimpinanId(row.original.id);
               }}
             >
               <Pencil className="mr-2 h-4 w-4" />
@@ -115,7 +116,7 @@ export default function MudirAtauPimpinan() {
             <DropdownMenuItem
               onClick={() => {
                 setOpenDialogHapus(true);
-                setMudirAtauPimpinanId(row.original.id);
+                setMudirPimpinanId(row.original.id);
               }}
               className="text-red-600"
             >
@@ -250,13 +251,13 @@ export default function MudirAtauPimpinan() {
         </div>
 
         <ModalHapusMudirAtauPimpinan
-          mudirAtauPimpinanId={mudirAtauPimpinanId}
+          mudirAtauPimpinanId={mudirPimpinanId}
           openDialogHapusMudirAtauPimpinan={openDialogHapus}
           setOpenDialogHapusMudirAtauPimpinan={setOpenDialogHapus}
         />
 
         <ModalEditMudirAtauPimpinan
-          mudirAtauPimpinanId={mudirAtauPimpinanId}
+          mudirAtauPimpinanId={mudirPimpinanId}
           openDialogEditMudirAtauPimpinan={openDialogEdit}
           setOpenDialogEditMudirAtauPimpinan={setOpenDialogEdit}
         />

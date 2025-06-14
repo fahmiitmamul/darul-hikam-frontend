@@ -6,12 +6,17 @@ const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [bukuPelajaranId, setBukuPelajaranId] = useState(null);
+  const [mudirPimpinanId, setMudirPimpinanId] = useState(null);
 
   // Load from localStorage saat pertama render
   useEffect(() => {
     const savedBukuPelajaranId = localStorage.getItem("bukuPelajaranId");
+    const savedMudirPimpinanId = localStorage.getItem("mudirPimpinanId");
     if (savedBukuPelajaranId) {
       setBukuPelajaranId(savedBukuPelajaranId);
+    }
+    if (savedMudirPimpinanId) {
+      setBukuPelajaranId(savedMudirPimpinanId);
     }
   }, []);
 
@@ -22,10 +27,23 @@ export const GlobalProvider = ({ children }) => {
     } else {
       localStorage.removeItem("bukuPelajaranId");
     }
-  }, [bukuPelajaranId]);
+
+    if (mudirPimpinanId) {
+      localStorage.setItem("mudirPimpinanId", JSON.stringify(mudirPimpinanId));
+    } else {
+      localStorage.removeItem("mudirPimpinanId");
+    }
+  }, [mudirPimpinanId]);
 
   return (
-    <GlobalContext.Provider value={{ bukuPelajaranId, setBukuPelajaranId }}>
+    <GlobalContext.Provider
+      value={{
+        bukuPelajaranId,
+        setBukuPelajaranId,
+        mudirPimpinanId,
+        setMudirPimpinanId,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );
