@@ -272,24 +272,34 @@ export default function Profil() {
   });
 
   const schemaLokasi = z.object({
-    alamat: z.string({ message: "Masukkan alamat" }),
-    rt: z.string({ message: "Masukkan rt" }),
-    rw: z.string({ message: "Masukkan rw" }),
-    desa_atau_kelurahan: z.string({
-      message: "Masukkan desa atau kelurahan",
-    }),
-    kecamatan: z.string({
-      message: "Masukkan kecamatan",
-    }),
-    kabupaten: z.string({
-      message: "Masukkan kabupaten",
-    }),
-    provinsi: z.string({
-      message: "Masukkan provinsi",
-    }),
-    kode_pos: z.string({
-      message: "Masukkan kode pos",
-    }),
+    alamat: z.string({ message: "Masukkan alamat" }).min(1, "Harap diisi"),
+    rt: z.string({ message: "Masukkan rt" }).min(1, "Harap diisi"),
+    rw: z.string({ message: "Masukkan rw" }).min(1, "Harap diisi"),
+    desa_atau_kelurahan: z
+      .string({
+        message: "Masukkan desa atau kelurahan",
+      })
+      .min(1, "Harap diisi"),
+    kecamatan: z
+      .string({
+        message: "Masukkan kecamatan",
+      })
+      .min(1, "Harap diisi"),
+    kabupaten: z
+      .string({
+        message: "Masukkan kabupaten",
+      })
+      .min(1, "Harap diisi"),
+    provinsi: z
+      .string({
+        message: "Masukkan provinsi",
+      })
+      .min(1, "Harap diisi"),
+    kode_pos: z
+      .string({
+        message: "Masukkan kode pos",
+      })
+      .min(1, "Harap diisi"),
   });
 
   const schemaDokumenPerijinan = z.object({
@@ -1136,7 +1146,7 @@ export default function Profil() {
                         <div>
                           <FormField
                             control={lokasiForm.control}
-                            name="kelurahan_atau_desa"
+                            name="desa_atau_kelurahan"
                             render={({ field, fieldState }) => (
                               <FormItem>
                                 <FormLabel>Kelurahan Atau Desa</FormLabel>
