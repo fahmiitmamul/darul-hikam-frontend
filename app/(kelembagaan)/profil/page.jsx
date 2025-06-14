@@ -94,7 +94,8 @@ export default function Profil() {
 
   const [skIjopId, setSkIjopId] = useState(null);
 
-  const { setIdRegency, setIdDistrict, setIdVillage } = useLocationContext();
+  const { setIdProvince, setIdRegency, setIdDistrict, setIdVillage } =
+    useLocationContext();
 
   const getDataSkIjop = async (page, limit, search) => {
     const { data } = await http().get(
@@ -326,6 +327,7 @@ export default function Profil() {
     resolver: zodResolver(schemaLokasi),
     defaultValues: async () => {
       const { data } = await http().get(`/profil/lokasi`);
+      setIdProvince(data?.results?.data[0]?.provinsi);
       setIdRegency(data?.results?.data[0]?.kabupaten);
       setIdDistrict(data?.results?.data[0]?.kecamatan);
       setIdVillage(data?.results?.data[0]?.desa_atau_kelurahan);
