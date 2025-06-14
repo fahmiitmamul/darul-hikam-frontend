@@ -41,6 +41,7 @@ export default function ModalEditBukuPelajaran({
   const bukuPelajaranForm = useForm({
     resolver: zodResolver(schemaDokumen),
     defaultValues: async () => {
+      if (!bukuPelajaranId) return;
       const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
       console.log(data);
       return data.results[0];

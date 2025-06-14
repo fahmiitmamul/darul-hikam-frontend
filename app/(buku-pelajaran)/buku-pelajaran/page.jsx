@@ -47,6 +47,7 @@ import { Pencil } from "lucide-react";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import ModalEditBukuPelajaran from "@/components/(buku-pelajaran)/modal-edit-buku-pelajaran/page";
+import { useGlobalContext } from "@/context/global-context";
 
 export default function BukuPelajaran() {
   const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =
@@ -55,7 +56,7 @@ export default function BukuPelajaran() {
     useState(false);
   const [openDialogHapusBukuPelajaran, setOpenDialogHapusBukuPelajaran] =
     useState(false);
-  const [bukuPelajaranId, setBukuPelajaranId] = useState(null);
+  const { bukuPelajaranId, setBukuPelajaranId } = useGlobalContext();
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -291,9 +292,9 @@ export default function BukuPelajaran() {
       />
 
       <ModalHapusBukuPelajaran
+        bukuPelajaranId={bukuPelajaranId}
         openDialogHapusBukuPelajaran={openDialogHapusBukuPelajaran}
         setOpenDialogHapusBukuPelajaran={setOpenDialogHapusBukuPelajaran}
-        bukuPelajaranId={bukuPelajaranId}
       />
     </Sidebar>
   );
