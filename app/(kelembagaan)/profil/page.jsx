@@ -163,10 +163,6 @@ export default function Profil() {
       ),
     },
     {
-      accessorKey: "status",
-      header: "Status",
-    },
-    {
       accessorKey: "Aksi",
       header: "Aksi",
       cell: ({ row }) => (
