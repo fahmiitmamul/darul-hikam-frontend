@@ -123,10 +123,6 @@ export default function DaftarSantri() {
       },
     },
     {
-      accessorKey: "status",
-      header: "Status",
-    },
-    {
       accessorKey: "Aksi",
       header: "Aksi",
       cell: ({ row }) => (
