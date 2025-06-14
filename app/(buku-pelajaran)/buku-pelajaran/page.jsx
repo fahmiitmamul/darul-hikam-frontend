@@ -46,6 +46,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Pencil } from "lucide-react";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
+import ModalEditBukuPelajaran from "@/components/(buku-pelajaran)/modal-edit-buku-pelajaran/page";
 
 export default function BukuPelajaran() {
   const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =
@@ -102,6 +103,7 @@ export default function BukuPelajaran() {
               className="cursor-pointer"
               onClick={() => {
                 setBukuPelajaranId(row.original.id);
+                setOpenDialogEditBukuPelajaran(row.original.id);
               }}
             >
               <Pencil />
@@ -281,6 +283,12 @@ export default function BukuPelajaran() {
           </div>
         </div>
       </div>
+
+      <ModalEditBukuPelajaran
+        bukuPelajaranId={bukuPelajaranId}
+        openDialogEditBukuPelajaran={openDialogEditBukuPelajaran}
+        setOpenDialogEditBukuPelajaran={setOpenDialogEditBukuPelajaran}
+      />
 
       <ModalHapusBukuPelajaran
         openDialogHapusBukuPelajaran={openDialogHapusBukuPelajaran}

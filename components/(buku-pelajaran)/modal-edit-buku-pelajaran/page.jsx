@@ -16,8 +16,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
+import http from "@/helpers/http.helper";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function ModalEditBukuPelajaran({
+  bukuPelajaranId,
   openDialogEditBukuPelajaran,
   setOpenDialogEditBukuPelajaran,
 }) {
@@ -34,40 +38,64 @@ export default function ModalEditBukuPelajaran({
     }),
   });
 
-  const dokumenForm = useForm({
+  const bukuPelajaranForm = useForm({
     resolver: zodResolver(schemaDokumen),
-    defaultValues: {
-      alamat_lengkap: "",
+    defaultValues: async () => {
+      const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
+      console.log(data);
+      return data.results?.data[0];
+    },
+  });
+
+  const queryClient = useQueryClient();
+
+  const patchBukuPelajaran = useMutation({
+    mutationFn: async (values) => {
+      const data = new FormData();
+
+      data.append("judul_buku", values.judul_buku);
+      data.append("kelas", values.kelas);
+      data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
+      return http().patch(`/buku-pelajaran/${bukuPelajaranId}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
+      toast("Buku pelajaran berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
     },
   });
 
   const onSubmit = (data) => {
-    console.log("Form data:", data);
+    patchBukuPelajaran.mutate(data);
+    setOpenDialogEditBukuPelajaran(false);
   };
 
   return (
     <div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button type="button" className="uppercase cursor-pointer">
-            <Plus />
-            Tambah Buku Pelajaran
-          </Button>
-        </DialogTrigger>
+      <Dialog
+        open={openDialogEditBukuPelajaran}
+        onOpenChange={setOpenDialogEditBukuPelajaran}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Tambah Buku Pelajaran</DialogTitle>
+            <DialogTitle>Edit Buku Pelajaran</DialogTitle>
           </DialogHeader>
           <div>
-            <Form {...dokumenForm}>
+            <Form {...bukuPelajaranForm}>
               <form
-                onSubmit={dokumenForm.handleSubmit(onSubmit)}
+                onSubmit={bukuPelajaranForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={dokumenForm.control}
+                      control={bukuPelajaranForm.control}
                       name="judul_buku"
                       render={({ field }) => (
                         <FormItem>
@@ -86,7 +114,7 @@ export default function ModalEditBukuPelajaran({
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={dokumenForm.control}
+                      control={bukuPelajaranForm.control}
                       name="kelas"
                       render={({ field }) => (
                         <FormItem>
