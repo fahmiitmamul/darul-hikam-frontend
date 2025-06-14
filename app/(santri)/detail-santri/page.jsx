@@ -168,7 +168,45 @@ export default function DetailSantri() {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const schemaIdentitas = z.object({
+  const schemaDataSantri = z.object({
+    nama_lengkap: z.string({ message: "Masukkan NSPP" }),
+    nisn: z.string({ message: "Masukkan nama lembaga" }),
+    kewarganegaraan: z.string({
+      message: "Masukkan satuan pendidikan",
+    }),
+    nik: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    tempat_lahir: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    tanggal_lahir: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    jenis_kelamin: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    jumlah_saudara: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    anak_ke: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    agama:z.string({
+          message: "Masukkan program pendidikan",
+        }),
+    nomor_handphone:z.string({
+          message: "Masukkan program pendidikan",
+        }), 
+    nomor_kk_santri:z.string({
+          message: "Masukkan program pendidikan",
+        }),
+    nama_kk_santri:z.string({
+              message: "Masukkan program pendidikan",
+            }),
+  });
+
+  const schemaDataOrangTua = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
     nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
     satuan_pendidikan: z.string({
@@ -179,16 +217,7 @@ export default function DetailSantri() {
     }),
   });
 
-  const schemaLokasi = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
-    }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
-  });
+  
 
   const schemaDokumenPerijinan = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -202,27 +231,27 @@ export default function DetailSantri() {
   });
 
   const dataSantriForm = useForm({
-    resolver: zodResolver(schemaIdentitas),
+    resolver: zodResolver(schemaDataSantri),
     defaultValues: {
       nspp: "",
     },
   });
 
-  const lokasiForm = useForm({
-    resolver: zodResolver(schemaLokasi),
+  const dataOrangTuaForm = useForm({
+    resolver: zodResolver(schemaDataOrangTua),
     defaultValues: {
       alamat_lengkap: "",
     },
   });
 
-  const galeriForm = useForm({
-    resolver: zodResolver(schemaLokasi),
+  const dataAlamatSantriForm = useForm({
+    resolver: zodResolver(schemaDataOrangTua),
     defaultValues: {
       alamat_lengkap: "",
     },
   });
 
-  const dokumenPerijinanForm = useForm({
+  const aktivitasBelajarForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
     defaultValues: {
       alamat_lengkap: "",
@@ -725,9 +754,9 @@ export default function DetailSantri() {
               value="data_orang_tua"
               className="flex flex-col space-y-5"
             >
-              <Form {...lokasiForm}>
+              <Form {...dataOrangTuaForm}>
                 <form
-                  onSubmit={lokasiForm.handleSubmit(onSubmit)}
+                  onSubmit={dataOrangTuaForm.handleSubmit(onSubmit)}
                   className="space-y-5 mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -739,7 +768,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={lokasiForm.control}
+                        control={dataOrangTuaForm.control}
                         name="nama_lengkap"
                         render={({ field }) => (
                           <FormItem>
@@ -825,7 +854,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={lokasiForm.control}
+                        control={dataOrangTuaForm.control}
                         name="nik"
                         render={({ field }) => (
                           <FormItem>
@@ -861,7 +890,7 @@ export default function DetailSantri() {
                     <div>
                       <div>
                         <FormField
-                          control={dokumenPerijinanForm.control}
+                          control={aktivitasBelajarForm.control}
                           name="tanggal_lahir"
                           render={({ field }) => (
                             <FormItem>
@@ -1054,7 +1083,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={lokasiForm.control}
+                        control={dataOrangTuaForm.control}
                         name="nama_lengkap"
                         render={({ field }) => (
                           <FormItem>
@@ -1140,7 +1169,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={lokasiForm.control}
+                        control={dataOrangTuaForm.control}
                         name="nik"
                         render={({ field }) => (
                           <FormItem>
@@ -1176,7 +1205,7 @@ export default function DetailSantri() {
                     <div>
                       <div>
                         <FormField
-                          control={dokumenPerijinanForm.control}
+                          control={aktivitasBelajarForm.control}
                           name="tanggal_lahir"
                           render={({ field }) => (
                             <FormItem>
@@ -1471,9 +1500,9 @@ export default function DetailSantri() {
               value="data_alamat"
               className="flex flex-col space-y-5"
             >
-              <Form {...galeriForm}>
+              <Form {...dataAlamatSantriForm}>
                 <form
-                  onSubmit={galeriForm.handleSubmit(onSubmit)}
+                  onSubmit={dataAlamatSantriForm.handleSubmit(onSubmit)}
                   className="space-y-5 mt-5"
                 >
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -1499,7 +1528,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="satuan_pendidikan"
                         render={({ field }) => (
                           <FormItem>
@@ -1529,7 +1558,7 @@ export default function DetailSantri() {
                     </div>
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="provinsi"
                         render={({ field }) => (
                           <FormItem>
@@ -1560,7 +1589,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kabupaten_atau_kota"
                         render={({ field }) => (
                           <FormItem>
@@ -1590,7 +1619,7 @@ export default function DetailSantri() {
                     </div>
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kecamatan"
                         render={({ field }) => (
                           <FormItem>
@@ -1621,7 +1650,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kelurahan_atau_desa"
                         render={({ field }) => (
                           <FormItem>
@@ -1652,7 +1681,7 @@ export default function DetailSantri() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rt"
                           render={({ field }) => (
                             <FormItem>
@@ -1670,7 +1699,7 @@ export default function DetailSantri() {
                       </div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rw"
                           render={({ field }) => (
                             <FormItem>
@@ -1692,7 +1721,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="rt"
                         render={({ field }) => (
                           <FormItem>
@@ -1713,7 +1742,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kode_pos"
                         render={({ field }) => (
                           <FormItem>
@@ -1749,7 +1778,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="satuan_pendidikan"
                         render={({ field }) => (
                           <FormItem>
@@ -1779,7 +1808,7 @@ export default function DetailSantri() {
                     </div>
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="provinsi"
                         render={({ field }) => (
                           <FormItem>
@@ -1810,7 +1839,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kabupaten_atau_kota"
                         render={({ field }) => (
                           <FormItem>
@@ -1840,7 +1869,7 @@ export default function DetailSantri() {
                     </div>
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kecamatan"
                         render={({ field }) => (
                           <FormItem>
@@ -1871,7 +1900,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kelurahan_atau_desa"
                         render={({ field }) => (
                           <FormItem>
@@ -1902,7 +1931,7 @@ export default function DetailSantri() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rt"
                           render={({ field }) => (
                             <FormItem>
@@ -1920,7 +1949,7 @@ export default function DetailSantri() {
                       </div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rw"
                           render={({ field }) => (
                             <FormItem>
@@ -1942,7 +1971,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="rt"
                         render={({ field }) => (
                           <FormItem>
@@ -1963,7 +1992,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kode_pos"
                         render={({ field }) => (
                           <FormItem>
@@ -1989,7 +2018,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="nama_wali"
                         render={({ field }) => (
                           <FormItem>
@@ -2014,7 +2043,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="status_mukim"
                         render={({ field }) => (
                           <FormItem>
@@ -2043,7 +2072,7 @@ export default function DetailSantri() {
                     <div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="status_tempat_tinggal"
                           render={({ field }) => (
                             <FormItem>
@@ -2065,7 +2094,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="provinsi"
                         render={({ field }) => (
                           <FormItem>
@@ -2094,7 +2123,7 @@ export default function DetailSantri() {
                     <div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="kabupaten_atau_kota"
                           render={({ field }) => (
                             <FormItem>
@@ -2128,7 +2157,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kecamatan"
                         render={({ field }) => (
                           <FormItem>
@@ -2157,7 +2186,7 @@ export default function DetailSantri() {
                     <div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="kelurahan"
                           render={({ field }) => (
                             <FormItem>
@@ -2190,7 +2219,7 @@ export default function DetailSantri() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rt"
                           render={({ field }) => (
                             <FormItem>
@@ -2208,7 +2237,7 @@ export default function DetailSantri() {
                       </div>
                       <div>
                         <FormField
-                          control={galeriForm.control}
+                          control={dataAlamatSantriForm.control}
                           name="rw"
                           render={({ field }) => (
                             <FormItem>
@@ -2230,7 +2259,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="alamat"
                         render={({ field }) => (
                           <FormItem>
@@ -2251,7 +2280,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="kode_pos"
                         render={({ field }) => (
                           <FormItem>
@@ -2272,7 +2301,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="transportasi_ke_lembaga"
                         render={({ field }) => (
                           <FormItem>
@@ -2305,7 +2334,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="jarak_tempuh_ke_lembaga"
                         render={({ field }) => (
                           <FormItem>
@@ -2335,7 +2364,7 @@ export default function DetailSantri() {
                     </div>
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="waktu_tempuh"
                         render={({ field }) => (
                           <FormItem>
@@ -2366,7 +2395,7 @@ export default function DetailSantri() {
                   <div className="grid grid-cols-1 gap-5">
                     <div>
                       <FormField
-                        control={galeriForm.control}
+                        control={dataAlamatSantriForm.control}
                         name="koordinat"
                         render={({ field }) => (
                           <FormItem>
@@ -2395,9 +2424,9 @@ export default function DetailSantri() {
             </TabsContent>
 
             <TabsContent value="aktivitas_belajar" className="space-y-5 mt-5">
-              <Form {...dokumenPerijinanForm}>
+              <Form {...aktivitasBelajarForm}>
                 <form
-                  onSubmit={dokumenPerijinanForm.handleSubmit(onSubmit)}
+                  onSubmit={aktivitasBelajarForm.handleSubmit(onSubmit)}
                   className="space-y-5 "
                 >
                   <div className="w-full flex justify-between">
