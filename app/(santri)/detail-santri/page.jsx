@@ -46,9 +46,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  useReactTable,
-  getCoreRowModel,
   flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import { useCallback } from "react";
 import { Label } from "@/components/ui/label";
@@ -57,6 +59,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import UploadKKSantri from "@/components/upload-kk-santri";
 import UploadKipSantri from "@/components/upload-kip-santri";
 import UploadFotoSantri from "@/components/upload-foto-santri";
+import { useGlobalContext } from "@/context/global-context";
 
 const defaultData = [
   {
@@ -133,14 +136,36 @@ const defaultColumns = [
 export default function DetailSantri() {
   const [tanggalLahir, setTanggalLahir] = useState(null);
   const [isNoHpChecked, setIsNoHpChecked] = useState(null);
+  const { santriId } = useGlobalContext();
 
   const [data] = React.useState(() => [...defaultData]);
   const [columns] = React.useState(() => [...defaultColumns]);
 
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
+
   const table = useReactTable({
-    data,
+    data: data?.data ?? [],
     columns,
+    pageCount: data?.totalPages ?? -1,
+    state: {
+      pagination: { pageIndex: pageIndex - 1, pageSize },
+      globalFilter,
+    },
+    manualPagination: true,
+    onPaginationChange: (updater) => {
+      const next =
+        typeof updater === "function"
+          ? updater({ pageIndex: pageIndex - 1, pageSize })
+          : updater;
+      setPageIndex(next.pageIndex + 1);
+      setPageSize(next.pageSize);
+    },
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   const schemaIdentitas = z.object({
