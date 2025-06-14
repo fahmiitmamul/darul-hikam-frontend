@@ -53,6 +53,8 @@ export const GlobalProvider = ({ children }) => {
         setBukuPelajaranId,
         mudirPimpinanId,
         setMudirPimpinanId,
+        santriId,
+        setSantriId,
       }}
     >
       {children}
