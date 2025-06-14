@@ -76,6 +76,7 @@ export default function DaftarUstadz() {
     {
       accessorKey: "no",
       header: "No",
+      cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
       accessorKey: "nik",
@@ -86,16 +87,12 @@ export default function DaftarUstadz() {
       header: "Nama Lengkap",
     },
     {
-      accessorKey: "penempatan",
-      header: "Penempatan",
+      accessorKey: "email",
+      header: "Email",
     },
     {
-      accessorKey: "tugas",
-      header: "Tugas",
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: "npk",
+      header: "NPK",
     },
     {
       accessorKey: "Aksi",
