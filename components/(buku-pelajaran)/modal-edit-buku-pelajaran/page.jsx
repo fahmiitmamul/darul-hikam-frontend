@@ -43,7 +43,7 @@ export default function ModalEditBukuPelajaran({
     defaultValues: async () => {
       const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
       console.log(data);
-      return data.results?.data[0];
+      return data.results[0];
     },
   });
 
