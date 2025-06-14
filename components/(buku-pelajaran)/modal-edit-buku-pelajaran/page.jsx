@@ -14,7 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -39,11 +39,28 @@ export default function ModalEditBukuPelajaran({
 
   const bukuPelajaranForm = useForm({
     resolver: zodResolver(schemaDokumen),
-    defaultValues: async () => {
-      const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
-      return data.results[0];
+    defaultValues: {
+      judul_buku: "",
+      kelas: "",
     },
   });
+
+  const { reset } = bukuPelajaranForm;
+
+  useEffect(() => {
+    if (!bukuPelajaranId || !openDialogEditBukuPelajaran) return;
+
+    const fetchData = async () => {
+      try {
+        const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
+        reset(data.results[0]);
+      } catch (err) {
+        toast("Gagal memuat data buku", { description: err.message });
+      }
+    };
+
+    fetchData();
+  }, [bukuPelajaranId, openDialogEditBukuPelajaran, reset]);
 
   const queryClient = useQueryClient();
 
