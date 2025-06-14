@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Sidebar from "@/components/sidebar-wrapper";
 import AppHeader from "@/components/app-header";
@@ -34,14 +33,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import ModalTambahMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-tambah-mudir-atau-pimpinan/page";
 import { ModalHapusMudirAtauPimpinan } from "@/components/(kelembagaan)/mudir-atau-pimpinan/modal-hapus-mudir-atau-pimpinan/page";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import ModalEditMudirAtauPimpinan from "@/components/(kelembagaan)/mudir-atau-pimpinan/form-edit-mudir-atau-pimpinan/page";
-import { useLocationContext } from "@/components/location-context";
+import { useGlobalContext } from "@/context/global-context";
 
 export default function MudirAtauPimpinan() {
   const [openDialogAdd, setOpenDialogAdd] = useState(false);
@@ -51,7 +49,7 @@ export default function MudirAtauPimpinan() {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
-  const { mudirPimpinanId, setMudirPimpinanId } = useLocationContext();
+  const { mudirPimpinanId, setMudirPimpinanId } = useGlobalContext();
 
   const getDataMudirPimpinan = async (page, limit, search) => {
     const { data } = await http().get(

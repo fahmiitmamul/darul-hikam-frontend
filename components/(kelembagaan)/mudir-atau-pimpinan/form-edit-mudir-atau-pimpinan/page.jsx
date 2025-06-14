@@ -144,16 +144,27 @@ export default function ModalEditMudirAtauPimpinan({
 
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
-    defaultValues: async () => {
-      const { data } = await http().get(
-        `/mudir-atau-pimpinan/${mudirAtauPimpinanId}`
-      );
-
-      return data.results?.[0];
+    defaultValues: {
+      nama_lengkap: "",
+      nik: "",
+      gelar_depan: "",
+      gelar_belakang: "",
+      jenis_kelamin: "",
+      status_kepegawaian: "",
+      pendidikan_terakhir: "",
+      lama_pendidikan_ponpes: "",
+      lama_pendidikan_lainnya: "",
+      kompetensi: "",
+      no_handphone: "",
+      email: "",
+      status_keaktifan: "",
+      kewarganegaraan: "",
     },
   });
 
   const queryClient = useQueryClient();
+
+  const { reset } = mudirAtauPimpinanForm;
 
   const patchMudirAtauPimpinan = useMutation({
     mutationFn: async (values) => {
@@ -172,6 +183,23 @@ export default function ModalEditMudirAtauPimpinan({
       });
     },
   });
+
+  React.useEffect(() => {
+    if (!mudirAtauPimpinanId || !openDialogEditMudirAtauPimpinan) return;
+
+    const fetchData = async () => {
+      try {
+        const { data } = await http().get(
+          `/mudir-atau-pimpinan/${mudirAtauPimpinanId}`
+        );
+        reset(data.results[0]);
+      } catch (err) {
+        toast("Gagal memuat mudir atau pimpinan", { description: err.message });
+      }
+    };
+
+    fetchData();
+  }, [mudirAtauPimpinanId, openDialogEditMudirAtauPimpinan, reset]);
 
   const onSubmit = (data) => {
     patchMudirAtauPimpinan.mutate(data);
