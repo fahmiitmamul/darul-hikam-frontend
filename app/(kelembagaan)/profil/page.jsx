@@ -71,6 +71,7 @@ import DropdownProvinces from "@/components/dropdown-provinces";
 import DropdownVillages from "@/components/dropdown-villages";
 import DropdownDistricts from "@/components/dropdown-districts";
 import DropdownRegencies from "@/components/dropdown-regencies";
+import { useLocationContext } from "@/components/location-context";
 
 export default function Profil() {
   const [fotoPapanNama, setFotoPapanNama] = useState(null);
@@ -92,6 +93,8 @@ export default function Profil() {
   const [globalFilter, setGlobalFilter] = useState("");
 
   const [skIjopId, setSkIjopId] = useState(null);
+
+  const { setIdRegency, setIdDistrict, setIdVillage } = useLocationContext();
 
   const getDataSkIjop = async (page, limit, search) => {
     const { data } = await http().get(
@@ -323,6 +326,9 @@ export default function Profil() {
     resolver: zodResolver(schemaLokasi),
     defaultValues: async () => {
       const { data } = await http().get(`/profil/lokasi`);
+      setIdRegency(data?.results?.data[0]?.kabupaten);
+      setIdDistrict(data?.results?.data[0]?.kecamatan);
+      setIdVillage(data?.results?.data[0]?.desa_atau_kelurahan);
       return data.results?.data[0];
     },
   });
