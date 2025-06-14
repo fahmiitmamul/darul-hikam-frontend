@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Plus } from "lucide-react";
+import { useEffect } from "react";
 import {
   Form,
   FormControl,
@@ -184,7 +184,7 @@ export default function ModalEditMudirAtauPimpinan({
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!mudirAtauPimpinanId || !openDialogEditMudirAtauPimpinan) return;
 
     const fetchData = async () => {
