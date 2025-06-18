@@ -48,6 +48,9 @@ import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import ModalEditBukuPelajaran from "@/components/(buku-pelajaran)/modal-edit-buku-pelajaran/page";
 import { useGlobalContext } from "@/context/global-context";
+import { Eye } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function BukuPelajaran() {
   const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =
@@ -60,6 +63,8 @@ export default function BukuPelajaran() {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
+
+  const router = useRouter();
 
   const getDataBukuPelajaran = async (page, limit, search) => {
     const { data } = await http().get(
@@ -100,6 +105,17 @@ export default function BukuPelajaran() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                router.push(
+                  `https://res.cloudinary.com/dxnewldiy/raw/upload/v1749961055/file/${row.original.file_buku_pelajaran}`
+                );
+              }}
+            >
+              <Eye />
+              Buka
+            </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
