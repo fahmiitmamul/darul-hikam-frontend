@@ -42,11 +42,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { toast } from "sonner";
 import DropdownProvinces from "@/components/dropdown-provinces";
-import { useLocationContext } from "@/components/location-context";
 import DropdownRegencies from "@/components/dropdown-regencies";
 import DropdownDistricts from "@/components/dropdown-districts";
 import DropdownVillages from "@/components/dropdown-villages";
 import { useRouter } from "next/navigation";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 export default function UstadzBaru() {
   const [fileUploadSk, setFileUploadSk] = useState(null);
@@ -262,7 +263,7 @@ export default function UstadzBaru() {
       alamat: "",
       kode_pos: "",
       transportasi_ke_pontren: "",
-      jarak_tempat_tinggal_pontren: "s",
+      jarak_tempat_tinggal_pontren: "",
       waktu_tempuh: "",
       nama_ibu_kandung: "",
       nomor_kk: "",
@@ -657,33 +658,21 @@ export default function UstadzBaru() {
                           Tanggal Lahir
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "PPP")
-                                ) : (
-                                  <span>Pilih Tanggal Lahir</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -843,33 +832,21 @@ export default function UstadzBaru() {
                           Tanggal Akta Pendirian
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "PPP")
-                                ) : (
-                                  <span>Pilih Tanggal Akta Pendirian</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -1151,7 +1128,7 @@ export default function UstadzBaru() {
                     name="jarak_tempat_tinggal_pontren"
                     render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel>Jarak Tempat Tinggal Pontren</FormLabel>
+                        <FormLabel>Jarak Tempat Tinggal Ke Pontren</FormLabel>
                         <FormControl>
                           <Select
                             {...field}
@@ -1166,12 +1143,12 @@ export default function UstadzBaru() {
                                   : ""
                               )}
                             >
-                              <SelectValue placeholder="Jarak Tempat Tinggal Pontren" />
+                              <SelectValue placeholder="Jarak Tempat Tinggal Ke Pontren" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
                                 <SelectLabel>
-                                  Transportasi Ke Pontren
+                                  Jarak Tempat Tinggal Ke Pontren
                                 </SelectLabel>
                                 <SelectItem value="kurang_dari_5_km">
                                   Kurang dari 5 km
