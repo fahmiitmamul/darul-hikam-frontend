@@ -108,8 +108,9 @@ export default function BukuPelajaran() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                router.push(
-                  `https://res.cloudinary.com/dxnewldiy/raw/upload/v1749961055/file/${row.original.file_buku_pelajaran}`
+                window.open(
+                  `https://res.cloudinary.com/dxnewldiy/raw/upload/v1749961055/file/${row.original.file_buku_pelajaran}`,
+                  "_blank"
                 );
               }}
             >
