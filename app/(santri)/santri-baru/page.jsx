@@ -23,15 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
@@ -43,6 +35,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 export default function SantriBaru() {
   const [isNoHandphoneChecked, setIsNoHandphoneChecked] = useState(false);
@@ -244,33 +238,21 @@ export default function SantriBaru() {
                           Tanggal Masuk
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "dd-MM-yyyy")
-                                ) : (
-                                  <span>Pilih Tanggal Masuk</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -527,33 +509,21 @@ export default function SantriBaru() {
                           Tanggal Lahir
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "dd-MM-yyyy")
-                                ) : (
-                                  <span>Pilih Tanggal Lahir</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}

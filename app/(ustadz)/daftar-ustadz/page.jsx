@@ -49,6 +49,7 @@ import { Trash } from "lucide-react";
 import { ModalHapusDataUstadz } from "@/components/(ustadz)/modal-hapus-data-ustadz/page";
 
 export default function DaftarUstadz() {
+  const [openDialogEditUstadz, setOpenDialogEditUstadz] = useState(false);
   const [openDialogHapusUstadz, setOpenDialogHapusUstadz] = useState(false);
   const [ustadzId, setUstadzId] = useState(null);
 
