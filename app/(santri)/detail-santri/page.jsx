@@ -60,6 +60,10 @@ import UploadFotoSantri from "@/components/upload-foto-santri";
 import { useGlobalContext } from "@/context/global-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
+import DropdownProvinces from "@/components/dropdown-provinces";
+import DropdownRegencies from "@/components/dropdown-regencies";
+import DropdownDistricts from "@/components/dropdown-districts";
+import DropdownVillages from "@/components/dropdown-villages";
 
 const defaultData = [
   {
@@ -1516,25 +1520,14 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="provinsi"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Provinsi</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Provinsi" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Provinsi</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownProvinces
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1547,27 +1540,14 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kabupaten_atau_kota"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>Kabupaten Atau Kota</FormLabel>
+                            <FormLabel>Kabupaten / Kota</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kabupaten Atau Kota" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Kabupaten Atau Kota
-                                    </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownRegencies
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1581,21 +1561,10 @@ export default function DetailSantri() {
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kecamatan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Kecamatan</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownDistricts
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1610,25 +1579,12 @@ export default function DetailSantri() {
                         name="kelurahan_atau_desa"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Kelurahan Atau Desa</FormLabel>
+                            <FormLabel>Kelurahan / Desa</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kelurahan Atau Desa" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Kelurahan Atau Desa
-                                    </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownVillages
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1770,21 +1726,10 @@ export default function DetailSantri() {
                           <FormItem>
                             <FormLabel>Provinsi</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Provinsi" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Provinsi</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownProvinces
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1799,25 +1744,12 @@ export default function DetailSantri() {
                         name="kabupaten_atau_kota"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Kabupaten Atau Kota</FormLabel>
+                            <FormLabel>Kabupaten / Kota</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kabupaten Atau Kota" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Kabupaten Atau Kota
-                                    </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownRegencies
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1831,21 +1763,10 @@ export default function DetailSantri() {
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kecamatan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Kecamatan</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownDistricts
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -1860,25 +1781,12 @@ export default function DetailSantri() {
                         name="kelurahan_atau_desa"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Kelurahan Atau Desa</FormLabel>
+                            <FormLabel>Kelurahan / Desa</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kelurahan Atau Desa" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>
-                                      Kelurahan Atau Desa
-                                    </SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownVillages
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -2056,21 +1964,10 @@ export default function DetailSantri() {
                           <FormItem>
                             <FormLabel>Provinsi</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Provinsi" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Provinsi</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownProvinces
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -2083,25 +1980,12 @@ export default function DetailSantri() {
                           name="kabupaten_atau_kota"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Kabupaten Atau Kota</FormLabel>
+                              <FormLabel>Kabupaten / Kota</FormLabel>
                               <FormControl>
-                                <Select
-                                  {...field}
-                                  onValueChange={field.onChange}
-                                  defaultValue=""
-                                >
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Kabupaten Atau Kota" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectLabel>
-                                        Kabupaten Atau Kota
-                                      </SelectLabel>
-                                      <SelectItem value="lpq">LPQ</SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
+                                <DropdownRegencies
+                                  field={field}
+                                  fieldState={fieldState}
+                                />
                               </FormControl>
                             </FormItem>
                           )}
@@ -2119,21 +2003,10 @@ export default function DetailSantri() {
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
-                              <Select
-                                {...field}
-                                onValueChange={field.onChange}
-                                defaultValue=""
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Kecamatan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Kecamatan</SelectLabel>
-                                    <SelectItem value="lpq">LPQ</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
+                              <DropdownDistricts
+                                field={field}
+                                fieldState={fieldState}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -2144,25 +2017,14 @@ export default function DetailSantri() {
                         <FormField
                           control={dataAlamatSantriForm.control}
                           name="kelurahan"
-                          render={({ field }) => (
+                          render={({ field, fieldState }) => (
                             <FormItem>
-                              <FormLabel>Kelurahan/Desa</FormLabel>
+                              <FormLabel>Kelurahan / Desa</FormLabel>
                               <FormControl>
-                                <Select
-                                  {...field}
-                                  onValueChange={field.onChange}
-                                  defaultValue=""
-                                >
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Kelurahan/Desa" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectLabel>Kelurahan/Desa</SelectLabel>
-                                      <SelectItem value="lpq">LPQ</SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
+                                <DropdownVillages
+                                  field={field}
+                                  fieldState={fieldState}
+                                />
                               </FormControl>
                             </FormItem>
                           )}
