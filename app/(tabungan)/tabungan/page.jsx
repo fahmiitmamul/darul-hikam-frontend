@@ -34,7 +34,6 @@ import { ChevronsLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
-import ModalTambahBukuPelajaran from "@/components/(buku-pelajaran)/modal-tambah-buku-pelajaran/page";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,6 +49,7 @@ import { Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ModalEditTabungan from "@/components/(tabungan)/modal-edit-tabungan/page";
 import ModalHapusTabungan from "@/components/(tabungan)/modal-hapus-tabungan/page";
+import ModalTambahTabungan from "@/components/(tabungan)/modal-tambah-tabungan/page";
 
 export default function BukuTabungan() {
   const [openDialogAddTabungan, setOpenDialogAddTabungan] = useState(false);
@@ -64,14 +64,14 @@ export default function BukuTabungan() {
 
   const getDataTabungan = async (page, limit, search) => {
     const { data } = await http().get(
-      `/buku-pelajaran?page=${page}&limit=${limit}&search=${search}`
+      `/tabungan?page=${page}&limit=${limit}&search=${search}`
     );
 
     return data.results;
   };
 
   const { data } = useQuery({
-    queryKey: ["buku-pelajaran", pageIndex, pageSize, globalFilter],
+    queryKey: ["tabungan", pageIndex, pageSize, globalFilter],
     queryFn: () => getDataTabungan(pageIndex, pageSize, globalFilter),
     keepPreviousData: true,
   });
@@ -83,12 +83,20 @@ export default function BukuTabungan() {
       cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
-      accessorKey: "judul_buku",
-      header: "Judul Buku",
+      accessorKey: "santri",
+      header: "Nama Santri",
     },
     {
-      accessorKey: "kelas",
-      header: "Kelas",
+      accessorKey: "tanggal",
+      header: "Tanggal",
+    },
+    {
+      accessorKey: "uang_masuk",
+      header: "Uang Masuk",
+    },
+    {
+      accessorKey: "total",
+      header: "Total",
     },
     {
       accessorKey: "Aksi",
@@ -173,10 +181,10 @@ export default function BukuTabungan() {
         <div className="p-6 w-full h-full space-y-4">
           <div className="w-full flex justify-between">
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              Buku Pelajaran
+              Tabungan
             </h3>
             <div>
-              <ModalTambahBukuPelajaran
+              <ModalTambahTabungan
                 openDialogAddTabungan={openDialogAddTabungan}
                 setOpenDialogAddTabungan={setOpenDialogAddTabungan}
               />
@@ -187,22 +195,7 @@ export default function BukuTabungan() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <Select defaultValue="">
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pilih Semester" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Pilih Semester</SelectLabel>
-                      <SelectItem value="lpq">
-                        2024/2025 Ganjil - Genap
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Input type="text" placeholder="Cari Buku Pelajaran" />
+                <Input type="text" placeholder="Cari Tabungan" />
               </div>
             </div>
             <div></div>

@@ -79,7 +79,7 @@ export default function ModalTambahTabungan({
         <DialogTrigger asChild>
           <Button type="button" className="uppercase cursor-pointer">
             <Plus />
-            Tambah Buku Pelajaran
+            Tambah Tabungan
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
