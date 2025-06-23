@@ -1557,7 +1557,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kecamatan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
@@ -1577,7 +1577,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kelurahan_atau_desa"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kelurahan / Desa</FormLabel>
                             <FormControl>
@@ -1722,7 +1722,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="provinsi"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Provinsi</FormLabel>
                             <FormControl>
@@ -1742,7 +1742,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kabupaten_atau_kota"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kabupaten / Kota</FormLabel>
                             <FormControl>
@@ -1759,7 +1759,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kecamatan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
@@ -1779,7 +1779,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kelurahan_atau_desa"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kelurahan / Desa</FormLabel>
                             <FormControl>
@@ -1960,7 +1960,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="provinsi"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Provinsi</FormLabel>
                             <FormControl>
@@ -1978,7 +1978,7 @@ export default function DetailSantri() {
                         <FormField
                           control={dataAlamatSantriForm.control}
                           name="kabupaten_atau_kota"
-                          render={({ field }) => (
+                          render={({ field, fieldState }) => (
                             <FormItem>
                               <FormLabel>Kabupaten / Kota</FormLabel>
                               <FormControl>
@@ -1999,7 +1999,7 @@ export default function DetailSantri() {
                       <FormField
                         control={dataAlamatSantriForm.control}
                         name="kecamatan"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Kecamatan</FormLabel>
                             <FormControl>
