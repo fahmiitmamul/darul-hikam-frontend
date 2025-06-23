@@ -50,7 +50,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 import { toast } from "sonner";
 import { CalendarIcon, ImagePlus, X, Upload } from "lucide-react";
@@ -63,13 +63,23 @@ export default function ModalTambahMudirAtauPimpinan({
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
 
-  const frameworks = [
-    {
-      value: "Itmamul Fahmi",
-      label: "Itmamul Fahmi",
-    },
-  ];
+  const getDataUstadz = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/ustadz?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["ustadz", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
 
   const mudirAtauPimpinanSchema = z.object({
     nama_lengkap: z
@@ -230,29 +240,32 @@ export default function ModalTambahMudirAtauPimpinan({
                                     )}
                                   >
                                     {value
-                                      ? frameworks.find(
-                                          (framework) =>
-                                            framework.value === value
-                                        )?.label
-                                      : "Nama Lengkap"}
+                                      ? data?.find(
+                                          (ustadz) => ustadz.id === value
+                                        )?.name
+                                      : "Pilih Ustadz"}
                                     <ChevronsUpDown className="opacity-50" />
                                   </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-full p-0">
                                   <Command>
                                     <CommandInput
-                                      placeholder="Nama Lengkap"
+                                      placeholder="Cari ustadz..."
                                       className="h-9"
+                                      value={globalFilter}
+                                      onValueChange={(val) =>
+                                        setGlobalFilter(val)
+                                      }
                                     />
                                     <CommandList>
                                       <CommandEmpty>
-                                        No framework found.
+                                        Tidak ditemukan.
                                       </CommandEmpty>
                                       <CommandGroup>
-                                        {frameworks.map((framework) => (
+                                        {data?.data?.map((ustadz) => (
                                           <CommandItem
-                                            key={framework.value}
-                                            value={framework.value}
+                                            key={ustadz.id}
+                                            value={ustadz.id}
                                             onSelect={(currentValue) => {
                                               setValue(
                                                 currentValue === value
@@ -260,7 +273,6 @@ export default function ModalTambahMudirAtauPimpinan({
                                                   : currentValue
                                               );
                                               setOpen(false);
-                                              // Update react-hook-form value
                                               field.onChange(
                                                 currentValue === value
                                                   ? ""
@@ -268,11 +280,11 @@ export default function ModalTambahMudirAtauPimpinan({
                                               );
                                             }}
                                           >
-                                            {framework.label}
+                                            {ustadz.nama_lengkap}
                                             <Check
                                               className={cn(
                                                 "ml-auto",
-                                                value === framework.value
+                                                value === ustadz.id
                                                   ? "opacity-100"
                                                   : "opacity-0"
                                               )}
