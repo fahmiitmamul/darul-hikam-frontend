@@ -33,8 +33,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import {
@@ -60,6 +59,7 @@ import UploadKKSantri from "@/components/upload-kk-santri";
 import UploadKipSantri from "@/components/upload-kip-santri";
 import UploadFotoSantri from "@/components/upload-foto-santri";
 import { useGlobalContext } from "@/context/global-context";
+import { useQueryClient } from "@tanstack/react-query";
 
 const defaultData = [
   {
@@ -192,18 +192,18 @@ export default function DetailSantri() {
     anak_ke: z.string({
       message: "Masukkan program pendidikan",
     }),
-    agama:z.string({
-          message: "Masukkan program pendidikan",
-        }),
-    nomor_handphone:z.string({
-          message: "Masukkan program pendidikan",
-        }), 
-    nomor_kk_santri:z.string({
-          message: "Masukkan program pendidikan",
-        }),
-    nama_kk_santri:z.string({
-              message: "Masukkan program pendidikan",
-            }),
+    agama: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    nomor_handphone: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    nomor_kk_santri: z.string({
+      message: "Masukkan program pendidikan",
+    }),
+    nama_kk_santri: z.string({
+      message: "Masukkan program pendidikan",
+    }),
   });
 
   const schemaDataOrangTua = z.object({
@@ -216,8 +216,6 @@ export default function DetailSantri() {
       message: "Masukkan program pendidikan",
     }),
   });
-
-  
 
   const schemaDokumenPerijinan = z.object({
     nspp: z.string({ message: "Masukkan NSPP" }),
@@ -358,6 +356,45 @@ export default function DetailSantri() {
     // Revoke the object URL to avoid memory leaks
     URL.revokeObjectURL(fileToRemove.preview);
   };
+
+  useEffect(() => {
+    if (!santriId) return;
+
+    const fetchData = async () => {
+      try {
+        const { data } = await http().get(`/santri/${santriId}`);
+        reset(data.results[0]);
+      } catch (err) {
+        toast("Gagal memuat data santri", { description: err.message });
+      }
+    };
+
+    fetchData();
+  }, [santriId, reset]);
+
+  const queryClient = useQueryClient();
+
+  const patchDataSantri = useMutation({
+    mutationFn: async (values) => {
+      const data = new FormData();
+
+      data.append("judul_buku", values.judul_buku);
+      data.append("kelas", values.kelas);
+      data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
+      return http().patch(`/buku-pelajaran/${santriId}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
+      toast("Buku pelajaran berhasil ditambahkan", {
+        description: new Date().toLocaleString(),
+      });
+    },
+    onError: (err) => {
+      toast(err.response.data.message, {
+        description: new Date().toLocaleString(),
+      });
+    },
+  });
 
   return (
     <Sidebar>
