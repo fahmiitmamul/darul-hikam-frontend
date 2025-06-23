@@ -51,7 +51,6 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useCallback } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -59,7 +58,8 @@ import UploadKKSantri from "@/components/upload-kk-santri";
 import UploadKipSantri from "@/components/upload-kip-santri";
 import UploadFotoSantri from "@/components/upload-foto-santri";
 import { useGlobalContext } from "@/context/global-context";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
 
 const defaultData = [
   {
@@ -195,7 +195,7 @@ export default function DetailSantri() {
     agama: z.string({
       message: "Masukkan program pendidikan",
     }),
-    nomor_handphone: z.string({
+    no_handphone: z.string({
       message: "Masukkan program pendidikan",
     }),
     nomor_kk_santri: z.string({
@@ -231,9 +231,40 @@ export default function DetailSantri() {
   const dataSantriForm = useForm({
     resolver: zodResolver(schemaDataSantri),
     defaultValues: {
-      nspp: "",
+      nama_lengkap: "",
+      nisn: "",
+      kewarganegaraan: "",
+      nik: "",
+      tempat_lahir: "",
+      tanggal_lahir: "",
+      jenis_kelamin: "",
+      jumlah_saudara: "",
+      anak_ke: "",
+      agama: "",
+      no_handphone: "",
+      nomor_kk_santri: "",
+      nama_kk_santri: "",
     },
   });
+
+  const { reset: resetDataSantri } = dataSantriForm;
+
+  useEffect(() => {
+    if (!santriId) return;
+
+    const fetchData = async () => {
+      try {
+        const { data } = await http().get(`/santri/${santriId}`);
+        console.log(data);
+        resetDataSantri(data.results[0]);
+      } catch (err) {
+        console.log(err);
+        toast("Gagal memuat data santri", { description: err.message });
+      }
+    };
+
+    fetchData();
+  }, [santriId]);
 
   const dataOrangTuaForm = useForm({
     resolver: zodResolver(schemaDataOrangTua),
@@ -259,118 +290,6 @@ export default function DetailSantri() {
   const onSubmit = (data) => {
     console.log("Form data:", data);
   };
-
-  const [files, setFiles] = useState([]);
-  const [isDragging, setIsDragging] = useState(false);
-  const [error, setError] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(null);
-
-  const onDrop = useCallback(
-    (acceptedFiles) => {
-      setError(null);
-
-      // Validate files
-      const invalidFiles = acceptedFiles.filter(
-        (file) => file.type !== "application/pdf"
-      );
-      if (invalidFiles.length > 0) {
-        setError("Only PDF files are allowed");
-        return;
-      }
-
-      const oversizedFiles = acceptedFiles.filter(
-        (file) => file.size > 10 * 1024 * 1024
-      ); // 10MB limit
-      if (oversizedFiles.length > 0) {
-        setError("File size exceeds 10MB limit");
-        return;
-      }
-
-      // Add preview property to files
-      const newFiles = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      );
-
-      setFiles((prev) => [...prev, ...newFiles]);
-
-      // Simulate upload progress
-      simulateUpload();
-    },
-    [files]
-  );
-
-  const simulateUpload = () => {
-    setUploadProgress(0);
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev === null) return 0;
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 200);
-  };
-
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!isDragging) {
-      setIsDragging(true);
-    }
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    onDrop(droppedFiles);
-  };
-
-  const handleFileInputChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFiles = Array.from(e.target.files);
-      onDrop(selectedFiles);
-    }
-  };
-
-  const removeFile = (fileToRemove) => {
-    setFiles(files.filter((file) => file !== fileToRemove));
-    // Revoke the object URL to avoid memory leaks
-    URL.revokeObjectURL(fileToRemove.preview);
-  };
-
-  useEffect(() => {
-    if (!santriId) return;
-
-    const fetchData = async () => {
-      try {
-        const { data } = await http().get(`/santri/${santriId}`);
-        reset(data.results[0]);
-      } catch (err) {
-        toast("Gagal memuat data santri", { description: err.message });
-      }
-    };
-
-    fetchData();
-  }, [santriId]);
 
   const queryClient = useQueryClient();
 
@@ -709,7 +628,7 @@ export default function DetailSantri() {
                     <div>
                       <FormField
                         control={dataSantriForm.control}
-                        name="nomor_handphone"
+                        name="no_handphone"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nomor Handphone</FormLabel>
@@ -1088,7 +1007,7 @@ export default function DetailSantri() {
                     <div>
                       <FormField
                         control={dataSantriForm.control}
-                        name="nomor_handphone"
+                        name="no_handphone"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nomor Handphone</FormLabel>
@@ -1403,7 +1322,7 @@ export default function DetailSantri() {
                     <div>
                       <FormField
                         control={dataSantriForm.control}
-                        name="nomor_handphone"
+                        name="no_handphone"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nomor Handphone</FormLabel>
