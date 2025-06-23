@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { BookOpen, Landmark, User2, House } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import { OrgHeader } from "@/components/org-header";
@@ -11,7 +10,6 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { UserCheck } from "lucide-react";
 
 // This is sample data.
 const data = {

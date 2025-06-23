@@ -188,6 +188,35 @@ export function NavMain() {
           </SidebarMenuItem>
         </Collapsible>
       </SidebarMenu>
+
+      {/* Buku Tabungan Section */}
+      <SidebarMenu>
+        <Collapsible className="w-full">
+          <SidebarMenuItem>
+            <CollapsibleTrigger asChild>
+              <SidebarMenuButton
+                tooltip="Buku Tabungan"
+                className="cursor-pointer"
+              >
+                <BookOpen className="h-4 w-4" />
+                <span>Buku Tabungan</span>
+                <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+              </SidebarMenuButton>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link href="/buku-tabungan">
+                      <span>Buku Tabungan</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </CollapsibleContent>
+          </SidebarMenuItem>
+        </Collapsible>
+      </SidebarMenu>
     </SidebarGroup>
   );
 }
