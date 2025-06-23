@@ -370,7 +370,7 @@ export default function DetailSantri() {
     };
 
     fetchData();
-  }, [santriId, reset]);
+  }, [santriId]);
 
   const queryClient = useQueryClient();
 
