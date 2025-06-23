@@ -195,7 +195,7 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip=" Tabungan" className="cursor-pointer">
+              <SidebarMenuButton tooltip="Tabungan" className="cursor-pointer">
                 <NotebookPen className="h-4 w-4" />
                 <span>Tabungan</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />

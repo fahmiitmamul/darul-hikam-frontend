@@ -20,9 +20,9 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
 
-export default function ModalTambahBukuTabungan({
-  openDialogAddBukuTabungan,
-  setOpenDialogAddBukuTabungan,
+export default function ModalTambahTabungan({
+  openDialogAddTabungan,
+  setOpenDialogAddTabungan,
 }) {
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
 
@@ -67,14 +67,14 @@ export default function ModalTambahBukuTabungan({
 
   const onSubmit = (data) => {
     postBukuPelajaran.mutate(data);
-    setOpenDialogAddBukuTabungan(false);
+    setOpenDialogAddTabungan(false);
   };
 
   return (
     <div>
       <Dialog
-        open={openDialogAddBukuTabungan}
-        onOpenChange={setOpenDialogAddBukuTabungan}
+        open={openDialogAddTabungan}
+        onOpenChange={setOpenDialogAddTabungan}
       >
         <DialogTrigger asChild>
           <Button type="button" className="uppercase cursor-pointer">
@@ -142,7 +142,7 @@ export default function ModalTambahBukuTabungan({
               type="button"
               variant="outline"
               className="cursor-pointer uppercase"
-              onClick={() => setOpenDialogAddBukuTabungan(false)}
+              onClick={() => setOpenDialogAddTabungan(false)}
             >
               Kembali
             </Button>

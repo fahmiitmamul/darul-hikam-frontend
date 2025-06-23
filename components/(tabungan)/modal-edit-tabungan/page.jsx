@@ -19,10 +19,10 @@ import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export default function ModalEditBukuTabungan({
-  bukuPelajaranId,
-  openDialogEditBukuPelajaran,
-  setOpenDialogEditBukuPelajaran,
+export default function ModalEditTabungan({
+  tabunganId,
+  openDialogEditTabungan,
+  setOpenDialogEditTabungan,
 }) {
   const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(null);
 
@@ -48,11 +48,11 @@ export default function ModalEditBukuTabungan({
   const { reset } = bukuPelajaranForm;
 
   useEffect(() => {
-    if (!bukuPelajaranId || !openDialogEditBukuPelajaran) return;
+    if (!tabunganId || !openDialogEditTabungan) return;
 
     const fetchData = async () => {
       try {
-        const { data } = await http().get(`/buku-pelajaran/${bukuPelajaranId}`);
+        const { data } = await http().get(`/buku-pelajaran/${tabunganId}`);
         setFileUploadBukuPelajaran(data?.results?.[0]?.file_buku_pelajaran);
         reset(data.results[0]);
       } catch (err) {
@@ -61,7 +61,7 @@ export default function ModalEditBukuTabungan({
     };
 
     fetchData();
-  }, [bukuPelajaranId, openDialogEditBukuPelajaran, reset]);
+  }, [tabunganId, openDialogEditTabungan, reset]);
 
   const queryClient = useQueryClient();
 
@@ -72,7 +72,7 @@ export default function ModalEditBukuTabungan({
       data.append("judul_buku", values.judul_buku);
       data.append("kelas", values.kelas);
       data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
-      return http().patch(`/buku-pelajaran/${bukuPelajaranId}`, data);
+      return http().patch(`/buku-pelajaran/${tabunganId}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
@@ -89,14 +89,14 @@ export default function ModalEditBukuTabungan({
 
   const onSubmit = (data) => {
     patchBukuPelajaran.mutate(data);
-    setOpenDialogEditBukuPelajaran(false);
+    setOpenDialogEditTabungan(false);
   };
 
   return (
     <div>
       <Dialog
-        open={openDialogEditBukuPelajaran}
-        onOpenChange={setOpenDialogEditBukuPelajaran}
+        open={openDialogEditTabungan}
+        onOpenChange={setOpenDialogEditTabungan}
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -158,7 +158,7 @@ export default function ModalEditBukuTabungan({
               type="button"
               variant="outline"
               className="cursor-pointer uppercase"
-              onClick={() => setOpenDialogEditBukuPelajaran(false)}
+              onClick={() => setOpenDialogEditTabungan(false)}
             >
               Kembali
             </Button>

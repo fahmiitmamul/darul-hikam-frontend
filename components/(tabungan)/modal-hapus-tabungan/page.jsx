@@ -12,16 +12,16 @@ import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export function ModalHapusBukuTabungan({
-  bukuTabunganId,
-  openDialogHapusBukuTabungan,
-  setOpenDialogHapusBukuTabungan,
+export function ModalHapusTabungan({
+  tabunganId,
+  openDialogHapusTabungan,
+  setOpenDialogHapusTabungan,
 }) {
   const queryClient = useQueryClient();
 
   const handleDelete = useMutation({
     mutationFn: async () => {
-      return http().delete(`/buku-tabungan/${bukuTabunganId}`);
+      return http().delete(`/buku-tabungan/${tabunganId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["buku-tabungan"] });
@@ -42,8 +42,8 @@ export function ModalHapusBukuTabungan({
 
   return (
     <AlertDialog
-      open={openDialogHapusBukuTabungan}
-      onOpenChange={setOpenDialogHapusBukuTabungan}
+      open={openDialogHapusTabungan}
+      onOpenChange={setOpenDialogHapusTabungan}
     >
       <AlertDialogContent>
         <AlertDialogHeader>
