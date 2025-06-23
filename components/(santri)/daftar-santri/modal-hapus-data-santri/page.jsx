@@ -25,7 +25,7 @@ export function ModalHapusDataSantri({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["santri"] });
-      toast("Berhasil menghapus mudir atau pimpinan", {
+      toast("Berhasil menghapus santri", {
         description: new Date().toLocaleString(),
       });
     },
