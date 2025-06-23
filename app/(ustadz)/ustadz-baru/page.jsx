@@ -819,43 +819,6 @@ export default function UstadzBaru() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                  <FormField
-                    control={ustadzForm.control}
-                    name="tanggal_akta_pendirian"
-                    render={({ field, fieldState }) => (
-                      <FormItem>
-                        <FormLabel
-                          className={fieldState.error ? "text-red-500" : ""}
-                        >
-                          Tanggal Akta Pendirian
-                        </FormLabel>
-                        <FormControl>
-                          <Flatpickr
-                            value={field.value}
-                            onChange={([date]) => field.onChange(date)}
-                            options={{
-                              dateFormat: "Y-m-d",
-                              allowInput: true,
-                            }}
-                            className={cn(
-                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-                              "ring-offset-background placeholder:text-muted-foreground",
-                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                              fieldState.error && "border-red-500"
-                            )}
-                            placeholder="Pilih tanggal"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div></div>
-              </div>
-
               <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 Informasi Tempat Tinggal
               </h4>
