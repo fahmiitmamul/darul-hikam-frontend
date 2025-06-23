@@ -26,7 +26,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Check } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -47,8 +47,8 @@ export default function ModalTambahTabungan({
   const [open, setOpen] = useState(false);
 
   const schemaTabungan = z.object({
-    judul_buku: z
-      .string({ message: "Masukkan Judul Buku" })
+    nama_santri: z
+      .string({ message: "Masukkan Nama Santri" })
       .min(1, "Harap diisi"),
     kelas: z.string({ message: "Masukkan Kelas" }).min(1, "Harap diisi"),
   });
