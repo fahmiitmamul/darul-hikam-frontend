@@ -4,15 +4,6 @@ import AppHeader from "@/components/app-header";
 import { useState } from "react";
 import { Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import React from "react";
 import {
   Table,
@@ -46,7 +37,6 @@ import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalContext } from "@/context/global-context";
 import { Eye } from "lucide-react";
-import { useRouter } from "next/navigation";
 import ModalEditTabungan from "@/components/(tabungan)/modal-edit-tabungan/page";
 import ModalHapusTabungan from "@/components/(tabungan)/modal-hapus-tabungan/page";
 import ModalTambahTabungan from "@/components/(tabungan)/modal-tambah-tabungan/page";
@@ -59,8 +49,6 @@ export default function BukuTabungan() {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
-
-  const router = useRouter();
 
   const getDataTabungan = async (page, limit, search) => {
     const { data } = await http().get(

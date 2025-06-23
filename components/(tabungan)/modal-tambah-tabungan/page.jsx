@@ -14,47 +14,65 @@ import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
+import { FormControl } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { ChevronsUpDown } from "lucide-react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 export default function ModalTambahTabungan({
   openDialogAddTabungan,
   setOpenDialogAddTabungan,
 }) {
-  const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(false);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [value, setValue] = useState("");
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const schemaBukuTabungan = z.object({
+  const schemaTabungan = z.object({
     judul_buku: z
       .string({ message: "Masukkan Judul Buku" })
       .min(1, "Harap diisi"),
     kelas: z.string({ message: "Masukkan Kelas" }).min(1, "Harap diisi"),
   });
 
-  const bukuPelajaranForm = useForm({
-    resolver: zodResolver(schemaBukuTabungan),
+  const tabunganForm = useForm({
+    resolver: zodResolver(schemaTabungan),
     defaultValues: {
-      judul_buku: "",
-      kelas: "",
+      santri: "",
+      tanggal: "",
+      uang_masuk: "",
+      total: "",
     },
   });
 
   const queryClient = useQueryClient();
 
-  const postBukuPelajaran = useMutation({
+  const postTabungan = useMutation({
     mutationFn: async (values) => {
-      const data = new FormData();
-
-      data.append("judul_buku", values.judul_buku);
-      data.append("kelas", values.kelas);
-      data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
-      return http().post(`/buku-pelajaran`, data);
+      const data = new URLSearchParams(values).toString();
+      return http().post(`/tabungan`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
-      toast("Buku pelajaran berhasil ditambahkan", {
+      queryClient.invalidateQueries({ queryKey: ["tabungan"] });
+      toast("Tabungan berhasil ditambahkan", {
         description: new Date().toLocaleString(),
       });
     },
@@ -65,8 +83,22 @@ export default function ModalTambahTabungan({
     },
   });
 
+  const getDataSantri = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/santri?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataSantri(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
   const onSubmit = (data) => {
-    postBukuPelajaran.mutate(data);
+    postTabungan.mutate(data);
     setOpenDialogAddTabungan(false);
   };
 
@@ -84,27 +116,93 @@ export default function ModalTambahTabungan({
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Tambah Buku Pelajaran</DialogTitle>
+            <DialogTitle>Tambah Tabungan</DialogTitle>
           </DialogHeader>
           <div>
-            <Form {...bukuPelajaranForm}>
+            <Form {...tabunganForm}>
               <form
-                onSubmit={bukuPelajaranForm.handleSubmit(onSubmit)}
+                onSubmit={tabunganForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={bukuPelajaranForm.control}
-                      name="judul_buku"
-                      render={({ field }) => (
+                      control={tabunganForm.control}
+                      name="santri_id"
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Judul Buku</FormLabel>
-                          <Input
-                            type="text"
-                            placeholder="Silahkan Tulis Judul Buku"
-                            {...field}
-                          />
+                          <FormLabel>Nama Lengkap</FormLabel>
+                          <FormControl>
+                            <Popover open={open} onOpenChange={setOpen}>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  aria-expanded={open}
+                                  className={cn(
+                                    "w-full justify-between",
+                                    fieldState.invalid &&
+                                      "border-red-500 text-red-600"
+                                  )}
+                                >
+                                  {value
+                                    ? data?.find(
+                                        (santri) => santri.id === value
+                                      )?.name
+                                    : "Pilih santri"}
+                                  <ChevronsUpDown className="opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full p-0">
+                                <Command>
+                                  <CommandInput
+                                    placeholder="Cari santri..."
+                                    className="h-9"
+                                    value={globalFilter}
+                                    onValueChange={(val) =>
+                                      setGlobalFilter(val)
+                                    }
+                                  />
+                                  <CommandList>
+                                    <CommandEmpty>
+                                      Tidak ditemukan.
+                                    </CommandEmpty>
+                                    <CommandGroup>
+                                      {data?.data?.map((santri) => (
+                                        <CommandItem
+                                          key={santri.id}
+                                          value={santri.id}
+                                          onSelect={(currentValue) => {
+                                            setValue(
+                                              currentValue === value
+                                                ? ""
+                                                : currentValue
+                                            );
+                                            setOpen(false);
+                                            field.onChange(
+                                              currentValue === value
+                                                ? ""
+                                                : currentValue
+                                            );
+                                          }}
+                                        >
+                                          {santri.nama_lengkap}
+                                          <Check
+                                            className={cn(
+                                              "ml-auto",
+                                              value === santri.id
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                          </FormControl>
                         </FormItem>
                       )}
                     />
@@ -114,7 +212,7 @@ export default function ModalTambahTabungan({
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={bukuPelajaranForm.control}
+                      control={tabunganForm.control}
                       name="kelas"
                       render={({ field }) => (
                         <FormItem>
@@ -129,11 +227,6 @@ export default function ModalTambahTabungan({
                     />
                   </div>
                 </div>
-
-                <UploadBukuPelajaran
-                  fileUploadBukuPelajaran={fileUploadBukuPelajaran}
-                  setFileUploadBukuPelajaran={setFileUploadBukuPelajaran}
-                />
               </form>
             </Form>
           </div>
@@ -149,7 +242,7 @@ export default function ModalTambahTabungan({
             <Button
               type="button"
               onClick={() => {
-                bukuPelajaranForm.handleSubmit(onSubmit)();
+                tabunganForm.handleSubmit(onSubmit)();
               }}
               className="cursor-pointer uppercase"
             >
