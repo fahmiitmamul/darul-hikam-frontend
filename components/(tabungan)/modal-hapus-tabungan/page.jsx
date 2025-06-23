@@ -12,7 +12,7 @@ import http from "@/helpers/http.helper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export function ModalHapusTabungan({
+export default function ModalHapusTabungan({
   tabunganId,
   openDialogHapusTabungan,
   setOpenDialogHapusTabungan,

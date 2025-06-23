@@ -8,12 +8,14 @@ export const GlobalProvider = ({ children }) => {
   const [bukuPelajaranId, setBukuPelajaranId] = useState(null);
   const [mudirPimpinanId, setMudirPimpinanId] = useState(null);
   const [santriId, setSantriId] = useState(null);
+  const [tabunganId, setTabunganId] = useState(null);
 
   // Load from localStorage saat pertama render
   useEffect(() => {
     const savedBukuPelajaranId = localStorage.getItem("bukuPelajaranId");
     const savedMudirPimpinanId = localStorage.getItem("mudirPimpinanId");
     const santriId = localStorage.getItem("santriId");
+    const tabunganId = localStorage.getItem("tabunganId");
     if (savedBukuPelajaranId) {
       setBukuPelajaranId(savedBukuPelajaranId);
     }
@@ -22,6 +24,9 @@ export const GlobalProvider = ({ children }) => {
     }
     if (santriId) {
       setSantriId(santriId);
+    }
+    if (tabunganId) {
+      setTabunganId(tabunganId);
     }
   }, []);
 
@@ -44,7 +49,13 @@ export const GlobalProvider = ({ children }) => {
     } else {
       localStorage.removeItem("santriId");
     }
-  }, [bukuPelajaranId, mudirPimpinanId, santriId]);
+
+    if (tabunganId) {
+      localStorage.setItem("tabunganId", JSON.stringify(santriId));
+    } else {
+      localStorage.removeItem("tabunganId");
+    }
+  }, [bukuPelajaranId, mudirPimpinanId, santriId, tabunganId]);
 
   return (
     <GlobalContext.Provider
@@ -55,6 +66,8 @@ export const GlobalProvider = ({ children }) => {
         setMudirPimpinanId,
         santriId,
         setSantriId,
+        tabunganId,
+        setTabunganId,
       }}
     >
       {children}

@@ -35,7 +35,6 @@ import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
 import ModalTambahBukuPelajaran from "@/components/(buku-pelajaran)/modal-tambah-buku-pelajaran/page";
-import { ModalHapusBukuPelajaran } from "@/components/(buku-pelajaran)/modal-hapus-buku-pelajaran/page";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,27 +45,24 @@ import { MoreHorizontal } from "lucide-react";
 import { Pencil } from "lucide-react";
 import http from "@/helpers/http.helper";
 import { useQuery } from "@tanstack/react-query";
-import ModalEditBukuPelajaran from "@/components/(buku-pelajaran)/modal-edit-buku-pelajaran/page";
 import { useGlobalContext } from "@/context/global-context";
 import { Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import ModalEditTabungan from "@/components/(tabungan)/modal-edit-tabungan/page";
+import ModalHapusTabungan from "@/components/(tabungan)/modal-hapus-tabungan/page";
 
-export default function BukuPelajaran() {
-  const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =
-    useState(false);
-  const [openDialogEditBukuPelajaran, setOpenDialogEditBukuPelajaran] =
-    useState(false);
-  const [openDialogHapusBukuPelajaran, setOpenDialogHapusBukuPelajaran] =
-    useState(false);
-  const { bukuPelajaranId, setBukuPelajaranId } = useGlobalContext();
+export default function BukuTabungan() {
+  const [openDialogAddTabungan, setOpenDialogAddTabungan] = useState(false);
+  const [openDialogEditTabungan, setOpenDialogEditTabungan] = useState(false);
+  const [openDialogHapusTabungan, setOpenDialogHapusTabungan] = useState(false);
+  const { tabunganId, setTabunganId } = useGlobalContext();
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const router = useRouter();
 
-  const getDataBukuPelajaran = async (page, limit, search) => {
+  const getDataTabungan = async (page, limit, search) => {
     const { data } = await http().get(
       `/buku-pelajaran?page=${page}&limit=${limit}&search=${search}`
     );
@@ -76,7 +72,7 @@ export default function BukuPelajaran() {
 
   const { data } = useQuery({
     queryKey: ["buku-pelajaran", pageIndex, pageSize, globalFilter],
-    queryFn: () => getDataBukuPelajaran(pageIndex, pageSize, globalFilter),
+    queryFn: () => getDataTabungan(pageIndex, pageSize, globalFilter),
     keepPreviousData: true,
   });
 
@@ -120,8 +116,8 @@ export default function BukuPelajaran() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                setBukuPelajaranId(row.original.id);
-                setOpenDialogEditBukuPelajaran(row.original.id);
+                setTabunganId(row.original.id);
+                setOpenDialogEditTabungan(row.original.id);
               }}
             >
               <Pencil />
@@ -130,8 +126,8 @@ export default function BukuPelajaran() {
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
               onClick={() => {
-                setBukuPelajaranId(row.original.id);
-                setOpenDialogHapusBukuPelajaran(true);
+                setTabunganId(row.original.id);
+                setOpenDialogHapusTabungan(true);
               }}
             >
               <Trash />
@@ -181,8 +177,8 @@ export default function BukuPelajaran() {
             </h3>
             <div>
               <ModalTambahBukuPelajaran
-                openDialogAddBukuPelajaran={openDialogAddBukuPelajaran}
-                setOpenDialogAddBukuPelajaran={setOpenDialogAddBukuPelajaran}
+                openDialogAddTabungan={openDialogAddTabungan}
+                setOpenDialogAddTabungan={setOpenDialogAddTabungan}
               />
             </div>
           </div>
@@ -302,16 +298,16 @@ export default function BukuPelajaran() {
         </div>
       </div>
 
-      <ModalEditBukuPelajaran
-        bukuPelajaranId={bukuPelajaranId}
-        openDialogEditBukuPelajaran={openDialogEditBukuPelajaran}
-        setOpenDialogEditBukuPelajaran={setOpenDialogEditBukuPelajaran}
+      <ModalEditTabungan
+        tabunganId={tabunganId}
+        openDialogEditTabungan={openDialogEditTabungan}
+        setOpenDialogEditTabungan={setOpenDialogEditTabungan}
       />
 
-      <ModalHapusBukuPelajaran
-        bukuPelajaranId={bukuPelajaranId}
-        openDialogHapusBukuPelajaran={openDialogHapusBukuPelajaran}
-        setOpenDialogHapusBukuPelajaran={setOpenDialogHapusBukuPelajaran}
+      <ModalHapusTabungan
+        tabunganId={tabunganId}
+        openDialogHapusTabungan={openDialogHapusTabungan}
+        setOpenDialogHapusTabungan={setOpenDialogHapusTabungan}
       />
     </Sidebar>
   );
