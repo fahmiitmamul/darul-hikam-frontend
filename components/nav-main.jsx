@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Landmark } from "lucide-react";
 import Link from "next/link";
+import { NotebookPen } from "lucide-react";
 
 export function NavMain() {
   return (
@@ -194,12 +195,9 @@ export function NavMain() {
         <Collapsible className="w-full">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton
-                tooltip="Buku Tabungan"
-                className="cursor-pointer"
-              >
-                <BookOpen className="h-4 w-4" />
-                <span>Buku Tabungan</span>
+              <SidebarMenuButton tooltip=" Tabungan" className="cursor-pointer">
+                <NotebookPen className="h-4 w-4" />
+                <span>Tabungan</span>
                 <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -207,8 +205,8 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/buku-tabungan">
-                      <span>Buku Tabungan</span>
+                    <Link href="/tabungan">
+                      <span>Tabungan</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
