@@ -1,5 +1,4 @@
 "use client";
-import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -117,7 +116,7 @@ export default function ModalEditTabungan({
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Tambah Tabungan</DialogTitle>
+            <DialogTitle>Edit Tabungan</DialogTitle>
           </DialogHeader>
           <div>
             <Form {...tabunganForm}>
