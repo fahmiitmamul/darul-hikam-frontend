@@ -21,11 +21,11 @@ export default function ModalHapusTabungan({
 
   const handleDelete = useMutation({
     mutationFn: async () => {
-      return http().delete(`/buku-tabungan/${tabunganId}`);
+      return http().delete(`/tabungan/${tabunganId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["buku-tabungan"] });
-      toast("Berhasil menghapus buku tabungan", {
+      queryClient.invalidateQueries({ queryKey: ["tabungan"] });
+      toast("Berhasil menghapus tabungan", {
         description: new Date().toLocaleString(),
       });
     },
@@ -47,7 +47,7 @@ export default function ModalHapusTabungan({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Hapus Buku Tabungan</AlertDialogTitle>
+          <AlertDialogTitle>Hapus Tabungan</AlertDialogTitle>
           <AlertDialogDescription>
             Tindakan ini tidak dapat dibatalkan. Tindakan ini akan menghapus
             secara permanen.

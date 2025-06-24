@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -13,70 +13,73 @@ import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import UploadBukuPelajaran from "@/components/upload-buku-pelajaran";
-import { useEffect, useState } from "react";
-import http from "@/helpers/http.helper";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
+import { FormControl } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { ChevronsUpDown, Check } from "lucide-react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+import { Input } from "@/components/ui/input";
 
 export default function ModalEditTabungan({
-  tabunganId,
   openDialogEditTabungan,
   setOpenDialogEditTabungan,
 }) {
-  const [fileUploadBukuPelajaran, setFileUploadBukuPelajaran] = useState(null);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [value, setValue] = useState("");
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const schemaDokumen = z.object({
-    nspp: z.string({ message: "Masukkan NSPP" }),
-    nama_lembaga: z.string({ message: "Masukkan nama lembaga" }),
-    satuan_pendidikan: z.string({
-      message: "Masukkan satuan pendidikan",
+  const schemaTabungan = z.object({
+    nama_santri: z
+      .string({ message: "Masukkan Nama Santri" })
+      .min(1, "Harap diisi"),
+    tanggal: z.date({
+      message: "Masukkan tanggal",
     }),
-    program_pendidikan: z.string({
-      message: "Masukkan program pendidikan",
-    }),
+    uang_masuk: z
+      .string({ message: "Masukkan Uang Masuk" })
+      .min(1, "Harap diisi"),
   });
 
-  const bukuPelajaranForm = useForm({
-    resolver: zodResolver(schemaDokumen),
+  const tabunganForm = useForm({
+    resolver: zodResolver(schemaTabungan),
     defaultValues: {
-      judul_buku: "",
-      kelas: "",
+      nama_santri: "",
+      tanggal: "",
+      uang_masuk: "",
+      total: "",
     },
   });
-
-  const { reset } = bukuPelajaranForm;
-
-  useEffect(() => {
-    if (!tabunganId || !openDialogEditTabungan) return;
-
-    const fetchData = async () => {
-      try {
-        const { data } = await http().get(`/buku-pelajaran/${tabunganId}`);
-        setFileUploadBukuPelajaran(data?.results?.[0]?.file_buku_pelajaran);
-        reset(data.results[0]);
-      } catch (err) {
-        toast("Gagal memuat data buku", { description: err.message });
-      }
-    };
-
-    fetchData();
-  }, [tabunganId, openDialogEditTabungan, reset]);
 
   const queryClient = useQueryClient();
 
-  const patchBukuPelajaran = useMutation({
+  const postTabungan = useMutation({
     mutationFn: async (values) => {
-      const data = new FormData();
-
-      data.append("judul_buku", values.judul_buku);
-      data.append("kelas", values.kelas);
-      data.append("file_buku_pelajaran", fileUploadBukuPelajaran);
-      return http().patch(`/buku-pelajaran/${tabunganId}`, data);
+      const data = new URLSearchParams(values).toString();
+      return http().post(`/tabungan`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["buku-pelajaran"] });
-      toast("Buku pelajaran berhasil ditambahkan", {
+      queryClient.invalidateQueries({ queryKey: ["tabungan"] });
+      toast("Tabungan berhasil ditambahkan", {
         description: new Date().toLocaleString(),
       });
     },
@@ -87,8 +90,22 @@ export default function ModalEditTabungan({
     },
   });
 
+  const getDataSantri = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/santri?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataSantri(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
   const onSubmit = (data) => {
-    patchBukuPelajaran.mutate(data);
+    postTabungan.mutate(data);
     setOpenDialogEditTabungan(false);
   };
 
@@ -98,29 +115,101 @@ export default function ModalEditTabungan({
         open={openDialogEditTabungan}
         onOpenChange={setOpenDialogEditTabungan}
       >
+        <DialogTrigger asChild>
+          <Button type="button" className="uppercase cursor-pointer">
+            <Plus />
+            Tambah Tabungan
+          </Button>
+        </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit Buku Pelajaran</DialogTitle>
+            <DialogTitle>Tambah Tabungan</DialogTitle>
           </DialogHeader>
           <div>
-            <Form {...bukuPelajaranForm}>
+            <Form {...tabunganForm}>
               <form
-                onSubmit={bukuPelajaranForm.handleSubmit(onSubmit)}
+                onSubmit={tabunganForm.handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-5"
               >
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={bukuPelajaranForm.control}
-                      name="judul_buku"
-                      render={({ field }) => (
+                      control={tabunganForm.control}
+                      name="nama_santri"
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Judul Buku</FormLabel>
-                          <Input
-                            type="text"
-                            placeholder="Silahkan Tulis Judul Buku"
-                            {...field}
-                          />
+                          <FormLabel>Nama Lengkap</FormLabel>
+                          <FormControl>
+                            <Popover open={open} onOpenChange={setOpen}>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  aria-expanded={open}
+                                  className={cn(
+                                    "w-full justify-between",
+                                    fieldState.invalid &&
+                                      "border-red-500 text-red-600"
+                                  )}
+                                >
+                                  {value
+                                    ? data?.data?.find(
+                                        (santri) => santri.id === value
+                                      )?.name
+                                    : "Pilih santri"}
+                                  <ChevronsUpDown className="opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full p-0">
+                                <Command>
+                                  <CommandInput
+                                    placeholder="Cari santri..."
+                                    className="h-9"
+                                    value={globalFilter}
+                                    onValueChange={(val) =>
+                                      setGlobalFilter(val)
+                                    }
+                                  />
+                                  <CommandList>
+                                    <CommandEmpty>
+                                      Tidak ditemukan.
+                                    </CommandEmpty>
+                                    <CommandGroup>
+                                      {data?.data?.map((santri) => (
+                                        <CommandItem
+                                          key={santri.id}
+                                          value={santri.id}
+                                          onSelect={(currentValue) => {
+                                            setValue(
+                                              currentValue === value
+                                                ? ""
+                                                : currentValue
+                                            );
+                                            setOpen(false);
+                                            field.onChange(
+                                              currentValue === value
+                                                ? ""
+                                                : currentValue
+                                            );
+                                          }}
+                                        >
+                                          {santri.nama_lengkap}
+                                          <Check
+                                            className={cn(
+                                              "ml-auto",
+                                              value === santri.id
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                          </FormControl>
                         </FormItem>
                       )}
                     />
@@ -130,26 +219,62 @@ export default function ModalEditTabungan({
                 <div className="flex gap-5">
                   <div className="w-full">
                     <FormField
-                      control={bukuPelajaranForm.control}
-                      name="kelas"
-                      render={({ field }) => (
+                      control={tabunganForm.control}
+                      name="tanggal"
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Kelas</FormLabel>
-                          <Input
-                            type="text"
-                            placeholder="Silahkan Tulis Kelas"
-                            {...field}
-                          />
+                          <FormLabel
+                            className={fieldState.error ? "text-red-500" : ""}
+                          >
+                            Tanggal
+                          </FormLabel>
+                          <FormControl>
+                            <Flatpickr
+                              value={field.value}
+                              onChange={([date]) => field.onChange(date)}
+                              options={{
+                                dateFormat: "Y-m-d",
+                                allowInput: true,
+                                appendTo:
+                                  document.querySelector(
+                                    ".flatpickr-container"
+                                  ) ?? undefined,
+                              }}
+                              className={cn(
+                                "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                                "ring-offset-background placeholder:text-muted-foreground",
+                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                fieldState.error && "border-red-500"
+                              )}
+                              placeholder="Pilih tanggal"
+                            />
+                          </FormControl>
                         </FormItem>
                       )}
                     />
                   </div>
                 </div>
 
-                <UploadBukuPelajaran
-                  fileUploadBukuPelajaran={fileUploadBukuPelajaran}
-                  setFileUploadBukuPelajaran={setFileUploadBukuPelajaran}
-                />
+                <div className="flex gap-5">
+                  <div className="w-full">
+                    <FormField
+                      control={tabunganForm.control}
+                      name="uang_masuk"
+                      render={({ field, fieldState }) => (
+                        <FormItem>
+                          <FormLabel>Uang Masuk</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Uang Masuk"
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
               </form>
             </Form>
           </div>
@@ -165,7 +290,7 @@ export default function ModalEditTabungan({
             <Button
               type="button"
               onClick={() => {
-                bukuPelajaranForm.handleSubmit(onSubmit)();
+                tabunganForm.handleSubmit(onSubmit)();
               }}
               className="cursor-pointer uppercase"
             >
