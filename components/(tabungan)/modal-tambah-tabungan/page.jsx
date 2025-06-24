@@ -1,6 +1,5 @@
 "use client";
 import { Plus } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -35,6 +34,9 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+import { Input } from "@/components/ui/input";
 
 export default function ModalTambahTabungan({
   openDialogAddTabungan,
@@ -50,13 +52,18 @@ export default function ModalTambahTabungan({
     nama_santri: z
       .string({ message: "Masukkan Nama Santri" })
       .min(1, "Harap diisi"),
-    kelas: z.string({ message: "Masukkan Kelas" }).min(1, "Harap diisi"),
+    tanggal: z.date({
+      message: "Masukkan tanggal",
+    }),
+    uang_masuk: z
+      .string({ message: "Masukkan Uang Masuk" })
+      .min(1, "Harap diisi"),
   });
 
   const tabunganForm = useForm({
     resolver: zodResolver(schemaTabungan),
     defaultValues: {
-      santri: "",
+      nama_santri: "",
       tanggal: "",
       uang_masuk: "",
       total: "",
@@ -128,7 +135,7 @@ export default function ModalTambahTabungan({
                   <div className="w-full">
                     <FormField
                       control={tabunganForm.control}
-                      name="santri_id"
+                      name="nama_santri"
                       render={({ field, fieldState }) => (
                         <FormItem>
                           <FormLabel>Nama Lengkap</FormLabel>
@@ -146,7 +153,7 @@ export default function ModalTambahTabungan({
                                   )}
                                 >
                                   {value
-                                    ? data?.find(
+                                    ? data?.data?.find(
                                         (santri) => santri.id === value
                                       )?.name
                                     : "Pilih santri"}
@@ -213,15 +220,56 @@ export default function ModalTambahTabungan({
                   <div className="w-full">
                     <FormField
                       control={tabunganForm.control}
-                      name="kelas"
-                      render={({ field }) => (
+                      name="tanggal"
+                      render={({ field, fieldState }) => (
                         <FormItem>
-                          <FormLabel>Kelas</FormLabel>
-                          <Input
-                            type="text"
-                            placeholder="Silahkan Tulis Kelas"
-                            {...field}
-                          />
+                          <FormLabel
+                            className={fieldState.error ? "text-red-500" : ""}
+                          >
+                            Tanggal
+                          </FormLabel>
+                          <FormControl>
+                            <Flatpickr
+                              value={field.value}
+                              onChange={([date]) => field.onChange(date)}
+                              options={{
+                                dateFormat: "Y-m-d",
+                                allowInput: true,
+                                appendTo:
+                                  document.querySelector(
+                                    ".flatpickr-container"
+                                  ) ?? undefined,
+                              }}
+                              className={cn(
+                                "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                                "ring-offset-background placeholder:text-muted-foreground",
+                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                fieldState.error && "border-red-500"
+                              )}
+                              placeholder="Pilih tanggal"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-5">
+                  <div className="w-full">
+                    <FormField
+                      control={tabunganForm.control}
+                      name="uang_masuk"
+                      render={({ field, fieldState }) => (
+                        <FormItem>
+                          <FormLabel>Uang Masuk</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Uang Masuk"
+                              {...field}
+                            />
+                          </FormControl>
                         </FormItem>
                       )}
                     />
