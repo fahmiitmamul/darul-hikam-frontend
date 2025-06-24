@@ -115,12 +115,6 @@ export default function ModalEditTabungan({
         open={openDialogEditTabungan}
         onOpenChange={setOpenDialogEditTabungan}
       >
-        <DialogTrigger asChild>
-          <Button type="button" className="uppercase cursor-pointer">
-            <Plus />
-            Tambah Tabungan
-          </Button>
-        </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Tambah Tabungan</DialogTitle>
