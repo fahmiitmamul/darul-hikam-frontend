@@ -122,181 +122,182 @@ export default function ModalTambahTabungan({
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Tambah Tabungan</DialogTitle>
-          </DialogHeader>
-          <div>
-            <Form {...tabunganForm}>
-              <form
-                onSubmit={tabunganForm.handleSubmit(onSubmit)}
-                className="flex flex-col gap-5 mt-5"
+          <div className="flatpickr-portal">
+            <DialogHeader>
+              <DialogTitle>Tambah Tabungan</DialogTitle>
+            </DialogHeader>
+            <div>
+              <Form {...tabunganForm}>
+                <form
+                  onSubmit={tabunganForm.handleSubmit(onSubmit)}
+                  className="flex flex-col gap-5 mt-5"
+                >
+                  <div className="flex gap-5">
+                    <div className="w-full">
+                      <FormField
+                        control={tabunganForm.control}
+                        name="nama_santri"
+                        render={({ field, fieldState }) => (
+                          <FormItem>
+                            <FormLabel>Nama Lengkap</FormLabel>
+                            <FormControl>
+                              <Popover open={open} onOpenChange={setOpen}>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={open}
+                                    className={cn(
+                                      "w-full justify-between",
+                                      fieldState.invalid &&
+                                        "border-red-500 text-red-600"
+                                    )}
+                                  >
+                                    {value
+                                      ? data?.data?.find(
+                                          (santri) =>
+                                            santri.id === Number(value)
+                                        )?.nama_lengkap
+                                      : "Pilih santri"}
+                                    <ChevronsUpDown className="opacity-50" />
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput
+                                      placeholder="Cari santri..."
+                                      className="h-9"
+                                      value={globalFilter}
+                                      onValueChange={(val) =>
+                                        setGlobalFilter(val)
+                                      }
+                                    />
+                                    <CommandList>
+                                      <CommandEmpty>
+                                        Tidak ditemukan.
+                                      </CommandEmpty>
+                                      <CommandGroup>
+                                        {data?.data?.map((santri) => (
+                                          <CommandItem
+                                            key={santri.id}
+                                            value={santri.id.toString()}
+                                            onSelect={(currentValue) => {
+                                              const selected =
+                                                currentValue ===
+                                                value?.toString()
+                                                  ? ""
+                                                  : currentValue;
+                                              setValue(selected);
+                                              setOpen(false);
+                                              field.onChange(selected);
+                                            }}
+                                          >
+                                            {santri.nama_lengkap}
+                                            <Check
+                                              className={cn(
+                                                "ml-auto",
+                                                value?.toString() ===
+                                                  santri.id.toString()
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-5">
+                    <div className="w-full">
+                      <FormField
+                        control={tabunganForm.control}
+                        name="tanggal"
+                        render={({ field, fieldState }) => (
+                          <FormItem>
+                            <FormLabel
+                              className={fieldState.error ? "text-red-500" : ""}
+                            >
+                              Tanggal
+                            </FormLabel>
+                            <FormControl>
+                              <Flatpickr
+                                value={field.value}
+                                onChange={([date]) => field.onChange(date)}
+                                options={{
+                                  dateFormat: "Y-m-d",
+                                  allowInput: true,
+                                  appendTo:
+                                    document.querySelector(
+                                      ".flatpickr-portal"
+                                    ) ?? undefined,
+                                }}
+                                className={cn(
+                                  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                                  "ring-offset-background placeholder:text-muted-foreground",
+                                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                  fieldState.error && "border-red-500"
+                                )}
+                                placeholder="Pilih tanggal"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-5">
+                    <div className="w-full">
+                      <FormField
+                        control={tabunganForm.control}
+                        name="uang_masuk"
+                        render={({ field, fieldState }) => (
+                          <FormItem>
+                            <FormLabel>Uang Masuk</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="Uang Masuk"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                </form>
+              </Form>
+            </div>
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                className="cursor-pointer uppercase"
+                onClick={() => setOpenDialogAddTabungan(false)}
               >
-                <div className="flex gap-5">
-                  <div className="w-full">
-                    <FormField
-                      control={tabunganForm.control}
-                      name="nama_santri"
-                      render={({ field, fieldState }) => (
-                        <FormItem>
-                          <FormLabel>Nama Lengkap</FormLabel>
-                          <FormControl>
-                            <Popover open={open} onOpenChange={setOpen}>
-                              <PopoverTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  role="combobox"
-                                  aria-expanded={open}
-                                  className={cn(
-                                    "w-full justify-between",
-                                    fieldState.invalid &&
-                                      "border-red-500 text-red-600"
-                                  )}
-                                >
-                                  {value
-                                    ? data?.data?.find(
-                                        (santri) => santri.id === value
-                                      )?.name
-                                    : "Pilih santri"}
-                                  <ChevronsUpDown className="opacity-50" />
-                                </Button>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput
-                                    placeholder="Cari santri..."
-                                    className="h-9"
-                                    value={globalFilter}
-                                    onValueChange={(val) =>
-                                      setGlobalFilter(val)
-                                    }
-                                  />
-                                  <CommandList>
-                                    <CommandEmpty>
-                                      Tidak ditemukan.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {data?.data?.map((santri) => (
-                                        <CommandItem
-                                          key={santri.id}
-                                          value={santri.id}
-                                          onSelect={(currentValue) => {
-                                            setValue(
-                                              currentValue === value
-                                                ? ""
-                                                : currentValue
-                                            );
-                                            setOpen(false);
-                                            field.onChange(
-                                              currentValue === value
-                                                ? ""
-                                                : currentValue
-                                            );
-                                          }}
-                                        >
-                                          {santri.nama_lengkap}
-                                          <Check
-                                            className={cn(
-                                              "ml-auto",
-                                              value === santri.id
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-5">
-                  <div className="w-full">
-                    <FormField
-                      control={tabunganForm.control}
-                      name="tanggal"
-                      render={({ field, fieldState }) => (
-                        <FormItem>
-                          <FormLabel
-                            className={fieldState.error ? "text-red-500" : ""}
-                          >
-                            Tanggal
-                          </FormLabel>
-                          <FormControl>
-                            <Flatpickr
-                              value={field.value}
-                              onChange={([date]) => field.onChange(date)}
-                              options={{
-                                dateFormat: "Y-m-d",
-                                allowInput: true,
-                                appendTo:
-                                  document.querySelector(
-                                    ".flatpickr-container"
-                                  ) ?? undefined,
-                              }}
-                              className={cn(
-                                "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-                                "ring-offset-background placeholder:text-muted-foreground",
-                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                                fieldState.error && "border-red-500"
-                              )}
-                              placeholder="Pilih tanggal"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-5">
-                  <div className="w-full">
-                    <FormField
-                      control={tabunganForm.control}
-                      name="uang_masuk"
-                      render={({ field, fieldState }) => (
-                        <FormItem>
-                          <FormLabel>Uang Masuk</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              placeholder="Uang Masuk"
-                              {...field}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-              </form>
-            </Form>
+                Kembali
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  tabunganForm.handleSubmit(onSubmit)();
+                }}
+                className="cursor-pointer uppercase"
+              >
+                Simpan
+              </Button>
+            </DialogFooter>
           </div>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              className="cursor-pointer uppercase"
-              onClick={() => setOpenDialogAddTabungan(false)}
-            >
-              Kembali
-            </Button>
-            <Button
-              type="button"
-              onClick={() => {
-                tabunganForm.handleSubmit(onSubmit)();
-              }}
-              className="cursor-pointer uppercase"
-            >
-              Simpan
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
