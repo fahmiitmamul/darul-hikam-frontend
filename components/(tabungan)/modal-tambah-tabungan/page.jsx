@@ -122,7 +122,7 @@ export default function ModalTambahTabungan({
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <div className="flatpickr-portal">
+          <div id="flatpickr-dialog-container">
             <DialogHeader>
               <DialogTitle>Tambah Tabungan</DialogTitle>
             </DialogHeader>
@@ -236,8 +236,8 @@ export default function ModalTambahTabungan({
                                   dateFormat: "Y-m-d",
                                   allowInput: true,
                                   appendTo:
-                                    document.querySelector(
-                                      ".flatpickr-portal"
+                                    document.getElementById(
+                                      "flatpickr-dialog-container"
                                     ) ?? undefined,
                                 }}
                                 className={cn(
