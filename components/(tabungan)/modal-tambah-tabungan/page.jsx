@@ -49,7 +49,7 @@ export default function ModalTambahTabungan({
   const [open, setOpen] = useState(false);
 
   const schemaTabungan = z.object({
-    nama_santri: z
+    santri_id: z
       .string({ message: "Masukkan Nama Santri" })
       .min(1, "Harap diisi"),
     tanggal: z.date({
@@ -63,7 +63,7 @@ export default function ModalTambahTabungan({
   const tabunganForm = useForm({
     resolver: zodResolver(schemaTabungan),
     defaultValues: {
-      nama_santri: "",
+      santri_id: "",
       tanggal: "",
       uang_masuk: "",
       total: "",
@@ -136,7 +136,7 @@ export default function ModalTambahTabungan({
                     <div className="w-full">
                       <FormField
                         control={tabunganForm.control}
-                        name="nama_santri"
+                        name="santri_id"
                         render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Nama Lengkap</FormLabel>
