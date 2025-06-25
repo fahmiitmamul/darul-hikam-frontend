@@ -40,6 +40,7 @@ import { Eye } from "lucide-react";
 import ModalEditTabungan from "@/components/(tabungan)/modal-edit-tabungan/page";
 import ModalHapusTabungan from "@/components/(tabungan)/modal-hapus-tabungan/page";
 import ModalTambahTabungan from "@/components/(tabungan)/modal-tambah-tabungan/page";
+import { format, parseISO } from "date-fns";
 
 export default function BukuTabungan() {
   const [openDialogAddTabungan, setOpenDialogAddTabungan] = useState(false);
@@ -73,10 +74,16 @@ export default function BukuTabungan() {
     {
       accessorKey: "santri",
       header: "Nama Santri",
+      accessorFn: (row) => row.santri?.nama_lengkap ?? "-",
     },
     {
       accessorKey: "tanggal",
       header: "Tanggal",
+      cell: ({ row }) => {
+        const rawDate = row.getValue("tanggal"); // ISO string
+        const date = parseISO(rawDate); // ubah string ISO ke Date object
+        return format(date, "dd-MM-yyyy"); // format sesuai kebutuhan
+      },
     },
     {
       accessorKey: "uang_masuk",
