@@ -107,18 +107,6 @@ export default function BukuTabungan() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://res.cloudinary.com/dxnewldiy/raw/upload/v1749961055/file/${row.original.file_buku_pelajaran}`,
-                  "_blank"
-                );
-              }}
-            >
-              <Eye />
-              Buka
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
                 setTabunganId(row.original.id);
                 setOpenDialogEditTabungan(row.original.id);
               }}
