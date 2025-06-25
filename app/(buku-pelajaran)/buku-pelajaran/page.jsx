@@ -50,7 +50,6 @@ import ModalEditBukuPelajaran from "@/components/(buku-pelajaran)/modal-edit-buk
 import { useGlobalContext } from "@/context/global-context";
 import { Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function BukuPelajaran() {
   const [openDialogAddBukuPelajaran, setOpenDialogAddBukuPelajaran] =

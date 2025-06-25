@@ -12,7 +12,7 @@ import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/helpers/http.helper";
@@ -38,6 +38,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import { Input } from "@/components/ui/input";
 
 export default function ModalEditTabungan({
+  tabunganId,
   openDialogEditTabungan,
   setOpenDialogEditTabungan,
 }) {
@@ -69,9 +70,26 @@ export default function ModalEditTabungan({
     },
   });
 
+  const { reset } = tabunganForm;
+
+  useEffect(() => {
+    if (!tabunganId || !openDialogEditTabungan) return;
+
+    const fetchData = async () => {
+      try {
+        const { data } = await http().get(`/tabungan/${tabunganId}`);
+        reset(data.results[0]);
+      } catch (err) {
+        toast("Gagal memuat tabungan", { description: err.message });
+      }
+    };
+
+    fetchData();
+  }, [tabunganId, openDialogEditTabungan, reset]);
+
   const queryClient = useQueryClient();
 
-  const postTabungan = useMutation({
+  const patchTabungan = useMutation({
     mutationFn: async (values) => {
       const data = new URLSearchParams(values).toString();
       return http().post(`/tabungan`, data);
@@ -104,7 +122,7 @@ export default function ModalEditTabungan({
   });
 
   const onSubmit = (data) => {
-    postTabungan.mutate(data);
+    patchTabungan.mutate(data);
     setOpenDialogEditTabungan(false);
   };
 
