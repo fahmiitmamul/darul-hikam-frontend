@@ -125,9 +125,6 @@ export default function UstadzBaru() {
         message: "Masukkan prodi terakhir",
       })
       .min(1, "Harap diisi"),
-    tanggal_akta_pendirian: z.date({
-      message: "Masukkan tanggal masuk",
-    }),
     status_tempat_tinggal: z
       .string({
         message: "Masukkan status tempat tinggal",
@@ -1641,7 +1638,13 @@ export default function UstadzBaru() {
                 <div></div>
               </div>
 
-              <Button type="submit" className="uppercase cursor-pointer mt-5">
+              <Button
+                type="button"
+                onClick={() => {
+                  ustadzForm.handleSubmit(onSubmit)();
+                }}
+                className="uppercase cursor-pointer mt-5"
+              >
                 Simpan
               </Button>
             </form>

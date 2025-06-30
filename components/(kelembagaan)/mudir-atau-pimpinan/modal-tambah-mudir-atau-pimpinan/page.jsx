@@ -81,6 +81,8 @@ export default function ModalTambahMudirAtauPimpinan({
     keepPreviousData: true,
   });
 
+  console.log(data);
+
   const mudirAtauPimpinanSchema = z.object({
     nama_lengkap: z
       .string({ message: "Masukkan Nama Lengkap" })
@@ -239,10 +241,10 @@ export default function ModalTambahMudirAtauPimpinan({
                                         "border-red-500 text-red-600"
                                     )}
                                   >
-                                    {value
-                                      ? data?.find(
+                                    {data?.data
+                                      ? data.data.find(
                                           (ustadz) => ustadz.id === value
-                                        )?.name
+                                        )?.nama_lengkap
                                       : "Pilih Ustadz"}
                                     <ChevronsUpDown className="opacity-50" />
                                   </Button>
