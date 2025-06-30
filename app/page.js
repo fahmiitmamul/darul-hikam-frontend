@@ -13,9 +13,45 @@ import { Volume2 } from "lucide-react";
 import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";
 import { useSession } from "next-auth/react";
+import http from "@/helpers/http.helper";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function Page() {
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
   const { data } = useSession();
+
+  const getDataSantri = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/santri?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data: santriData } = useQuery({
+    queryKey: ["santri", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataSantri(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
+  const getDataUstadz = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/ustadz?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data: ustadzData } = useQuery({
+    queryKey: ["ustadz", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
+  console.log(ustadzData);
 
   return (
     <Sidebar>
@@ -102,29 +138,10 @@ export default function Page() {
                   <CardTitle>
                     <div className="flex gap-2 items-center">
                       <div>
-                        <LayoutTemplate />
-                      </div>
-                      <h1 className="uppercase font-bold tracking-light text-xl">
-                        2
-                      </h1>
-                    </div>
-                  </CardTitle>
-                  <CardDescription>
-                    <h1 className="text-sm tracking-light">Ruangan</h1>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-            <div className="w-full">
-              <Card className="w-full border-l-8">
-                <CardHeader>
-                  <CardTitle>
-                    <div className="flex gap-2 items-center">
-                      <div>
                         <UsersRound />
                       </div>
                       <h1 className="uppercase font-bold tracking-light text-xl">
-                        10
+                        {santriData?.data?.length}
                       </h1>
                     </div>
                   </CardTitle>

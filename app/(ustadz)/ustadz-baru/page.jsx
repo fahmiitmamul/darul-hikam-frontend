@@ -1378,33 +1378,21 @@ export default function UstadzBaru() {
                           TMT Ustadz / Tanggal SK PTK
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "PPP")
-                                ) : (
-                                  <span>TMT Ustadz / Tanggal SK PTK</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -1550,33 +1538,21 @@ export default function UstadzBaru() {
                           Tanggal SK
                         </FormLabel>
                         <FormControl>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !field.value && "text-muted-foreground",
-                                  fieldState.error && "border-red-500"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                  format(field.value, "PPP")
-                                ) : (
-                                  <span>Pilih Tanggal SK</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                          <Flatpickr
+                            value={field.value}
+                            onChange={([date]) => field.onChange(date)}
+                            options={{
+                              dateFormat: "Y-m-d",
+                              allowInput: true,
+                            }}
+                            className={cn(
+                              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                              "ring-offset-background placeholder:text-muted-foreground",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                              fieldState.error && "border-red-500"
+                            )}
+                            placeholder="Pilih tanggal"
+                          />
                         </FormControl>
                       </FormItem>
                     )}
