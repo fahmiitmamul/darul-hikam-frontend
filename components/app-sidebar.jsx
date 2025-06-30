@@ -10,14 +10,9 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useSession } from "next-auth/react";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "Itmamul Fahmi",
-    email: "itmamul2004@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
+const orgData = {
   org: [
     {
       name: "DARUL HIKAM TPQ",
@@ -28,16 +23,18 @@ const data = {
 };
 
 export function AppSidebar({ ...props }) {
+  const { data } = useSession();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <OrgHeader org={data.org} />
+        <OrgHeader org={orgData.org} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={data} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
