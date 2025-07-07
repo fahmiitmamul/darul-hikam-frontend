@@ -131,7 +131,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 pt-10 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 pt-10 gap-5">
             <div className="w-full">
               <Card className="w-full border-l-8">
                 <CardHeader>
