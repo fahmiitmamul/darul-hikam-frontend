@@ -71,8 +71,9 @@ export default function MudirAtauPimpinan() {
       cell: ({ row }) => row.index + 1 + (pageIndex - 1) * pageSize,
     },
     {
-      accessorKey: "nama_lengkap",
+      accessorKey: "ustadz",
       header: "Nama Lengkap",
+      cell: ({ row }) => row.original.ustadz.nama_lengkap,
     },
     {
       accessorKey: "no_handphone",
