@@ -81,11 +81,9 @@ export default function ModalTambahMudirAtauPimpinan({
     keepPreviousData: true,
   });
 
-  console.log(data);
-
   const mudirAtauPimpinanSchema = z.object({
-    nama_lengkap: z
-      .string({ message: "Masukkan Nama Lengkap" })
+    ustadz_id: z
+      .number({ message: "Masukkan Nama Lengkap" })
       .min(1, "Wajib diisi"),
     nik: z.string({ message: "Masukkan NIK" }).min(1, "Wajib diisi"),
     gelar_depan: z
@@ -156,7 +154,7 @@ export default function ModalTambahMudirAtauPimpinan({
   const mudirAtauPimpinanForm = useForm({
     resolver: zodResolver(mudirAtauPimpinanSchema),
     defaultValues: {
-      nama_lengkap: "",
+      ustadz_id: "",
       nik: "",
       gelar_depan: "",
       gelar_belakang: "",
@@ -224,7 +222,7 @@ export default function ModalTambahMudirAtauPimpinan({
                     <div>
                       <FormField
                         control={mudirAtauPimpinanForm.control}
-                        name="nama_lengkap"
+                        name="ustadz_id"
                         render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Nama Lengkap</FormLabel>
@@ -243,8 +241,8 @@ export default function ModalTambahMudirAtauPimpinan({
                                   >
                                     {data?.data
                                       ? data.data.find(
-                                          (ustadz) => ustadz.id === value
-                                        )?.nama_lengkap
+                                          (ustadz) => ustadz.id === field.value
+                                        )?.nama_lengkap ?? "Pilih Ustadz"
                                       : "Pilih Ustadz"}
                                     <ChevronsUpDown className="opacity-50" />
                                   </Button>
@@ -255,44 +253,45 @@ export default function ModalTambahMudirAtauPimpinan({
                                       placeholder="Cari ustadz..."
                                       className="h-9"
                                       value={globalFilter}
-                                      onValueChange={(val) =>
-                                        setGlobalFilter(val)
-                                      }
+                                      onValueChange={(val) => {
+                                        setGlobalFilter(val);
+                                      }}
                                     />
                                     <CommandList>
                                       <CommandEmpty>
                                         Tidak ditemukan.
                                       </CommandEmpty>
                                       <CommandGroup>
-                                        {data?.data?.map((ustadz) => (
-                                          <CommandItem
-                                            key={ustadz.id}
-                                            value={ustadz.id}
-                                            onSelect={(currentValue) => {
-                                              setValue(
-                                                currentValue === value
-                                                  ? ""
-                                                  : currentValue
-                                              );
-                                              setOpen(false);
-                                              field.onChange(
-                                                currentValue === value
-                                                  ? ""
-                                                  : currentValue
-                                              );
-                                            }}
-                                          >
-                                            {ustadz.nama_lengkap}
-                                            <Check
-                                              className={cn(
-                                                "ml-auto",
-                                                value === ustadz.id
-                                                  ? "opacity-100"
-                                                  : "opacity-0"
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
+                                        {data?.data?.map((ustadz) => {
+                                          const fullName = ustadz.nama_lengkap;
+                                          return (
+                                            <CommandItem
+                                              key={ustadz.id}
+                                              value={ustadz.id.toString()}
+                                              onSelect={(currentValue) => {
+                                                const selectedId =
+                                                  parseInt(currentValue);
+                                                const newValue =
+                                                  selectedId === field.value
+                                                    ? ""
+                                                    : selectedId;
+                                                setValue(newValue);
+                                                setOpen(false);
+                                                field.onChange(newValue);
+                                              }}
+                                            >
+                                              {fullName}
+                                              <Check
+                                                className={cn(
+                                                  "ml-auto",
+                                                  field.value === ustadz.id
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          );
+                                        })}
                                       </CommandGroup>
                                     </CommandList>
                                   </Command>
