@@ -11,7 +11,6 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { useEffect } from "react";
 import {
@@ -56,6 +55,7 @@ import { toast } from "sonner";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ModalEditMudirAtauPimpinan({
   mudirAtauPimpinanId,
@@ -65,12 +65,9 @@ export default function ModalEditMudirAtauPimpinan({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const frameworks = [
-    {
-      value: "Itmamul Fahmi",
-      label: "Itmamul Fahmi",
-    },
-  ];
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const mudirAtauPimpinanSchema = z.object({
     ustadz_id: z
@@ -184,6 +181,20 @@ export default function ModalEditMudirAtauPimpinan({
     },
   });
 
+  const getDataUstadz = async (page, limit, search) => {
+    const { data } = await http().get(
+      `/ustadz?page=${page}&limit=${limit}&search=${search}`
+    );
+
+    return data.results;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["ustadz", pageIndex, pageSize, globalFilter],
+    queryFn: () => getDataUstadz(pageIndex, pageSize, globalFilter),
+    keepPreviousData: true,
+  });
+
   useEffect(() => {
     if (!mudirAtauPimpinanId || !openDialogEditMudirAtauPimpinan) return;
 
@@ -206,6 +217,8 @@ export default function ModalEditMudirAtauPimpinan({
     setOpenDialogEditMudirAtauPimpinan(false);
   };
 
+  console.log(data);
+
   return (
     <div>
       <Sheet
@@ -226,7 +239,7 @@ export default function ModalEditMudirAtauPimpinan({
                     <div>
                       <FormField
                         control={mudirAtauPimpinanForm.control}
-                        name="nama_lengkap"
+                        name="ustadz_id"
                         render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel>Nama Lengkap</FormLabel>
