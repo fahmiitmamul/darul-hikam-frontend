@@ -32,7 +32,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
@@ -319,65 +319,120 @@ export default function Profil() {
     resolver: zodResolver(schemaIdentitas),
     defaultValues: async () => {
       const { data } = await http().get(`/profil/identitas`);
-      return data.results?.data[0];
+      const r = data.results?.data[0] || {};
+
+      return {
+        nspp: r.nspp ?? "",
+        nama_lembaga: r.nama_lembaga ?? "",
+        satuan_pendidikan: r.satuan_pendidikan ?? "",
+        program_pendidikan: r.program_pendidikan ?? "",
+        npwp: r.npwp ?? "",
+        nomor_telepon: r.nomor_telepon ?? "",
+        alamat_website: r.alamat_website ?? "",
+        email: r.email ?? "",
+        tahun_berdiri_hijriah: r.tahun_berdiri_hijriah
+          ? new Date(r.tahun_berdiri_hijriah)
+          : new Date(),
+        tahun_berdiri_masehi: r.tahun_berdiri_masehi
+          ? new Date(r.tahun_berdiri_masehi)
+          : new Date(),
+        tipe_penyelenggara_lembaga: r.tipe_penyelenggara_lembaga ?? "",
+        nama_penyelenggara_lembaga: r.nama_penyelenggara_lembaga ?? "",
+        afilisasi_organisasi_keagamaan: r.afilisasi_organisasi_keagamaan ?? "",
+      };
     },
   });
 
   const lokasiForm = useForm({
     resolver: zodResolver(schemaLokasi),
-    defaultValues: async () => {
-      const { data } = await http().get(`/profil/lokasi`);
-      setIdProvince(data?.results?.data[0]?.provinsi);
-      setIdRegency(data?.results?.data[0]?.kabupaten);
-      setIdDistrict(data?.results?.data[0]?.kecamatan);
-      setIdVillage(data?.results?.data[0]?.desa_atau_kelurahan);
-      return data.results?.data[0];
+    defaultValues: {
+      alamat: "",
+      rt: "",
+      rw: "",
+      desa_atau_kelurahan: "",
+      kecamatan: "",
+      kabupaten: "",
+      provinsi: "",
+      kode_pos: "",
     },
   });
+
+  useEffect(() => {
+    http()
+      .get("/profil/lokasi")
+      .then(({ data }) => {
+        const r = data?.results?.data[0] || {};
+
+        setIdProvince(r.provinsi ?? "");
+        setIdRegency(r.kabupaten ?? "");
+        setIdDistrict(r.kecamatan ?? "");
+        setIdVillage(r.desa_atau_kelurahan ?? "");
+
+        lokasiForm.reset(r);
+      });
+  }, []);
 
   const galeriForm = useForm({
-    defaultValues: async () => {
-      const { data } = await http().get(`/profil/galeri-foto`);
-      const fileName = `${Date.now()}.jpg`;
-      setFotoPapanNama({
-        url: data.results?.data[0]?.foto_papan_nama,
-        filename: fileName,
-      });
-      setFotoGedung({
-        url: data.results?.data[0]?.foto_gedung_tampak_depan,
-        filename: fileName,
-      });
-      setFotoKelas({
-        url: data.results?.data[0]?.foto_kelas,
-        filename: fileName,
-      });
-      setFotoHalaman({
-        url: data.results?.data[0]?.foto_halaman,
-        filename: fileName,
-      });
-      setFotoDenahLembaga({
-        url: data.results?.data[0]?.foto_denah_lembaga,
-        filename: fileName,
-      });
-      setFotoMusholaAtauMasjid({
-        url: data.results?.data[0]?.foto_mushola_atau_masjid,
-        filename: fileName,
-      });
-
-      return data.results?.data[0];
+    defaultValues: {
+      foto_papan_nama: "",
+      foto_gedung_tampak_depan: "",
+      foto_kelas: "",
+      foto_halaman: "",
+      foto_denah_lembaga: "",
+      foto_mushola_atau_masjid: "",
     },
   });
+
+  useEffect(() => {
+    http()
+      .get("/profil/galeri-foto")
+      .then(({ data }) => {
+        const r = data?.results?.data[0] || {};
+        const fileName = `${Date.now()}.jpg`;
+
+        setFotoPapanNama({ url: r.foto_papan_nama ?? "", filename: fileName });
+        setFotoGedung({
+          url: r.foto_gedung_tampak_depan ?? "",
+          filename: fileName,
+        });
+        setFotoKelas({ url: r.foto_kelas ?? "", filename: fileName });
+        setFotoHalaman({ url: r.foto_halaman ?? "", filename: fileName });
+        setFotoDenahLembaga({
+          url: r.foto_denah_lembaga ?? "",
+          filename: fileName,
+        });
+        setFotoMusholaAtauMasjid({
+          url: r.foto_mushola_atau_masjid ?? "",
+          filename: fileName,
+        });
+
+        galeriForm.reset(r);
+      });
+  }, []);
 
   const dokumenPerijinanForm = useForm({
     resolver: zodResolver(schemaDokumenPerijinan),
-    defaultValues: async () => {
-      const { data } = await http().get(`/profil/akta-pendirian-penyelenggara`);
-      setFileUploadAktaPendirianPenyelenggara(
-        data.results?.data[0]?.file_akta_pendirian
-      );
-      return data.results?.data[0];
+    defaultValues: {
+      akta_pendirian_penyelenggara: "",
+      tanggal_akta_pendirian: new Date(),
     },
   });
+
+  useEffect(() => {
+    http()
+      .get("/profil/akta-pendirian-penyelenggara")
+      .then(({ data }) => {
+        const r = data?.results?.data[0] || {};
+
+        setFileUploadAktaPendirianPenyelenggara(
+          r.akta_pendirian_penyelenggara ?? ""
+        );
+        dokumenPerijinanForm.reset({
+          akta_pendirian_penyelenggara: r ?? "",
+          tanggal_akta_pendirian: new Date(r.tanggal_akta_pendirian),
+        });
+      });
+  }, []);
 
   const queryClient = useQueryClient();
 
