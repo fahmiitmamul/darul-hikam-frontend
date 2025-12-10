@@ -459,7 +459,7 @@ export default function DetailSantri() {
                     </div>
                     <div className="flex justify-center items-center mt-5">
                       <div className="bg-slate-100 rounded-md cursor-pointer px-10 py-1 w-full">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6 font-medium text-sm">
+                        <p className="leading-7 not-first:mt-6 font-medium text-sm">
                           Status Verifikasi NIK : Belum Diverifikasi
                         </p>
                       </div>
