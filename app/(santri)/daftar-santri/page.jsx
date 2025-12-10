@@ -78,7 +78,7 @@ export default function DaftarSantri() {
         return (
           <div className="relative w-10 h-10">
             <Image
-              src={`https://res.cloudinary.com/dpeolbh0r/image/upload/${row.original.foto_profil}`}
+              src={`https://res.cloudinary.com/dpeolbh0r/raw/upload/v1765339575/file/${row.original.foto_profil}`}
               alt="Foto Profil"
               fill
               className="rounded-full object-cover"
