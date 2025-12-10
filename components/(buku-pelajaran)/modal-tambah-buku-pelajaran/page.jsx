@@ -86,7 +86,7 @@ export default function ModalTambahBukuPelajaran({
           <DialogHeader>
             <DialogTitle>Tambah Buku Pelajaran</DialogTitle>
           </DialogHeader>
-          <div>
+          <div className="overflow-hidden">
             <Form {...bukuPelajaranForm}>
               <form
                 onSubmit={bukuPelajaranForm.handleSubmit(onSubmit)}
