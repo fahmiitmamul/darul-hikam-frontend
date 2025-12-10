@@ -198,7 +198,7 @@ export default function DaftarUstadz() {
                 </Select>
               </div>
               <div>
-                <Input type="text" placeholder="Cari Nama Ustadz" />
+                <Input type="text" placeholder="Cari Nama Ustadz" readOnly />
               </div>
             </div>
             <div></div>
