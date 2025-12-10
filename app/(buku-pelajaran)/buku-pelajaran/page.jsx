@@ -205,7 +205,7 @@ export default function BukuPelajaran() {
                 </Select>
               </div>
               <div>
-                <Input type="text" placeholder="Cari Buku Pelajaran" />
+                <Input type="text" placeholder="Cari Buku Pelajaran" readOnly />
               </div>
             </div>
             <div></div>
