@@ -140,7 +140,11 @@ export default function KenaikanKelas() {
                     </Select>
                   </div>
                   <div>
-                    <Input type="number" placeholder="Cari Nama / NISN" />
+                    <Input
+                      type="number"
+                      placeholder="Cari Nama / NISN"
+                      readOnly
+                    />
                   </div>
                 </div>
                 <div></div>
@@ -244,7 +248,11 @@ export default function KenaikanKelas() {
                     </Select>
                   </div>
                   <div>
-                    <Input type="number" placeholder="Cari Nama / NISN" />
+                    <Input
+                      type="number"
+                      placeholder="Cari Nama / NISN"
+                      readOnly
+                    />
                   </div>
                 </div>
                 <div></div>

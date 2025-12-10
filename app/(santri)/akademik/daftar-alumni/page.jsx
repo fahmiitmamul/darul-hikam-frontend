@@ -140,7 +140,7 @@ export default function DaftarAlumni() {
                 </Select>
               </div>
               <div>
-                <Input type="number" placeholder="Cari Nama / NISN" />
+                <Input type="number" placeholder="Cari Nama / NISN" readOnly />
               </div>
             </div>
             <div></div>
