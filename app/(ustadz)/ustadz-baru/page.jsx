@@ -50,7 +50,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 export default function UstadzBaru() {
-  const [fileUploadSk, setFileUploadSk] = useState(null);
+  const [fileUploadSK, setFileUploadSK] = useState(null);
   const [fileFotoUstadz, setFileFotoUstadz] = useState(null);
 
   const router = useRouter();
@@ -1631,8 +1631,8 @@ export default function UstadzBaru() {
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <UploadFileSk
-                    fileUploadSk={fileUploadSk}
-                    setUploadFileSK={setFileUploadSk}
+                    fileUploadSK={fileUploadSK}
+                    setUploadFileSK={setFileUploadSK}
                   />
                 </div>
                 <div></div>
