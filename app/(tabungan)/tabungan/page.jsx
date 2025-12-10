@@ -178,7 +178,7 @@ export default function BukuTabungan() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <Input type="text" placeholder="Cari Tabungan" />
+                <Input type="text" placeholder="Cari Tabungan" readOnly />
               </div>
             </div>
             <div></div>
