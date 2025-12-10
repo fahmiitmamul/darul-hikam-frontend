@@ -80,19 +80,41 @@ export default function UploadBukuPelajaran({
   };
 
   return (
-    <div className="w-full max-w-md space-y-4">
+    <div className="w-full max-w-md mx-auto space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="pdf-upload">Upload Buku Pelajaran</Label>
-        {!fileUploadBukuPelajaran && (
-          <Card
-            className={cn(
-              "border-2 border-dashed transition-colors",
-              isDragOver
-                ? "border-primary bg-primary/5"
-                : "border-muted-foreground/25",
-              error ? "border-destructive" : ""
-            )}
-          >
+        <Label htmlFor="pdf-upload">Upload Izin Operasional</Label>
+        <Card
+          className={cn(
+            "border-2 border-dashed transition-colors",
+            isDragOver
+              ? "border-primary bg-primary/5"
+              : "border-muted-foreground/25",
+            error ? "border-destructive" : ""
+          )}
+        >
+          {fileUploadBukuPelajaran ? (
+            <div className="flex items-center justify-between overflow-auto px-5">
+              <div className="flex items-center space-x-3">
+                <FileText className="h-8 w-8 text-red-500" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">
+                    {fileUploadBukuPelajaran.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatFileSize(fileUploadBukuPelajaran.size)}
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={removeFile}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
             <CardContent
               className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
               onDrop={handleDrop}
@@ -119,42 +141,14 @@ export default function UploadBukuPelajaran({
                 className="hidden"
               />
             </CardContent>
-          </Card>
-        )}
+          )}
+        </Card>
       </div>
 
       {error && (
         <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
           {error}
         </div>
-      )}
-
-      {fileUploadBukuPelajaran && (
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <FileText className="h-8 w-8 text-red-500" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">
-                    {fileUploadBukuPelajaran.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatFileSize(fileUploadBukuPelajaran.size)}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={removeFile}
-                className="h-8 w-8 p-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       )}
     </div>
   );
