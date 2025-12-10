@@ -93,31 +93,27 @@ export default function UploadIzinOperasional({
           )}
         >
           {fileUploadIzinOperasional ? (
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-8 w-8 text-red-500" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {fileUploadIzinOperasional.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {formatFileSize(fileUploadIzinOperasional.size)}
-                      </p>
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={removeFile}
-                    className="h-8 w-8 p-0"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+            <div className="flex items-center justify-between overflow-auto px-5">
+              <div className="flex items-center space-x-3">
+                <FileText className="h-8 w-8 text-red-500" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">
+                    {fileUploadIzinOperasional.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatFileSize(fileUploadIzinOperasional.size)}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={removeFile}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           ) : (
             <CardContent
               className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
