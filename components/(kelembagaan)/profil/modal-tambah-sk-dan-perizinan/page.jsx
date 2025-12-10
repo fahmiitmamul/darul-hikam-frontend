@@ -53,7 +53,7 @@ export default function ModalTambahSkDanPerizinan({
 }) {
   const [fileUploadIzinOperasional, setFileUploadIzinOperasional] =
     useState(null);
-  const [fileUploadPiagamSkIjop, setFileUploadPiagamSkIjop] = useState(null);
+  const [fileUploadPiagamSKIjop, setFileUploadPiagamSKIjop] = useState(null);
 
   const schemaDokumen = z.object({
     no_sk_ijop: z.string({
@@ -318,8 +318,8 @@ export default function ModalTambahSkDanPerizinan({
                   </div>
                   <div>
                     <UploadPiagamSkIjop
-                      fileUploadPiagamSkIjop={fileUploadPiagamSkIjop}
-                      setFileUploadPiagamSkIjop={setFileUploadPiagamSkIjop}
+                      fileUploadPiagamSKIjop={fileUploadPiagamSKIjop}
+                      setFileUploadPiagamSKIjop={setFileUploadPiagamSKIjop}
                     />
                   </div>
                 </div>
