@@ -92,32 +92,60 @@ export default function UploadIzinOperasional({
             error ? "border-destructive" : ""
           )}
         >
-          <CardContent
-            className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-            <div className="space-y-2">
-              <p className="text-sm font-medium">
-                Tarik dokumen disini atau{" "}
-                <span className="text-primary underline">pilih</span>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                max 2MB bertipe pdf, png, jpg{" "}
-              </p>
-            </div>
-            <Input
-              ref={fileInputRef}
-              id="pdf-upload"
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handleFileInputChange}
-              className="hidden"
-            />
-          </CardContent>
+          {fileUploadIzinOperasional ? (
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <FileText className="h-8 w-8 text-red-500" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">
+                        {fileUploadIzinOperasional.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatFileSize(fileUploadIzinOperasional.size)}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={removeFile}
+                    className="h-8 w-8 p-0"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <CardContent
+              className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-10 w-10 text-muted-foreground mb-4" />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">
+                  Tarik dokumen disini atau{" "}
+                  <span className="text-primary underline">pilih</span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  max 2MB bertipe pdf, png, jpg{" "}
+                </p>
+              </div>
+              <Input
+                ref={fileInputRef}
+                id="pdf-upload"
+                type="file"
+                accept=".pdf,application/pdf"
+                onChange={handleFileInputChange}
+                className="hidden"
+              />
+            </CardContent>
+          )}
         </Card>
       </div>
 
@@ -125,34 +153,6 @@ export default function UploadIzinOperasional({
         <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
           {error}
         </div>
-      )}
-
-      {fileUploadIzinOperasional && (
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <FileText className="h-8 w-8 text-red-500" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">
-                    {fileUploadIzinOperasional.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatFileSize(fileUploadIzinOperasional.size)}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={removeFile}
-                className="h-8 w-8 p-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       )}
     </div>
   );

@@ -8,9 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function UploadPiagamSkIjop({
-  fileUploadPiagamSkIjop,
-  setFileUploadPiagamSkIjop,
+export default function UploadIzinOperasional({
+  fileUploadPiagamSKIjop,
+  setFileUploadPiagamSKIjop,
 }) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
@@ -31,7 +31,7 @@ export default function UploadPiagamSkIjop({
       return;
     }
 
-    setFileUploadPiagamSkIjop(selectedFile);
+    setFileUploadPiagamSKIjop(selectedFile);
   };
 
   const handleDrop = (e) => {
@@ -62,7 +62,7 @@ export default function UploadPiagamSkIjop({
   };
 
   const removeFile = () => {
-    setFileUploadPiagamSkIjop(null);
+    setFileUploadPiagamSKIjop(null);
     setError("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -82,7 +82,7 @@ export default function UploadPiagamSkIjop({
   return (
     <div className="w-full max-w-md mx-auto space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="pdf-upload">Upload Piagam SK Izin Operasional</Label>
+        <Label htmlFor="pdf-upload">Upload Izin Operasional</Label>
         <Card
           className={cn(
             "border-2 border-dashed transition-colors",
@@ -92,32 +92,60 @@ export default function UploadPiagamSkIjop({
             error ? "border-destructive" : ""
           )}
         >
-          <CardContent
-            className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-            <div className="space-y-2">
-              <p className="text-sm font-medium">
-                Tarik dokumen disini atau{" "}
-                <span className="text-primary underline">pilih</span>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                max 2MB bertipe pdf, png, jpg
-              </p>
-            </div>
-            <Input
-              ref={fileInputRef}
-              id="pdf-upload"
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handleFileInputChange}
-              className="hidden"
-            />
-          </CardContent>
+          {fileUploadPiagamSKIjop ? (
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <FileText className="h-8 w-8 text-red-500" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">
+                        {fileUploadPiagamSKIjop.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatFileSize(fileUploadPiagamSKIjop.size)}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={removeFile}
+                    className="h-8 w-8 p-0"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <CardContent
+              className="flex flex-col items-center justify-center p-6 text-center cursor-pointer"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-10 w-10 text-muted-foreground mb-4" />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">
+                  Tarik dokumen disini atau{" "}
+                  <span className="text-primary underline">pilih</span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  max 2MB bertipe pdf, png, jpg{" "}
+                </p>
+              </div>
+              <Input
+                ref={fileInputRef}
+                id="pdf-upload"
+                type="file"
+                accept=".pdf,application/pdf"
+                onChange={handleFileInputChange}
+                className="hidden"
+              />
+            </CardContent>
+          )}
         </Card>
       </div>
 
@@ -125,34 +153,6 @@ export default function UploadPiagamSkIjop({
         <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
           {error}
         </div>
-      )}
-
-      {fileUploadPiagamSkIjop && (
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <FileText className="h-8 w-8 text-red-500" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">
-                    {fileUploadPiagamSkIjop.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatFileSize(fileUploadPiagamSkIjop.size)}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={removeFile}
-                className="h-8 w-8 p-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       )}
     </div>
   );
