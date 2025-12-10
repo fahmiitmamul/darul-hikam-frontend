@@ -139,6 +139,8 @@ const defaultColumns = [
 ];
 
 export default function DetailSantri() {
+  const [fileUploadKIPSantri, setFileUploadKIPSantri] = useState(null);
+  const [fileUploadKKSantri, setFileUploadKKSantri] = useState(null);
   const [tanggalLahir, setTanggalLahir] = useState(null);
   const [isNoHpChecked, setIsNoHpChecked] = useState(null);
   const { santriId } = useGlobalContext();
@@ -260,10 +262,8 @@ export default function DetailSantri() {
     const fetchData = async () => {
       try {
         const { data } = await http().get(`/santri/${santriId}`);
-        console.log(data);
         resetDataSantri(data.results[0]);
       } catch (err) {
-        console.log(err);
         toast("Gagal memuat data santri", { description: err.message });
       }
     };
@@ -369,13 +369,14 @@ export default function DetailSantri() {
                           <FormField
                             control={dataSantriForm.control}
                             name="nama_lengkap"
-                            render={({ field }) => (
+                            render={({ field, value }) => (
                               <FormItem>
                                 <FormLabel>Nama Lengkap</FormLabel>
                                 <FormControl>
                                   <Input
                                     placeholder="Masukkan Nama Lengkap"
                                     {...field}
+                                    value={value ?? ""}
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -390,13 +391,14 @@ export default function DetailSantri() {
                           <FormField
                             control={dataSantriForm.control}
                             name="nisn"
-                            render={({ field }) => (
+                            render={({ field, value }) => (
                               <FormItem>
                                 <FormLabel>NISN</FormLabel>
                                 <FormControl>
                                   <Input
                                     placeholder="Masukkan NISN"
                                     {...field}
+                                    value={value ?? ""}
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -697,10 +699,16 @@ export default function DetailSantri() {
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <UploadKKSantri />
+                      <UploadKKSantri
+                        setFileUploadKKSantri={setFileUploadKKSantri}
+                        fileUploadKKSantri={fileUploadKKSantri}
+                      />
                     </div>
                     <div>
-                      <UploadKipSantri />
+                      <UploadKipSantri
+                        setFileUploadKIPSantri={setFileUploadKIPSantri}
+                        fileUploadKIPSantri={fileUploadKIPSantri}
+                      />
                     </div>
                   </div>
                 </form>
