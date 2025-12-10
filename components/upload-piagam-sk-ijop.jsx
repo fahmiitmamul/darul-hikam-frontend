@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Upload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function UploadIzinOperasional({
+export default function UploadPiagamSKIjop({
   fileUploadPiagamSKIjop,
   setFileUploadPiagamSKIjop,
 }) {
