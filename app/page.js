@@ -51,8 +51,6 @@ export default function Page() {
     keepPreviousData: true,
   });
 
-  console.log(ustadzData);
-
   return (
     <Sidebar>
       <div className="flex flex-col w-full">
