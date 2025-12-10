@@ -415,6 +415,7 @@ export default function Profil() {
     defaultValues: {
       akta_pendirian_penyelenggara: "",
       tanggal_akta_pendirian: new Date(),
+      file_akta_pendirian: "",
     },
   });
 
@@ -424,12 +425,12 @@ export default function Profil() {
       .then(({ data }) => {
         const r = data?.results?.data[0] || {};
 
-        setFileUploadAktaPendirianPenyelenggara(
-          r.akta_pendirian_penyelenggara ?? ""
-        );
+        setFileUploadAktaPendirianPenyelenggara(r.file_akta_pendirian ?? "");
+
         dokumenPerijinanForm.reset({
-          akta_pendirian_penyelenggara: r ?? "",
+          akta_pendirian_penyelenggara: r.akta_pendirian_penyelenggara ?? "",
           tanggal_akta_pendirian: new Date(r.tanggal_akta_pendirian),
+          file_akta_pendirian: "",
         });
       });
   }, []);
