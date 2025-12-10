@@ -11,7 +11,7 @@ export default function LupaSandiPage() {
             <div>
               <Image src="/darul-hikam.png" width={30} height={30} alt="Logo" />
             </div>
-            DARUL HIKAM TPQ
+            TPQ DARUL HIKAM
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
