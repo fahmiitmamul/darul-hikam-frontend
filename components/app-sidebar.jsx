@@ -15,7 +15,7 @@ import { useSession } from "next-auth/react";
 const orgData = {
   org: [
     {
-      name: "DARUL HIKAM TPQ",
+      name: "TPQ DARUL HIKAM",
       logo: "/darul-hikam.png",
       plan: "Majelis Ta'lim",
     },
