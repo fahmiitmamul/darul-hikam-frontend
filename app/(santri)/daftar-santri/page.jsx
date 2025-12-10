@@ -41,6 +41,7 @@ import http from "@/helpers/http.helper";
 import { differenceInYears, format, parseISO } from "date-fns";
 import { ModalHapusDataSantri } from "@/components/(santri)/daftar-santri/modal-hapus-data-santri/page";
 import { useGlobalContext } from "@/context/global-context";
+import { Eye } from "lucide-react";
 
 export default function DaftarSantri() {
   const [openDialogHapusSantri, setOpenDialogHapusSantri] = useState(false);
@@ -133,6 +134,16 @@ export default function DaftarSantri() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                setSantriId(row.original.id);
+                router.push("/detail-santri");
+              }}
+            >
+              <Eye />
+              Buka PDF
+            </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
