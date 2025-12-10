@@ -1632,7 +1632,7 @@ export default function UstadzBaru() {
                 <div>
                   <UploadFileSk
                     fileUploadSk={fileUploadSk}
-                    setFileUploadSk={setFileUploadSk}
+                    setUploadFileSK={setFileUploadSk}
                   />
                 </div>
                 <div></div>
