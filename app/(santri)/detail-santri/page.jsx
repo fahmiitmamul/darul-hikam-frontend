@@ -237,39 +237,30 @@ export default function DetailSantri() {
 
   const dataSantriForm = useForm({
     resolver: zodResolver(schemaDataSantri),
-    defaultValues: {
-      nama_lengkap: "",
-      nisn: "",
-      kewarganegaraan: "",
-      nik: "",
-      tempat_lahir: "",
-      tanggal_lahir: "",
-      jenis_kelamin: "",
-      jumlah_saudara: "",
-      anak_ke: "",
-      agama: "",
-      no_handphone: "",
-      nomor_kk_santri: "",
-      nama_kk_santri: "",
+    defaultValues: async () => {
+      const { data } = await http().get(`/santri/${santriId}`);
+
+      const r = data?.results?.[0] || {};
+
+      console.log(r);
+
+      return {
+        nama_lengkap: r.nama_lengkap ?? "",
+        nisn: r.nisn ?? "",
+        kewarganegaraan: r.kewarganegaraan ?? "",
+        nik: r.nik ?? "",
+        tempat_lahir: r.tempat_lahir ?? "",
+        tanggal_lahir: r.tanggal_lahir ? new Date(r.tanggal_lahir) : undefined,
+        jenis_kelamin: r.jenis_kelamin ?? "",
+        jumlah_saudara: r.jumlah_saudara ?? "",
+        anak_ke: r.anak_ke ?? "",
+        agama: r.agama ?? "",
+        no_handphone: r.no_handphone ?? "",
+        nomor_kk_santri: r.nomor_kk_santri ?? "",
+        nama_kk_santri: r.nama_kk_santri ?? "",
+      };
     },
   });
-
-  const { reset: resetDataSantri } = dataSantriForm;
-
-  useEffect(() => {
-    if (!santriId) return;
-
-    const fetchData = async () => {
-      try {
-        const { data } = await http().get(`/santri/${santriId}`);
-        resetDataSantri(data.results[0]);
-      } catch (err) {
-        toast("Gagal memuat data santri", { description: err.message });
-      }
-    };
-
-    fetchData();
-  }, [santriId]);
 
   const dataOrangTuaForm = useForm({
     resolver: zodResolver(schemaDataOrangTua),
@@ -376,7 +367,6 @@ export default function DetailSantri() {
                                   <Input
                                     placeholder="Masukkan Nama Lengkap"
                                     {...field}
-                                    value={value ?? ""}
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -398,7 +388,6 @@ export default function DetailSantri() {
                                   <Input
                                     placeholder="Masukkan NISN"
                                     {...field}
-                                    value={value ?? ""}
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -429,9 +418,7 @@ export default function DetailSantri() {
                               <SelectContent>
                                 <SelectGroup>
                                   <SelectLabel>Kewarganegaraan</SelectLabel>
-                                  <SelectItem value="indonesia">
-                                    Indonesia
-                                  </SelectItem>
+                                  <SelectItem value="wni">Indonesia</SelectItem>
                                 </SelectGroup>
                               </SelectContent>
                             </Select>
@@ -499,25 +486,23 @@ export default function DetailSantri() {
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <Button
-                                    variant={"outline"}
+                                    variant="outline"
                                     className={cn(
                                       "w-full justify-start text-left font-normal",
-                                      !tanggalLahir && "text-muted-foreground"
+                                      !field.value && "text-muted-foreground"
                                     )}
                                   >
                                     <CalendarIcon />
-                                    {tanggalLahir ? (
-                                      format(tanggalLahir, "PPP")
-                                    ) : (
-                                      <span>Pilih Tanggal Lahir</span>
-                                    )}
+                                    {field.value
+                                      ? format(field.value, "PPP")
+                                      : "Pilih Tanggal Lahir"}
                                   </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0">
                                   <Calendar
                                     mode="single"
-                                    selected={tanggalLahir}
-                                    onSelect={setTanggalLahir}
+                                    selected={field.value}
+                                    onSelect={(date) => field.onChange(date)}
                                     initialFocus
                                   />
                                 </PopoverContent>
