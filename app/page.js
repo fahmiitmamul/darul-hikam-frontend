@@ -10,7 +10,6 @@ import {
 import Link from "next/link";
 import { Info } from "lucide-react";
 import { Volume2 } from "lucide-react";
-import { LayoutTemplate } from "lucide-react";
 import { UsersRound } from "lucide-react";
 import { useSession } from "next-auth/react";
 import http from "@/helpers/http.helper";
