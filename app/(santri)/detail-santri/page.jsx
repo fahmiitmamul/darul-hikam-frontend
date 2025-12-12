@@ -65,6 +65,9 @@ import DropdownRegencies from "@/components/dropdown-regencies";
 import DropdownDistricts from "@/components/dropdown-districts";
 import DropdownVillages from "@/components/dropdown-villages";
 import { toast } from "sonner";
+import UploadKKOrangTua from "@/components/upload-kk-orang-tua";
+import UploadKKSOrangTua from "@/components/upload-kks-orang-tua";
+import UploadPKHOrangTua from "@/components/upload-pkh-orang-tua";
 
 const defaultData = [
   {
@@ -141,6 +144,9 @@ const defaultColumns = [
 export default function DetailSantri() {
   const [fileUploadKIPSantri, setFileUploadKIPSantri] = useState(null);
   const [fileUploadKKSantri, setFileUploadKKSantri] = useState(null);
+  const [fileUploadKKOrangTua, setFileUploadKKOrangTua] = useState(null);
+  const [fileUploadKKSOrangTua, setFileUploadKKSOrangTua] = useState(null);
+  const [fileUploadPKHOrangTua, setFileUploadPKHOrangTua] = useState(null);
   const [tanggalLahir, setTanggalLahir] = useState(null);
   const [isNoHpChecked, setIsNoHpChecked] = useState(null);
   const { santriId } = useGlobalContext();
@@ -241,8 +247,6 @@ export default function DetailSantri() {
       const { data } = await http().get(`/santri/${santriId}`);
 
       const r = data?.results?.[0] || {};
-
-      console.log(r);
 
       return {
         nama_lengkap: r.nama_lengkap ?? "",
@@ -1023,9 +1027,10 @@ export default function DetailSantri() {
                   </div>
 
                   <div className="w-full">
-                    <Button className="uppercase cursor-pointer w-full">
-                      Upload Kartu Keluarga
-                    </Button>
+                    <UploadKKSantri
+                      setFileUploadKKSantri={setFileUploadKKOrangTua}
+                      setfileUploadKKSantri={fileUploadKKOrangTua}
+                    />
                   </div>
 
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -1348,9 +1353,10 @@ export default function DetailSantri() {
                   </div>
 
                   <div className="w-full">
-                    <Button className="uppercase cursor-pointer w-full">
-                      Upload Kartu Keluarga
-                    </Button>
+                    <UploadKKOrangTua
+                      fileUploadKKOrangTua={fileUploadKKOrangTua}
+                      setFileUploadKKOrangTua={setFileUploadKKOrangTua}
+                    />
                   </div>
 
                   <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -1429,14 +1435,16 @@ export default function DetailSantri() {
 
                   <div className="grid grid-cols-2 gap-5">
                     <div>
-                      <Button className="cursor-pointer uppercase w-full">
-                        Upload KKS
-                      </Button>
+                      <UploadKKSOrangTua
+                        fileUploadKKSOrangTua={fileUploadKKSOrangTua}
+                        setFileUploadKKSOrangTua={setFileUploadKKSOrangTua}
+                      />
                     </div>
                     <div>
-                      <Button className="cursor-pointer uppercase w-full">
-                        Upload PKH
-                      </Button>
+                      <UploadPKHOrangTua
+                        fileUploadKKSOrangTua={fileUploadKKSOrangTua}
+                        setFileUploadKKSOrangTua={setFileUploadKKSOrangTua}
+                      />
                     </div>
                   </div>
 
