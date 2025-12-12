@@ -113,7 +113,7 @@ export default function ModalTambahSkDanPerizinan({
       return;
     }
 
-    if (!fileUploadPiagamSkIjop) {
+    if (!fileUploadPiagamSKIjop) {
       toast("Dokumen upload piagam SK Ijop belum diunggah");
       return;
     }
